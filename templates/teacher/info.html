@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p>Teacher page</p>
+
+
+<ul>
+    <li>Email: {{ teacher.email }}</li>
+    <li>Năm vào trường: {{ teacher.year_start }}</li>
+</ul>
+
+<a href="{% url 'logout' %}">Log Out</a>
+</form>
+{% endblock %}

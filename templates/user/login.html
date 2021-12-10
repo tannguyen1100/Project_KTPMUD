@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if message is not None %}
+        <div>{{ message }}</div>
+    {% endif %}
+    <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password"><br>
+
+        <input type="submit" value="Login">
+        <a href={% url 'forget_password' %}>Forget password</a>
+    </form> 
+
+
+{% endblock %}

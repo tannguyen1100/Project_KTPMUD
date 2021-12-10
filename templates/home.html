@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <p>This is a home page</p>
+  
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+{% endblock %}
