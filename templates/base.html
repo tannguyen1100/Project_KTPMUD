@@ -41,16 +41,39 @@
 </head>
 
 <body>
-    <!-- navbar -->
-    {% include 'includes/navbar.html' %}
+    <div id="home">
+        <!-- navbar -->
+        {% include 'includes/navbar.html' %}
 
 
-    {% block content %}
-    <!-- content -->
+        {% block content %}
+        <!-- content -->
 
-    {% endblock %}
+        {% endblock %}
 
-    <!-- footer -->
-    {% include 'includes/footer.html' %}
+        <!-- footer -->
+        {% include 'includes/footer.html' %}
+    </div>
+    <div class="qldt__modal js__modal">
+        <div class="modal__log-in ">
+            <div class="modal__log-in--body js-close--out">
+                <i class="fas fa-times close__icon js-cancel"></i>
+                <div class="modal__log-in--header">SIGN IN</div>
+                <img src="/static/admin/img/logo/logo.png" alt="" width="20%" class="modal__img--input">
+                <form action="" autocomplete="on" method="post">
+                    <div class="modal__input">
+                        <input type="text" autocomplete="on" class="log__in-account" placeholder="Username">
+                        <input type="password" autocomplete="on" class="log__in-account" placeholder="Password" name="password">
+                    </div>
+                </form>
+                
+               <div class="log__in-btn">
+                    <button class="log__in-btn--log"><a href="">Sign in</a></button>
+               </div>
+               <div class="log__in-forgot"><a href="">Forgot your password?</a></div>
+               
+            </div>
+        </div>
+    </div>
 </body>
 </html>

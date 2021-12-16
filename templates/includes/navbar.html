@@ -1,23 +1,32 @@
 {% load static %}
 
 <header class="section-header">
-    <nav class="navbar p-md-0 navbar-expand-sm navbar-light border-bottom">
-        <div class="container">
-            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="home-btn" type='button' href="#">
-                            Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        {% if not user.is_authenticated %}
-                                <a class="nav-link" type="button" href={% url "login" %}>Login</a>
-                        {% endif %}
-                    </li>
+    <div class="home__menu">
+        <div class="grid grid_reponsive">
+           <div class="menu__wrap">
+                <div class="menu__logo">
+                    <img src="./assest/img/logo/logo.png" alt="" width="20%">
+                   <div class="menu__logo--tittle">
+                        <div class="menu__logo--titlle__1">
+                            4CLOWNS
+                        </div>
+                        <div class="menu__logo--titlle__2">
+                            BRING THE BEST TO YOU
+                        </div>
+                   </div>
+                </div>
+               <div class="wrap__menu-items">
+                    
+                    <div class="menu__tittle">HOME</div>
+                    <div class="menu__tittle">TEACHER</div>
+                    <div class="menu__tittle">STUDENT</div>
+                    
+                    <div class=" menu__login-btn js-login">
+                        LOGIN
+                    </div>
+               </div>
 
-                </ul>
-            </div>           
-        </div> 
-    </nav>
+           </div>
+        </div>
+    </div>
 </header>

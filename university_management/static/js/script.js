@@ -1,40 +1,24 @@
-$(document).ready(function () {
-	$(document).on("click", ".dropdown-menu", function (e) {
-		e.stopPropagation();
-	});
+const logIns = document.querySelectorAll('.js-login')
+console.log(logIns);
+        const modal = document.querySelector('.js__modal')
+        const modalClose = document.querySelector('.js-cancel')
+        const modalContainer = document.querySelector('.js-close--out')
 
-	$(".js-check :radio").change(function () {
-		var check_attr_name = $(this).attr("name");
-		if ($(this).is(":checked")) {
-			$("input[name=" + check_attr_name + "]")
-				.closest(".js-check")
-				.removeClass("active");
-			$(this).closest(".js-check").addClass("active");
-			// item.find('.radio').find('span').text('Add');
-		} else {
-			item.removeClass("active");
-			// item.find('.radio').find('span').text('Unselect');
-		}
-	});
+        function showLogIn(){
+            modal.classList.add('qldt__modal-open')
+        }
+        function closeLogIn(){
+            modal.classList.remove('qldt__modal-open')
+        }
+       
+        for (const logIn of logIns){
+            logIn.addEventListener('click', showLogIn)
+        }
 
-	$(".js-check :checkbox").change(function () {
-		var check_attr_name = $(this).attr("name");
-		if ($(this).is(":checked")) {
-			$(this).closest(".js-check").addClass("active");
-			// item.find('.radio').find('span').text('Add');
-		} else {
-			$(this).closest(".js-check").removeClass("active");
-			// item.find('.radio').find('span').text('Unselect');
-		}
-	});
+        modalClose.addEventListener('click', closeLogIn)
 
-	//////////////////////// Bootstrap tooltip
-	if ($('[data-toggle="tooltip"]').length > 0) {
-		// check if element exists
-		$('[data-toggle="tooltip"]').tooltip();
-	} // end if
-});
+        modal.addEventListener('click', closeLogIn)
 
-setTimeout(() => {
-	$("#alert-messages").fadeOut("slow");
-}, 4000);
+        modalContainer.addEventListener('click', function(event){
+            event.stopPropagation()
+        })

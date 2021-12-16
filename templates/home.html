@@ -1,11 +1,47 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="home__content">
+    <div class="grid">
+        <div class="grid__row">
+            <div class="grid__column-2">
+                  <div class="content">
+                        <div class="content__tittle-main">
+                            Welcome to 4Clowns
+                        </div>
+                        
+                        <div class="content__tittle-slogan">
+                            Bring the best to you
+                        </div>
+                        <div class="content__tittle-sub">
+                           Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati in id consequatur molestias labore amet, quisquam aliquid odio, tenetur repellendus nulla quam aperiam. Voluptates eos repellat asperiores quos tempora error.
+                        </div>
+                  </div>
+            </div>
 
-    <p>This is a home page</p>
-  
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
+            <div class="grid__column-2 display__flex wrap__picture">
+                <div class="content__picture--light">
+                    <img src="./assest/img/logo/Group 4.png" alt="" class="content__picture-light">
+                    <div class="content__picture-gear">
+                        <i class="fas fa-cog gear_1"></i>
+                        <i class="fas fa-cog gear_2"></i>
+                    </div>
+                    <div class="content__login-responsive js-login">
+                        Login
+                    </div>
+                    <img src="./assest/img/logo/Group 6.png" alt="" class="content__picture-line">
+                </div>
+
+                <div class="content__picture--human">
+                    <img src="./assest/img/logo/Character.png" alt="" class="content__picture-character" >
+                </div>
+
+            </div>        
+            
+        </div>
+    </div>
+</div>
+    <!--Home-->
 
 {% endblock %}
+<!--python manage.py collectstatic-->
