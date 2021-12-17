@@ -11,20 +11,20 @@ class StudentAdmin(BaseUserAdmin):
     add_form = StudentCreationForm
     form = StudentAdminForm
 
-    list_display = ('full_name','code','lop_chung', "view_vien_link",)
+    list_display = ('full_name','code','lop_chung',)
 
     def full_name(self, obj):
         student = Student.objects.get(user_ptr=obj)
         return f"{student.lastname} {student.surname} {student.firstname}"
 
-    def view_vien_link(self, obj):
-        student = Student.objects.get(user_ptr=obj)
-        vien = student.vien
-        url = (
-            reverse("admin:vien_dao_tao_vien_dao_tao_changelist") + f"{vien.id}"
-        )
-        return format_html("<a href={} > {} </a>", url, vien)
-    view_vien_link.short_description = "Viện quản lý"
+    # def view_vien_link(self, obj):
+    #     student = Student.objects.get(user_ptr=obj)
+    #     vien = student.vien
+    #     url = (
+    #         reverse("admin:vien_dao_tao_vien_dao_tao_changelist") + f"{vien.id}"
+    #     )
+    #     return format_html("<a href={} > {} </a>", url, vien)
+    # view_vien_link.short_description = "Viện quản lý"
 
 
     list_filter = ('vien','lop_chung',)

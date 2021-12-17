@@ -22,3 +22,8 @@ console.log(logIns);
         modalContainer.addEventListener('click', function(event){
             event.stopPropagation()
         })
+
+setTimeout(() => {
+	console.log("Test success")
+}, 2000);
+

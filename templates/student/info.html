@@ -3,14 +3,11 @@
 {% block content %}
 <p>Student page</p>
 
-
     <ul>
         <li>Email: {{ student.email }}</li>
         <li>Năm vào trường: {{ student.year_start }}</li>
         <li>{{student.date_of_birth}}</li>
     </ul>
-
-        
 
     <a href="{% url 'logout' %}">Log Out</a>
     <a href="{% url 'student_info' %}">Personal Information</a>

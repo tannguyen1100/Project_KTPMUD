@@ -1,0 +1,62 @@
+*{
+    box-sizing: inherit;
+}
+
+
+html {
+    font-size: 62.5%;
+    line-height: 1.6rem;  
+    font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
+}
+:root{
+    --heading-color: #c02135;
+    --text-color: white;
+    --primary-color: #ee4d2d;
+    --border-color: #bdbdbd
+}
+.grid {
+    width: 1300px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+.grid__row {
+    display:  flex;
+    /*margin-left: -5px;
+    margin-right: -5px;*/
+    flex-wrap: wrap; /*tk nao vuot qua width thi tu dong truot xuong duoi*/
+}
+.grid__column-3{
+    padding-left: 3rem;
+    padding-right: 3rem;
+    width: 33.333333%;
+    margin-top: 2rem;
+}
+.grid__column-2{
+    width: 50%;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    margin-top: 2rem;
+}
+.grid__column-3-5{
+   
+    padding-left: 7rem;
+    padding-right: 3rem;
+    width: 66.66666667%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+}
+.col_w20{
+    width: 15%;
+    float: left;
+}
+.col_w75{
+    width: 70%;
+    float: left;
+}
+.col_w15{
+    width: 15%;
+    float: left;
+}

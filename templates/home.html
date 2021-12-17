@@ -1,7 +1,36 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
 <div class="home__content">
+
+    {% comment %} model {% endcomment %}
+    <div class="qldt__modal js__modal">
+        <div class="modal__log-in ">
+            <div class="modal__log-in--body js-close--out">
+                <i class="fas fa-times close__icon js-cancel"></i>
+                <div class="modal__log-in--header">SIGN IN</div>
+                <img src="{% static '/logo/logo.png' %}" alt="" width="20%" class="modal__img--input">
+                <form action="{% url 'login' %}" autocomplete="on" method="POST">
+                    {% csrf_token %}
+                    <div class="modal__input">
+                        <input type="text" autocomplete="on" class="log__in-account" name="email" placeholder="Email">
+                        <input type="password" autocomplete="on" class="log__in-account" placeholder="Password" name="password">
+                    </div>
+                    <div class="log__in-btn">
+                        <button class="log__in-btn--log"><a type="submit" value="Login">Sign in</a></button>
+                    </div>
+                </form>
+                
+                
+                <div class="log__in-forgot"><a href={% url 'forget_password' %}>Forgot your password?</a></div>
+               
+            </div>
+        </div>
+    </div>
+
+    {% comment %} homepage {% endcomment %}
     <div class="grid">
         <div class="grid__row">
             <div class="grid__column-2">
@@ -21,7 +50,7 @@
 
             <div class="grid__column-2 display__flex wrap__picture">
                 <div class="content__picture--light">
-                    <img src="./assest/img/logo/Group 4.png" alt="" class="content__picture-light">
+                    <img src="{% static '/logo/Group_4.png' %}" alt="" class="content__picture-light">
                     <div class="content__picture-gear">
                         <i class="fas fa-cog gear_1"></i>
                         <i class="fas fa-cog gear_2"></i>
@@ -29,11 +58,11 @@
                     <div class="content__login-responsive js-login">
                         Login
                     </div>
-                    <img src="./assest/img/logo/Group 6.png" alt="" class="content__picture-line">
+                    <img src="{% static '/logo/Group_6.png' %}" alt="" class="content__picture-line">
                 </div>
 
                 <div class="content__picture--human">
-                    <img src="./assest/img/logo/Character.png" alt="" class="content__picture-character" >
+                    <img src="{% static '/logo/Character.png' %}" alt="" class="content__picture-character" >
                 </div>
 
             </div>        

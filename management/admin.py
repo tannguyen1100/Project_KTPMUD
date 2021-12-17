@@ -24,9 +24,6 @@ class LopChungInline(admin.TabularInline):
     form = LopChungAdminForm
     extra = 0
 
- 
-
-
 class TeacherInline(admin.TabularInline):
     model = Teacher
     fields = ('email',)
@@ -46,13 +43,11 @@ class HocPhanInline(admin.TabularInline):
     fields = ('name','code')
     extra = 0
 
-
 class VienAdmin(admin.ModelAdmin):
 
     add_form = VienCreationForm
     change_form = VienDaoTaoAdminForm
 
-    
     def get_form(self, request, obj=None, **kwargs):
         if not obj:
             self.form = self.add_form
@@ -76,10 +71,7 @@ class VienAdmin(admin.ModelAdmin):
     )
 
     inlines = [
-        LopChungInline,
         TeacherInline,
-        HocPhanInline,
-        StudentInline
     ]
 
 class StudentInline(admin.TabularInline):
