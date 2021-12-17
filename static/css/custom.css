@@ -112,7 +112,7 @@ body{
 }
 
 .wrap__picture{
-  background-image: url("/assest/img/logo/background-complete.png");
+  background-image: url("{% static '/logo/background-complete.png' %}");
   background-repeat: no-repeat;
   background-size: 100%;
   height: 56rem;
@@ -233,8 +233,6 @@ body{
 .qldt__modal.qldt__modal-open{
   display: flex;
 }
-
-/* C:\Users\PPhiLong21\Documents\BTL\StartWeb\Project_KTPMUD\management */
 .close__icon{
   font-size: 2rem;
   color: var(--text-color);
@@ -303,9 +301,9 @@ body{
   margin-bottom: 1.5rem;
   border-radius: 50%;
 }
-/* .modal__log-in--body{
+.modal__log-in--body{
 
-} */
+}
 .log__in-btn{
   display: flex;
   margin-top:3rem;

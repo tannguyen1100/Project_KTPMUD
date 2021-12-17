@@ -112,7 +112,7 @@ body{
 }
 
 .wrap__picture{
-  background-image: url("/assest/img/logo/background-complete.png");
+  background-image: url("/static/logo/background-complete.png");
   background-repeat: no-repeat;
   background-size: 100%;
   height: 56rem;
