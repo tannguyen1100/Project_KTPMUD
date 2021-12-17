@@ -233,6 +233,8 @@ body{
 .qldt__modal.qldt__modal-open{
   display: flex;
 }
+
+/* C:\Users\PPhiLong21\Documents\BTL\StartWeb\Project_KTPMUD\management */
 .close__icon{
   font-size: 2rem;
   color: var(--text-color);
