@@ -4,7 +4,7 @@
     {% if message is not None %}
         <div>{{ message }}</div>
     {% endif %}
-    <form action="{% url 'login' %}" method="POST">
+    <!--<form action="{% url 'login' %}" method="POST">
         {% csrf_token %}
         <input type="text" name="email" placeholder="Email">
         <input type="password" name="password" placeholder="Password"><br>
@@ -12,6 +12,19 @@
         <input type="submit" value="Login">
         <a href={% url 'forget_password' %}>Forget password</a>
     </form> 
-
+-->
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="Username" class="col-form-label">
+            Username
+          </label>
+          <input type="text" name="email" class="form-control" placeholder="Email" />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="col-form-label">Password:</label>
+          <input type="password" name="password" class="form-control" placeholder="Password" />
+        </div>
+      </form>
 
 {% endblock %}

@@ -1,30 +1,38 @@
 {% load static %}
 
-    <div class="home__menu">
-        <div class="grid grid_reponsive">
-           <div class="menu__wrap">
-                <div class="menu__logo">
-                    <img src="{% static 'logo/logo.png' %}" alt="" width="20%">
-                   <div class="menu__logo--tittle">
-                        <div class="menu__logo--titlle__1">
-                            4CLOWNS
-                        </div>
-                        <div class="menu__logo--titlle__2">
-                            BRING THE BEST TO YOU
-                        </div>
-                   </div>
-                </div>
-               <div class="wrap__menu-items">
-                    
-                    <div class="menu__tittle">HOME</div>
-                    <div class="menu__tittle">TEACHER</div>
-                    <div class="menu__tittle">STUDENT</div>
-                    
-                    <div class=" menu__login-btn js-login"> 
-                        LOGIN
-                    </div>
-               </div>
-
-           </div>
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
+    <div class="container">
+      
+      <a href="#" class="navbar-brand d-flex  align-items-center" style="max-width:120px">
+        <img src="{% static '/logo/logo.png' %}" class="img-fuild " width="50%" style="border-radius: 50%;" alt="">
+        <div  class="d-none d-sm-block" style="margin-left:2rem">
+          <h1 class="text-center logo__name-css">4CLOWNS</h1>
         </div>
+        
+      </a>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navmenu"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse mr-auto" id="navmenu">
+        <ul class="navbar-nav ms-auto ">
+          <li class="nav-item">
+            <a href="#home" class="nav-link">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a href="#teacher" class="nav-link">TEACHER</a>
+          </li>
+          <li class="nav-item">
+            <a href="#student" class="nav-link">STUDENT</a>
+          </li>
+        </ul>
+      </div>
     </div>
+  </nav>
+
