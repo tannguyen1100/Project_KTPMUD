@@ -9,6 +9,7 @@
     <li>Năm vào trường: {{ teacher.year_start }}</li>
 </ul>
 
-<a href="{% url 'logout' %}">Log Out</a>
-</form>
+
+{% include 'teacher/teacher_base.html' %}
+
 {% endblock %}

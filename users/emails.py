@@ -30,10 +30,11 @@ def send_raw_password(user, password):
         fail_silently=False
     )
 
-def save_raw_password(password):
+def save_raw_password(user ,password):
     path = os.path.join(BASE_DIR, 'templates/user/raw_password.txt')
+    # workpath = os.path.dirname(os.path.abspath(__file__)) 
     with open(path, 'a') as f:
-        f.write(f"{password} \n")
+        f.write(f"{user.email}: {password} \n")
     
 
 

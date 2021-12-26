@@ -1,38 +1,30 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
-    <div class="container">
-      
-      <a href="#" class="navbar-brand d-flex  align-items-center" style="max-width:120px">
-        <img src="{% static '/logo/logo.png' %}" class="img-fuild " width="50%" style="border-radius: 50%;" alt="">
-        <div  class="d-none d-sm-block" style="margin-left:2rem">
-          <h1 class="text-center logo__name-css">4CLOWNS</h1>
-        </div>
+<header class="section-header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark container">
+        <a class="navbar-brand d-flex align-items-center" style="max-width: 120px" href="{% url 'home' %}">
+            <img src="{% static 'logo/logo.jpg' %}" class="img-fuild" width="50%" style="border-radius: 50%" alt="logo"/>
+            <div class="d-none d-sm-block" style="margin-left: 2rem">
+                <h1 class="text-center logo__name-css">4CLOWNS</h1>
+            </div>
+        </a>
         
-      </a>
-
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navmenu"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse mr-auto" id="navmenu">
-        <ul class="navbar-nav ms-auto ">
-          <li class="nav-item">
-            <a href="#home" class="nav-link">HOME</a>
-          </li>
-          <li class="nav-item">
-            <a href="#teacher" class="nav-link">TEACHER</a>
-          </li>
-          <li class="nav-item">
-            <a href="#student" class="nav-link">STUDENT</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+        <button class="navbar-toggler bg-light ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="d-flex align-items-end navbar-nav ml-lg-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-light" href="{% url 'home' %}">HOME <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="#">STUDENT</a>
+                </li>  
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="#">TEACHER</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 

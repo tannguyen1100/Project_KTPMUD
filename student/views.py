@@ -16,10 +16,13 @@ def genaral_class(request):
 
     genaralClass = get_object_or_404(lop_chung, pk=student.lop_chung_id)
     studentList = get_list_or_404(Student, lop_chung_id = student.lop_chung_id)
-
+    
+    count = len(studentList)
+    
     return render(request, "student/genaralClass.html", {
-        "student_list": studentList,
-        "genaralClass": genaralClass
+        "studentList": studentList,
+        "genaralClass": genaralClass,
+        "count": count
     })
 
 def change_info(request):

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'student',
     'management',
     'django_extensions',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -110,15 +111,17 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bangkok'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 
-DATE_INPUT_FORMATS = '%d-%m-%Y'
+DATE_INPUT_FORMATS = ['%d/%m/%Y',]
+
+TIME_INPUT_FORMATS = ['%H:%M',]
 
 
 # Static files (CSS, JavaScript, Images)

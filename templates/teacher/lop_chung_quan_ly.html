@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for lop in lop_chung_quan_ly %}
+    <li>
+        <a href="lop_chung_quan_ly/{{ lop.name }}">{{ lop }}</a>
+    </li>
+    {% endfor %}
+
+    
+
+{% endblock content %}

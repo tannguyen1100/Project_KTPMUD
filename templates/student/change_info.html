@@ -1,19 +1,16 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
     <div class="container">
         <form action="" method="POST" >
             {% csrf_token %}
-            {{change_form.as_p}}
+            {% crispy change_form %}
             <input type="submit" value="Submit">
         </form>
     </div>
 
-
-    <a href="{% url 'logout' %}">Log Out</a>
-    <a href="{% url 'student_info' %}">Personal Information</a>
-    <a href="{% url 'genaral_class' %}">Genaral Class</a>
-    <a href="{% url 'change_info' %}">Change Info</a>
+{% include 'student/student_base.html' %}
 
 {% endblock content %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{ lopChung.name }}</h1>
+
+<ul>
+    {% if studentList %}
+        {% for student in studentList %}
+            <li>{{student}}</li>
+        {% endfor %}
+    {% else %}
+        <p>No student in {{ lopChung.name }}</p>
+    {% endif %}
+    
+</ul>
+
+{% endblock content %}

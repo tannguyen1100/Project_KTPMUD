@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.models.fields import CharField
+from django.db.models.deletion import CASCADE
+
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
@@ -15,18 +17,26 @@ class vien_dao_tao(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+class khoa(models.Model):
+    name = CharField(_('Khóa'), max_length=5, unique=True)
+
+    class Meta:        
+        verbose_name = "Khóa"
+        verbose_name_plural = 'Khóa'
+
 class lop_chung(models.Model):
 
     name = CharField(_('Tên lớp'), max_length=15, unique=True)
     vien = models.ForeignKey(vien_dao_tao, on_delete=models.CASCADE, verbose_name="Viện quản lý",related_name='cac_lop_thuoc_vien')
     giao_vien = models.ForeignKey("users.Teacher",verbose_name="Giáo viên quản lý", on_delete=models.CASCADE, related_name="cac_lop_quan_ly", null=True, blank=True)
+    khoa = models.ForeignKey(khoa, on_delete=CASCADE, related_name='lop_cung_khoa', blank=True, null=True)
 
     class Meta:
         verbose_name = "Lớp chung"
         verbose_name_plural = 'Lớp chung'
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name}_{self.khoa}"
 
 class hoc_phan(models.Model):
     name = CharField(_("Tên học phần"), max_length=50)

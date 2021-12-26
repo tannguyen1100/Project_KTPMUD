@@ -16,7 +16,10 @@ def no_accent_vietnamese(s):
 def name_2_email(ten, ho=None, dem=None, code=None):
     ten_khong_dau = no_accent_vietnamese(ten)
     ho_khong_dau = no_accent_vietnamese(ho)
-    code = code[2:]
+    if code:
+        code = code[2:]
+    else:
+        code = ""
     if dem:
         dem_khong_dau = no_accent_vietnamese(dem)
         dem_khong_dau = dem_khong_dau.replace(" ", "")

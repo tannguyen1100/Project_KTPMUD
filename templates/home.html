@@ -1,85 +1,73 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block content %}
 
+    <section class="bg-dark text-light text-center text-sm-start" >
+        <div class="container">
+            <div class="d-sm-flex align-items-center justify-content-between">
+                <div>
+                    <h1>Bring <span class="text-warning"> the best</span> to you</h1>
+                    <p class="lead my-4">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. A perspiciatis, nam voluptas, atque error dolores illo neque consequuntur quaerat iste porro? Accusantium quidem dolor iste sapiente odit alias deserunt nobis.
+                    </p>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelLogin">
+                    Sign in
+                    </button>
 
-    {% comment %} model {% endcomment %}
-  
-    
-    {% comment %} homepage {% endcomment %}
-    <section
-    class="bg-dark text-light p-5 p-lg-0 pt-lg-5 mt-lg-4 mt-5 text-center text-sm-start"
-  >
-    <div class="container">
-      <div class="d-sm-flex align-items-center justify-content-between">
-        <div>
-          <h1>Bring <span class="text-warning"> the best</span> to you</h1>
-          <p class="lead my-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. A perspiciatis, nam voluptas, atque error dolores illo neque consequuntur quaerat iste porro? Accusantium quidem dolor iste sapiente odit alias deserunt nobis.
-          </p>
-          <button
-            class="btn btn-primary btn-lg"
-            data-bs-toggle="modal"
-            data-bs-target="#enroll"
-            
-          >
-            Click To Login
-          </button>
+                </div>
+                <img class="img-fluid w-50 d-none d-sm-block" src="{% static '/logo/Clip_Dancer_transparent_by_Icons8.gif' %}" alt="image"/>
+            </div>
         </div>
-        <img
-          class="img-fluid w-50 d-none d-sm-block"
-          src=" {% static '/logo/Clip_Dancer_transparent_by_Icons8.gif' %}"
-          alt=""
-        />
-      </div>
-    </div>
-  </section>
-    <!--Home-->
-      <div class="modal fade" id="enroll" tabindex="-1" aria-labelledby="enrollLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
+    </section>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modelLogin" tabindex="-1" role="dialog" aria-labelledby="modelSignin" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="enrollLabel">Login</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+                <h5 class="modal-title">Signin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
             </div>
             <div class="modal-body">
-              <p class="lead">Please enter your <span class="text-warning">Username</span> and <span class="text-warning">Password</span></p>
+                <p class="lead">Please enter your <span class="text-primary">Email</span> and <span class="text-primary">Password</span></p>
               <form method="POST" action="{% url 'login' %}">
                 {% csrf_token %}
                 <div class="mb-3">
-                  <label for="Username" class="col-form-label">
-                    Username
+                  <label for="Email" class="col-form-label">
+                    Email
                   </label>
                   <input type="text" name="email" class="form-control" placeholder="Email" />
                 </div>
                 <div class="mb-3">
-                  <label for="password" class="col-form-label">Password:</label>
+                  <label for="password" class="col-form-label">Password</label>
                   <input type="password" name="password" class="form-control" placeholder="Password" />
                 </div>
+                <div class="container">
+                    <div class="row justify-content-end">
+                        <p class='col-sm-4 mt-2'><a href="{% url 'forget_password' %}" class="blue-text">Forgot Password?</a></p>
+                        <div class="col-sm-3 justify-content-end">
+                            <button type="submit" value="Login" class="btn btn-primary" >Login</button>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
               </form>
             </div>
-            <div class="modal-footer">
-                <p>Forgot <a href="{% url 'forget_password' %}" class="blue-text">Password?</a></p>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="submit" value="Login" class="btn btn-primary">Login</button>
-            </div>
-          </div>
+            
+
         </div>
     </div>
-
+</div>
 
 {% endblock %}
-<!--python manage.py collectstatic-->
+
+

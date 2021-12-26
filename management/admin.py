@@ -51,8 +51,15 @@ class VienAdmin(admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):
         if not obj:
             self.form = self.add_form
+            self.inlines = [
+                LopChungInline,
+                ]
         else:
             self.form = self.change_form
+            self.inlines = [
+                LopChungInline,
+                TeacherInline,
+                ]
 
         return super(VienAdmin, self).get_form(request, obj, **kwargs)
 
@@ -72,6 +79,7 @@ class VienAdmin(admin.ModelAdmin):
 
     inlines = [
         TeacherInline,
+        LopChungInline,
     ]
 
 class StudentInline(admin.TabularInline):

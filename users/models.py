@@ -2,10 +2,10 @@ from os import name
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
-from management.models import vien_dao_tao
-from management.models import lop_chung
+from management.models import vien_dao_tao, lop_chung
+from student.models import lop
+
 import datetime
-from users.emails import send_raw_password
 
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -41,7 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     firstname = models.CharField(_("Tên"),max_length=20,  blank=False, null=True)
     surname = models.CharField(_("Tên đệm"),max_length=20, null=True, blank=True)
     lastname = models.CharField(_("Họ"),max_length=20, null=True, blank=True)
-    date_of_birth = models.DateField(_("Ngày sinh (yyyy-mm-dd)"), blank=True, null=True, )
+    date_of_birth = models.DateField(_("Ngày sinh"), blank=True, null=True, )
     phone = models.CharField(_("Số điện thoại"), max_length=15, blank=True, null=True)
 
     is_superuser = models.BooleanField(default=False)
@@ -76,8 +76,16 @@ class Student(User):
     code = models.CharField(_("Mã số sinh viên"), max_length=8, blank=True, unique=True)
     khoa = models.CharField(verbose_name="Khóa" , max_length=3, blank=True)
 
+    lop = models.ManyToManyField(lop, verbose_name="Lớp học", related_name='sinhVien', blank=True)
+
+
     def __str__(self):
         return self.email.replace("@edu.com.vn", "")
+    
+    
+    class Meta:
+        verbose_name = "Sinh viên"
+        verbose_name_plural = 'Sinh viên'
 
 
 class Teacher(User):
@@ -85,16 +93,14 @@ class Teacher(User):
     year_start = models.IntegerField(_("Năm bắt đầu công tác"), default=2015)
     vien = models.ForeignKey('management.vien_dao_tao', on_delete=models.CASCADE, verbose_name="Viện",related_name="cac_giao_vien", null=True,blank=True)
 
-    def save(self, *args, **kwargs):
-        if self.password == "":
-            auto_password = Teacher.objects.make_random_password()
-            send_raw_password(self, auto_password)
-            self.set_password(auto_password)
-            self.save()
-        super(Teacher, self).save(*args, **kwargs)
+    chuyen_mon = models.ManyToManyField('management.hoc_phan', verbose_name="Học phần")
 
 
     def __str__(self):
         return f"{self.email}"
+
+    class Meta:
+        verbose_name = "Giáo viên"
+        verbose_name_plural = 'Giáo viên'
 
 
