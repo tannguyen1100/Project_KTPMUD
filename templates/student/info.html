@@ -29,6 +29,8 @@
         <li>Email: {{ student.email }}</li>
         <li>Năm vào trường: {{ student.year_start }}</li>
         <li>Ngày sinh: {{student.date_of_birth | date:"d-m-Y"}}</li>
+        <li>{{ student.lop_chung }}</li>
+
     </ul>
 
     {% include 'student/student_base.html' %}

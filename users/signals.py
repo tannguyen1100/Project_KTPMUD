@@ -5,6 +5,11 @@ from .emails import save_raw_password, send_raw_password
 
 from .models import Student, Teacher
     
+@receiver(pre_save, sender=Student)
+def pre_save_set_student_role(sender, instance, **kwargs):
+    if instance.role != 0:
+        instance.role = 0
+
 @receiver(post_save, sender=Student)
 def post_save_set_student_code(sender, instance, created, **kwargs):
     instance_yearStart = instance.year_start
@@ -16,7 +21,12 @@ def post_save_set_student_code(sender, instance, created, **kwargs):
         instance.code = f"{instance.year_start}{stt_instanceStudent}" 
 
 @receiver(post_save, sender=Student)
-def student_send_raw_password(sender, instance, created, **kwargs):
+def post_save_set_student_email(sender, instance, created, **kwargs):
+    email = unidecode.name_2_email(ten=instance.firstname, ho=instance.lastname, dem=instance.surname, code=instance.code)
+    instance.email = email
+
+@receiver(post_save, sender=Student)
+def student_send_raw_password(sender, instance, **kwargs):
     if instance.password == "":
         auto_password = Student.objects.make_random_password()
         send_raw_password(instance, auto_password)
@@ -24,15 +34,7 @@ def student_send_raw_password(sender, instance, created, **kwargs):
         instance.set_password(auto_password)
         instance.save()
 
-@receiver(pre_save, sender=Student)
-def pre_save_set_student_email(sender, instance, **kwargs):
-    email = unidecode.name_2_email(ten=instance.firstname, ho=instance.lastname, dem=instance.surname, code=instance.code)
-    instance.email = email
 
-@receiver(pre_save, sender=Student)
-def pre_save_set_student_role(sender, instance, **kwargs):
-    if instance.role != 0:
-        instance.role = 0
 
 @receiver(post_save, sender=Teacher)
 def teacher_send_raw_password(sender, instance, created, **kwargs):

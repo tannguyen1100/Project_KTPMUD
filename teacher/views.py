@@ -4,6 +4,8 @@ from management.models import lop_chung
 from users.models import Student
 from django.urls import reverse
 from student.models import lop
+from django.http import JsonResponse
+
 
 
 # Create your views here.
@@ -21,14 +23,26 @@ def lop_chung_quan_ly(request):
     })
 
 def tung_lop_chung(request, ten_lop_chung):
-    lopChung = lop_chung.objects.get(name=ten_lop_chung)
+    lopChungname = ten_lop_chung.split("_")[0]
+    lopChungkhoa = ten_lop_chung.split("_")[1]
+    lopChung = lop_chung.objects.select_related('khoa').get(name=lopChungname, khoa__name=lopChungkhoa)
     try: 
-        studentList = get_list_or_404(Student, lop_chung_id=lopChung.id)
+        studentList = Student.objects.filter(lop_chung=lopChung).order_by('code')
     except:
         studentList = None
     return render(request, 'teacher/tung_lop_chung.html', {
         'lopChung': lopChung,
         'studentList': studentList
+    })
+
+def search_student(request):
+    if request.method == "GET":  
+        search_text = request.GET.get("q", None)
+        records = None
+        if search_text:
+            records=Student.objects.filter(email__contains=search_text)     
+    return render(request, 'teacher/search.html', {
+        "records": records
     })
 
 def lop_tin_chi_ql(request):

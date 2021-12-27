@@ -2,17 +2,20 @@
 
 {% block content %}
 
-<h1>{{ lopChung.name }}</h1>
+
+
+<p>{{ lopChung.name }}</p>
 
 <ul>
     {% if studentList %}
         {% for student in studentList %}
-            <li>{{student}}</li>
+            <li><a href="{% url 'info_student' student.code %}">{{student}}</a></li>
         {% endfor %}
     {% else %}
         <p>No student in {{ lopChung.name }}</p>
     {% endif %}
-    
 </ul>
+
+{% include 'teacher/teacher_base.html' %}
 
 {% endblock content %}

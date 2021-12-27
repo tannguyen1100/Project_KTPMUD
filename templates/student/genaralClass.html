@@ -11,14 +11,14 @@
             </tr>
         </thead>
         <tbody>
-            {% for student in student_list %}
+            {% for student in studentList %}
                 <tr>
                     <th scope="row">{{student.code}}</th>
                     <td>{{student}}</td>
                     <td>{{genaralClass.name}}</td>
                 </tr>
             {% endfor %}
-            <td>Count: {{student_list.count}}</td>
+            <td>Count: {{ studentList|length }}</td>
         </tbody>
     </table>
     

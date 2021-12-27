@@ -1,7 +1,6 @@
 from django.contrib import admin
 from users.models import Student, Teacher
-from management.models import vien_dao_tao, lop_chung, hoc_phan
-from django import forms
+from management.models import vien_dao_tao, lop_chung, hoc_phan, khoa
 from .forms import LopChungAdminForm, VienDaoTaoAdminForm, VienCreationForm
 # Register your models here.
 
@@ -100,11 +99,11 @@ class LopChungAdmin(admin.ModelAdmin):
 
     form = LopChungAdminForm
 
-    list_display = ('name','vien','giao_vien')
+    list_display = ('name','khoa', 'vien','giao_vien')
     list_filter = ('vien',)
     
     search_fields = ('name',)
-    ordering = ('vien',)
+    ordering = ('vien','khoa')
 
     inlines = [
         StudentInline,
@@ -122,4 +121,6 @@ class HocPhanAdmin(admin.ModelAdmin):
 admin.site.register(vien_dao_tao,VienAdmin)
 admin.site.register(lop_chung, LopChungAdmin)
 admin.site.register(hoc_phan, HocPhanAdmin)
+admin.site.register(khoa)
+
 

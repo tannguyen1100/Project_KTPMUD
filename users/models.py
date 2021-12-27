@@ -1,8 +1,9 @@
 from os import name
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.db.models.deletion import CASCADE
 from django.utils.translation import gettext_lazy as _
-from management.models import vien_dao_tao, lop_chung
+from management.models import vien_dao_tao, lop_chung, khoa
 from student.models import lop
 
 import datetime
@@ -74,14 +75,12 @@ class Student(User):
     vien = models.ForeignKey(vien_dao_tao, verbose_name="Viện", on_delete=models.CASCADE, null=True, blank=True)
     lop_chung = models.ForeignKey(lop_chung,verbose_name="Lớp chung", on_delete=models.CASCADE, related_name="sinh_vien", null=True, blank=True)
     code = models.CharField(_("Mã số sinh viên"), max_length=8, blank=True, unique=True)
-    khoa = models.CharField(verbose_name="Khóa" , max_length=3, blank=True)
+    khoa = models.ForeignKey(khoa, verbose_name="Khóa" , max_length=3, blank=True, on_delete=CASCADE, null=True)
 
     lop = models.ManyToManyField(lop, verbose_name="Lớp học", related_name='sinhVien', blank=True)
 
-
     def __str__(self):
         return self.email.replace("@edu.com.vn", "")
-    
     
     class Meta:
         verbose_name = "Sinh viên"

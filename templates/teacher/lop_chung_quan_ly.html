@@ -4,10 +4,11 @@
 
     {% for lop in lop_chung_quan_ly %}
     <li>
-        <a href="lop_chung_quan_ly/{{ lop.name }}">{{ lop }}</a>
+        <a href="lop_chung_quan_ly/{{ lop }}">{{ lop }}</a>
     </li>
     {% endfor %}
 
+{% include 'teacher/teacher_base.html' %}
     
 
 {% endblock content %}

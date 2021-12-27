@@ -32,14 +32,9 @@ class TeacherCreationForm(forms.ModelForm):
         models = Teacher
         fields = "__all__"
 
-
-
-
-
 class TeacherAdminForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
 
-    # ['date_of_birth'].widget = DateInput()
 
     
 

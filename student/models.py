@@ -55,7 +55,7 @@ class lop(models.Model):
     code = models.IntegerField(unique=True)
     type = models.CharField(choices=ClassType.choices, verbose_name="Loại lớp", default=ClassType.LT, max_length=20)
     hoc_phan = models.ForeignKey(hoc_phan, verbose_name="Học phần", related_name="available_class", on_delete=models.CASCADE)
-    timetable = models.OneToOneField(timetable, on_delete=CASCADE)
+    timetable = models.ForeignKey(timetable, on_delete=CASCADE)
     teacher = models.ForeignKey("users.Teacher", on_delete=models.CASCADE)
     timing = models.ForeignKey(timing, on_delete=CASCADE, null=True)
 
@@ -69,9 +69,9 @@ class lop(models.Model):
 
 
 class sinhvien_hocphan(models.Model):
-    sinh_vien=models.ForeignKey('users.Student', on_delete=CASCADE)
-    hoc_phan=models.ForeignKey(hoc_phan, on_delete=CASCADE)
-    number = models.PositiveSmallIntegerField()
+    sinh_vien=models.ForeignKey('users.Student', on_delete=CASCADE, verbose_name="Sinh viên")
+    hoc_phan=models.ForeignKey(hoc_phan, on_delete=CASCADE, verbose_name='Học phần')
+    number = models.PositiveSmallIntegerField(verbose_name="Lần thứ")
     giua_ki = models.FloatField(verbose_name='Điểm giữa kì', validators=[validate_score], null=True, blank=True)
     cuoi_ki = models.FloatField(verbose_name='Điểm cuối kì' ,validators=[validate_score], null=True, blank=True)
 

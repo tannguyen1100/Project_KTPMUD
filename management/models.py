@@ -24,16 +24,20 @@ class khoa(models.Model):
         verbose_name = "Khóa"
         verbose_name_plural = 'Khóa'
 
+    def __str__(self):
+        return self.name
 class lop_chung(models.Model):
 
-    name = CharField(_('Tên lớp'), max_length=15, unique=True)
+    name = CharField(_('Tên lớp'), max_length=15)
     vien = models.ForeignKey(vien_dao_tao, on_delete=models.CASCADE, verbose_name="Viện quản lý",related_name='cac_lop_thuoc_vien')
     giao_vien = models.ForeignKey("users.Teacher",verbose_name="Giáo viên quản lý", on_delete=models.CASCADE, related_name="cac_lop_quan_ly", null=True, blank=True)
-    khoa = models.ForeignKey(khoa, on_delete=CASCADE, related_name='lop_cung_khoa', blank=True, null=True)
+    khoa = models.ForeignKey(khoa, on_delete=CASCADE, related_name='lop_cung_khoa', blank=True, null=True, verbose_name="Khóa")
+    # capacity = models.IntegerField(default=3)
 
     class Meta:
         verbose_name = "Lớp chung"
         verbose_name_plural = 'Lớp chung'
+        unique_together = ('name', 'khoa')
 
     def __str__(self):
         return f"{self.name}_{self.khoa}"

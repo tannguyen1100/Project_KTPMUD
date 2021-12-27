@@ -1,0 +1,12 @@
+body::before {
+  display: block;
+  content: '';
+  height: 60px;
+}
+
+
+.navbar-dark .navbar-nav .nav-link:hover{
+  opacity: 1;
+  border-bottom: 1px solid white;
+}
+

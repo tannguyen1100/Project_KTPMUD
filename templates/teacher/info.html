@@ -1,7 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>Teacher page</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm mr-auto">
+            <p>Teacher page</p>
+        </div>
+        <div class="col-sm">
+            <form action='{% url 'search_student' %}' method="GET">
+                <input  id="search_box" type="text" name="q"  placeholder="Search student" > 
+                <button id="search_submit" type="submit" >Submit</button> 
+            </form>
+        </div>
+    </div>
+</div>
+
 
 
 <ul>
