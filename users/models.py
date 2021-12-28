@@ -77,8 +77,6 @@ class Student(User):
     code = models.CharField(_("Mã số sinh viên"), max_length=8, blank=True, unique=True)
     khoa = models.ForeignKey(khoa, verbose_name="Khóa" , max_length=3, blank=True, on_delete=CASCADE, null=True)
 
-    lop = models.ManyToManyField(lop, verbose_name="Lớp học", related_name='sinhVien', blank=True)
-
     def __str__(self):
         return self.email.replace("@edu.com.vn", "")
     

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<p>Lớp: {{ lopTC.hoc_phan }} </p>
+<p> Mã lớp: {{lopTC.code}} </p>
+
+<ul>
+    {% for student in studentTC %}
+    <li>
+        {{ student }}
+    </li>
+    
+    {% endfor %}
+    
+</ul>
+
+{% endblock content %}

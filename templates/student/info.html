@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-
-
 {% block content %}
 
 {% if request.user.role == 1 %}
@@ -36,11 +34,4 @@
     {% include 'student/student_base.html' %}
 
 {% endif %}
-
-
-
-
-
-
-
 {% endblock %}

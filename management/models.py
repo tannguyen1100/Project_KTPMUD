@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.fields import CharField
+from django.db.models.fields import BLANK_CHOICE_DASH, CharField
 from django.db.models.deletion import CASCADE
 
 from django.utils.translation import gettext_lazy as _
@@ -46,7 +46,7 @@ class hoc_phan(models.Model):
     name = CharField(_("Tên học phần"), max_length=50)
     code = CharField(_("Mã học phần"), max_length=10, unique=True)
     vien = models.ForeignKey(vien_dao_tao, verbose_name="Viện trực thuộc", on_delete=models.CASCADE, related_name="cac_hoc_phan")
-
+    sinh_vien = models.ManyToManyField('users.Student', verbose_name="Sinh viên", related_name='hocPhan', blank=True)
     class Meta:
         verbose_name = "Học phần"
         verbose_name_plural = 'Học phần'

@@ -7,6 +7,12 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from student.admin import lopInline
 
 
+class StudentInlinem2m(admin.TabularInline):
+    model = Student.lopTC.through
+    extra = 0
+    class Meta:
+        verbose_name = 'Lớp tín chỉ'
+
 class StudentAdmin(BaseUserAdmin):
     # The forms to add and change user instances
     add_form = StudentCreationForm
@@ -18,7 +24,7 @@ class StudentAdmin(BaseUserAdmin):
             self.inlines = ()
         else:
             self.form = self.change_form
-            self.inlines = ()
+            self.inlines = (StudentInlinem2m, )
             
         return super(StudentAdmin, self).get_form(request, obj, **kwargs)
 
@@ -33,7 +39,6 @@ class StudentAdmin(BaseUserAdmin):
         (None, {'fields': ('email', 'password',)}),
         ('Personal info', {'fields': ('firstname', 'lastname', 'surname', 'gender','date_of_birth', 'phone', )}),
         ('Quản lý', {'fields': ('code', ('vien', 'lop_chung'), ('year_start', 'khoa'), )}),
-        ('Lớp tín chỉ', {'fields': ('lop',)}),
     )
     
     add_fieldsets = (
@@ -45,7 +50,7 @@ class StudentAdmin(BaseUserAdmin):
 
     search_fields = ('code','firstname')
     ordering = ('code',)
-    filter_vertical = ('lop',)
+    filter_vertical = ()
 
 
 class TeacherAdmin(BaseUserAdmin):
