@@ -1,7 +1,7 @@
 body::before {
   display: block;
   content: '';
-  height: 60px;
+  height: 45px;
 }
 
 
@@ -9,4 +9,5 @@ body::before {
   opacity: 1;
   border-bottom: 1px solid white;
 }
+
 
