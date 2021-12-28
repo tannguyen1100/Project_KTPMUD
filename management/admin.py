@@ -99,11 +99,11 @@ class LopChungAdmin(admin.ModelAdmin):
 
     form = LopChungAdminForm
 
-    list_display = ('name','khoa', 'vien','giao_vien')
-    list_filter = ('vien',)
+    list_display = ('__str__', 'vien','giao_vien')
+    list_filter = ('vien','khoa')
     
     search_fields = ('name',)
-    ordering = ('vien','khoa')
+    ordering = ('khoa',)
 
     inlines = [
         StudentInline,
@@ -111,12 +111,15 @@ class LopChungAdmin(admin.ModelAdmin):
 
 class HocPhanAdmin(admin.ModelAdmin):
 
-    fields = ('name','code','vien',)
+    fields = ('name','code','vien','sinh_vien')
     list_display = ('name','vien',)
     list_filter = ('vien',)
     
     search_fields = ('name',)
     ordering = ('vien',)
+    m2m_fields = {"sinh_vien": admin.HORIZONTAL}
+    filter_horizontal = ('sinh_vien',)
+
 
 admin.site.register(vien_dao_tao,VienAdmin)
 admin.site.register(lop_chung, LopChungAdmin)

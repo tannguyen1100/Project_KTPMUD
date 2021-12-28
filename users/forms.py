@@ -2,7 +2,6 @@ from django import forms
 from .models import Student, Teacher
 from management.models import lop_chung
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from university_management.forms import DateInput
 
 # forms.DateInput.input_type='date'
 
