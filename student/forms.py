@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from django import forms
 from django.forms.widgets import PasswordInput
 from django.contrib.auth import authenticate
+from student.models import sinhvien_hocphan
 from users.models import Student, Teacher
 from student.models import timing, lop
 from university_management.forms import TimeInput
@@ -49,27 +50,18 @@ class lopTCAdminForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(lopTCAdminForm, self).__init__(*args, **kwargs)
         self.fields['teacher'].queryset = Teacher.objects.filter(chuyen_mon=self.instance.hoc_phan_id)
-        try:
-            print(1)
-            hocPhan = self.instance.hoc_phan
+        try: 
+            hocPhan = self.instance.hoc_phan    
+            self.fields['sinh_vien'].queryset = hocPhan.sinh_vien.all()
         except:
-            print(2)
-
-        print(self.fields['hoc_phan'].queryset)
-        # if not isinstance(hocPhan, EmptyQuerySet) :
-        #     self.fields['sinh_vien'].queryset = hocPhan.sinh_vien.all()
-        
-        
-
-
+            self.fields['sinh_vien'].queryset = Student.objects.none()
     class Meta:
         model = lop
         fields = '__all__'
         
 
 class sinhVien_hocPhanForm(ModelForm):
-    # def __init__(self, *args, **kwargs):
-    #     super(sinhVien_hocPhanForm, self).__init__(*args, **kwargs)
-    #     self.fields['sinh_vien'].queryset = Student.objects.all()
-    pass
+    class Meta:
+        model = sinhvien_hocphan
+        fields = '__all__'
     

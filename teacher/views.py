@@ -1,9 +1,13 @@
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import get_list_or_404, render, get_object_or_404
-from management.models import lop_chung
-from users.models import Student
+from django.shortcuts import get_list_or_404, render
 from django.urls import reverse
-from student.models import lop
+from django.forms import inlineformset_factory
+
+from management.models import lop_chung
+from management.models import hoc_phan
+from student.forms import sinhVien_hocPhanForm
+from users.models import Teacher, Student
+from student.models import lop, sinhvien_hocphan
 
 
 
@@ -69,14 +73,45 @@ def lop_tin_chi_ql(request):
 
 def tung_lop_TC(request, lopTC_code):
     lopTC = lop.objects.get(code=lopTC_code)
+    
+    
     try: 
-        studentTC = lopTC.sinhVien.all().order_by('code')
+        studentTC = lopTC.sinh_vien.all().order_by('code')
     except:
-        studentList = None
-    return render(request, 'teacher/tung_lop_TC.html', {
+        studentTC = None
+
+    
+    for student in studentTC:
+        studentDiemInstance = sinhvien_hocphan.objects.get(sinh_vien=student, lop=lopTC)
+        bangDiem = sinhVien_hocPhanForm(instance=studentDiemInstance)
+
+        if request.method == "POST":
+            bangDiem = sinhVien_hocPhanForm(request.POST,instance=studentDiemInstance)
+            if bangDiem.is_valid():
+                bangDiem.save()
+            
+
+        return render(request, "teacher/tung_lop_TC.html", {
+        "bangDiem": bangDiem,
         'studentTC': studentTC,
         'lopTC': lopTC,
-    })
+        })
+
+    return render(request, "teacher/tung_lop_TC.html", {
+        'studentTC': studentTC,
+        'lopTC': lopTC,
+        })
+
+
+        
+        
+
+    
+
+    
+
+
+
 
      
     

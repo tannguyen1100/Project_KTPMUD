@@ -22,7 +22,11 @@ def name_2_email(ten, ho=None, dem=None, code=None):
         code = ""
     if dem:
         dem_khong_dau = no_accent_vietnamese(dem)
-        dem_khong_dau = dem_khong_dau.replace(" ", "")
-        return ten_khong_dau+"."+ho_khong_dau[0]+dem_khong_dau[0]+str(code)+"@edu.com.vn"
+        dem_khong_dau_list = dem_khong_dau.split(" ")
+        dem_2 = ""
+        for d in dem_khong_dau_list:
+            dem_2 += d[0]
+
+        return ten_khong_dau+"."+ho_khong_dau[0]+dem_2+str(code)+"@edu.com.vn"
     return ten_khong_dau+"."+ho_khong_dau[0]+str(code)+"@edu.com.vn"
 

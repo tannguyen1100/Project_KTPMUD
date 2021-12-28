@@ -11,7 +11,6 @@ class StudentCreationForm(forms.ModelForm):
         models = Student
         fields = "__all__"
 
-
 class StudentAdminForm(forms.ModelForm):
 
     password = ReadOnlyPasswordHashField()

@@ -8,11 +8,20 @@
 <ul>
     {% for student in studentTC %}
     <li>
-        {{ student }}
+        <form action="" method="POST" >
+            {% csrf_token %}
+            {{ bangDiem.as_table }}
+            
+        </form>
+        {% comment %} {{ student }} {% endcomment %}
     </li>
     
     {% endfor %}
+    <input type="submit" value="Submit">
+
     
 </ul>
+
+{% include "teacher/teacher_base.html" %}
 
 {% endblock content %}
