@@ -10,10 +10,24 @@
     <li>
         <form action="" method="POST" >
             {% csrf_token %}
-            {{ bangDiem.as_table }}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sinh viên</th>
+                        <th>Điểm quá trình</th>
+                        <th>Điểm cuối kì</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">{{ bangDiem.sinh_vien}}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
             
         </form>
-        {% comment %} {{ student }} {% endcomment %}
     </li>
     
     {% endfor %}
