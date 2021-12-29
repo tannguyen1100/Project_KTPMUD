@@ -92,14 +92,14 @@ def tung_lop_TC(request, lopTC_code):
             
 
         return render(request, "teacher/tung_lop_TC.html", {
-        "bangDiem": bangDiem,
-        'studentTC': studentTC,
-        'lopTC': lopTC,
+            'bangDiem': bangDiem,
+            'studentTC': studentTC,
+            'lopTC': lopTC,
         })
 
     return render(request, "teacher/tung_lop_TC.html", {
-        'studentTC': studentTC,
-        'lopTC': lopTC,
+            'studentTC': studentTC,
+            'lopTC': lopTC,
         })
 
 
