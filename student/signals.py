@@ -5,13 +5,14 @@ from student.models import lop, sinhvien_hocphan
 @receiver(pre_save, sender=lop)
 def post_save_create_bang_diem(sender, instance, **kwargs):
 
-    sinhVienList = instance.sinh_vien.all()
-    hocPhan = instance.hoc_phan
-    lop = instance
+    # sinhVienList = instance.sinh_vien.all()
+    # hocPhan = instance.hoc_phan
+    # lop = instance
 
-    print(sinhVienList)
-    print(hocPhan)
-    print(lop)
+    # print(sinhVienList)
+    # print(hocPhan)
+    # print(lop)
+    pass
     # for sinhVien in sinhVienList:
 
     # update_values = {"is_manager": False}

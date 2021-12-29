@@ -56,7 +56,7 @@ class lop(models.Model):
     type = models.CharField(choices=ClassType.choices, verbose_name="Loại lớp", default=ClassType.LT, max_length=20)
     hoc_phan = models.ForeignKey(hoc_phan, verbose_name="Học phần", related_name="available_class", on_delete=models.CASCADE)
     timetable = models.ForeignKey(timetable, on_delete=CASCADE)
-    teacher = models.ForeignKey("users.Teacher", on_delete=models.CASCADE, blank=True)
+    teacher = models.ForeignKey("users.Teacher", on_delete=models.CASCADE, blank=True, null=True)
     timing = models.ForeignKey(timing, on_delete=CASCADE, null=True)
     sinh_vien = models.ManyToManyField("users.Student", related_name="lopTC", verbose_name="Sinh viên", blank=True)
 

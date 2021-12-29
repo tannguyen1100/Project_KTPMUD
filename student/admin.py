@@ -44,7 +44,14 @@ class timingAdmin(admin.ModelAdmin):
     ordering = ("time_start",)
 
 class lopAdmin(admin.ModelAdmin):
+
     form = lopTCAdminForm
+
+    fieldsets = (
+        (None, {'fields': ('code', 'hoc_phan','type', 'timing', 'timetable', 'teacher', 'sinh_vien')}),
+        
+    )
+
     inlines = ()
 
 class sinhVien_hocPhanAdmin(admin.ModelAdmin):

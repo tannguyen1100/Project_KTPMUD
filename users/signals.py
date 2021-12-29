@@ -35,7 +35,6 @@ def student_send_raw_password(sender, instance, **kwargs):
         instance.save()
 
 
-
 @receiver(post_save, sender=Teacher)
 def teacher_send_raw_password(sender, instance, created, **kwargs):
     if instance.password == "":
