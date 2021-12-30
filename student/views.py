@@ -27,6 +27,7 @@ def change_info(request):
     change_form = StudentUpdateForm(instance=student)
 
     if request.method == "POST":
+        print("POST")
         change_form = StudentUpdateForm(request.POST, instance=student)
         if change_form.is_valid():
             change_form.save()

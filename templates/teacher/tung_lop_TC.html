@@ -1,41 +1,58 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 
 {% block content %}
 
-<p>Lớp: {{ lopTC.hoc_phan }} </p>
-<p> Mã lớp: {{lopTC.code}} </p>
+<style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+  
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+</style>
+
+<p>Lớp: {{ lopTC.hoc_phan }}</p>
+<p>Mã lớp: {{lopTC.code}}</p>
 
 <ul>
-    {% for student in studentTC %}
-    <li>
-        <form action="" method="POST" >
-            {% csrf_token %}
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Sinh viên</th>
-                        <th>Điểm quá trình</th>
-                        <th>Điểm cuối kì</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td scope="row">{{ bangDiem.sinh_vien}}</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-            
-        </form>
-    </li>
-    
-    {% endfor %}
-    <input type="submit" value="Submit">
 
-    
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ changeDiemForm.management_form }}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Họ và tên</th>
+                    <th>Mã số sinh viên</th>
+                    <th>Điểm giữa kì</th>
+                    <th>Điểm cuối kì</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for form in changeDiemForm %}
+                
+                    <tr>
+                        <td><input type="text" name="{{form.sinh_vien.html_name}}" value="{{form.sinh_vien.value}}" readonly maxlength="15" id="{{form.sinh_vien.id_for_label}}"></td>
+                        <td><input type="text" name="{{form.code.html_name}}" value="{{form.code.value}}" readonly maxlength="15" id="{{form.code.id_for_label}}"></td>
+                        <td><input type="number" name="{{form.giua_ki.html_name}}" value="{{form.giua_ki.value}}"  min="0" max="10" id="{{form.giua_ki.id_for_label}}"></td>
+                        <td><input type="number" name="{{form.cuoi_ki.html_name}}" value="{{form.cuoi_ki.value}}"  min="0" max="10" id="{{form.cuoi_ki.id_for_label}}"></td>
+                    </tr>
+                
+                {% endfor %}
+                
+            </tbody>
+        </table>
+
+       
+        
+        
+    <input type="submit" value="Save">
+    </form>
+
 </ul>
 
-{% include "teacher/teacher_base.html" %}
-
+{% include "teacher/teacher_base.html" %} 
 {% endblock content %}

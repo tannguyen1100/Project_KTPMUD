@@ -1,4 +1,4 @@
-from django.db.models.query import EmptyQuerySet
+from crispy_forms.layout import Submit
 from django.forms import ModelForm
 from django import forms
 from django.forms.widgets import PasswordInput
@@ -7,11 +7,16 @@ from student.models import sinhvien_hocphan
 from users.models import Student, Teacher
 from student.models import timing, lop
 from university_management.forms import TimeInput
+from crispy_forms.helper import FormHelper
 
 class StudentUpdateForm(ModelForm):
     class Meta:
         model = Student
-        fields = ('firstname', 'lastname',"date_of_birth")
+        fields = ('firstname', 'surname', 'lastname',"date_of_birth")
+
+    helper = FormHelper()
+    helper.add_input(Submit('Submit', 'Submit', css_class='btn-primary'))
+    helper.form_method = "POST"
         
 class StudentLoginForm(ModelForm):
     email = forms.EmailField()
@@ -60,8 +65,10 @@ class lopTCAdminForm(ModelForm):
         fields = '__all__'
         
 
-class sinhVien_hocPhanForm(ModelForm):
+class sinhVien_hocPhanForm(forms.ModelForm):
+    
+
     class Meta:
         model = sinhvien_hocphan
-        fields = '__all__'
+        fields = ('sinh_vien', 'giua_ki', 'cuoi_ki', )
     

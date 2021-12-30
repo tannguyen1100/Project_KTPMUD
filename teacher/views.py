@@ -1,11 +1,12 @@
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_list_or_404, render
 from django.urls import reverse
-from django.forms import inlineformset_factory
+from django.forms import formset_factory
 
 from management.models import lop_chung
 from management.models import hoc_phan
 from student.forms import sinhVien_hocPhanForm
+from teacher.forms import ChangeDiemForm
 from users.models import Teacher, Student
 from student.models import lop, sinhvien_hocphan
 
@@ -74,33 +75,48 @@ def lop_tin_chi_ql(request):
 def tung_lop_TC(request, lopTC_code):
     lopTC = lop.objects.get(code=lopTC_code)
     
-    
     try: 
         studentTC = lopTC.sinh_vien.all().order_by('code')
     except:
         studentTC = None
-
     
+    data = []
+
+    bangDiemSet = formset_factory(ChangeDiemForm, extra=0)
     for student in studentTC:
-        studentDiemInstance = sinhvien_hocphan.objects.get(sinh_vien=student, lop=lopTC)
-        bangDiem = sinhVien_hocPhanForm(instance=studentDiemInstance)
+        data.append({
+            'sinh_vien': student,
+            'code': student.code
+        })
 
-        if request.method == "POST":
-            bangDiem = sinhVien_hocPhanForm(request.POST,instance=studentDiemInstance)
-            if bangDiem.is_valid():
-                bangDiem.save()
+    bangDiemList = bangDiemSet(request.POST or None, initial=data)
+
+        
+    if request.method == "POST":
+        bangDiemList = bangDiemSet(request.POST or None, initial=data)
+        # for bangDiem in bangDiemList:
+        #     bangDiem = ChangeDiemForm(request.POST)
+        #     if bangDiem.is_valid():
+        #         sinh_vien = bangDiem.cleaned_data['sinh_vien']
+        #         code = bangDiem.cleaned_data['code']
+        #         giua_ki = bangDiem.cleaned_data['giua_ki']
+        #         cuoi_ki = bangDiem.cleaned_data['cuoi_ki']
             
-
+                
+                # bd = sinhvien_hocphan.update_or_create()
         return render(request, "teacher/tung_lop_TC.html", {
-            'bangDiem': bangDiem,
-            'studentTC': studentTC,
-            'lopTC': lopTC,
-        })
-
+                "lopTC": lopTC,
+                "changeDiemForm": bangDiemList,
+                "studentTC": studentTC,
+            })   
+            
     return render(request, "teacher/tung_lop_TC.html", {
-            'studentTC': studentTC,
-            'lopTC': lopTC,
-        })
+                "lopTC": lopTC,
+                "changeDiemForm": bangDiemList,
+                "studentTC": studentTC,
+            }) 
+
+
 
 
         

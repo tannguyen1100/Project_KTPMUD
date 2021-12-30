@@ -6,54 +6,7 @@
                    NAVBAR--sTUDENT/TEACHER
       ************************************************************************************************
     -->
-<div class="vertical-nav bg-dark" id="sidebar">
-    <div class="py-4 px-3 mb-4 bg-dark">
-      <div class="media d-flex align-items-center"><img src="{% static 'logo/logo.jpg' %}" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
-        
-        <div class="media-body">
-            <button class="d-md-block d-sm-none float-right text-light btn btn-outline-none"  id="sidebarCollapse-small" type="button"><i class="fas fa-times"></i></button>
-          <h4 class="m-0 text-light">Phi Long</h4>
-          <p class="font-weight-light text-light mb-0">Welcome back</p>
-          
-        </div>
-      </div>
-      
-    </div>
 
-    <ul class="nav flex-column bg-dark mb-0">
-      <li class="nav-item">
-        <a href="{% url 'info' %}" class="nav-link text-light">
-            <i class="fas fa-user-graduate me-1 text-primary fa-fw"></i>
-            Student Information</a>
-       
-      </li>
-      <li class="nav-item">
-        <a href="" target=""class="nav-link text-light"><i class="fas fa-trophy me-1 text-primary fa-fw"></i>
-            Achievement</a>
-      </li>
-      <li class="nav-item">
-        <a href="{% url 'genaral_class' %}" class="nav-link text-light"><i class="far fa-calendar-alt me-1 text-primary fa-fw"></i>
-            General Class</a>
-      </li>
-      
-      <li class="nav-item">
-        <a href="{% url 'logout' %}" class="nav-link text-light">
-            <i class="fas fa-sign-out-alt me-1 text-primary fa-fw"></i>
-                 Log Out</a>
-      </li>
-    </ul>
-  
-    <p class="text-light font-weight-bold text-uppercase px-3 small py-4 mb-0"></p>
-  
-    <div class="nav flex-column bg-dark mb-0 align-content-center">
-        <img src="{% static '/logo/Clip_Dancer_transparent_by_Icons8.gif' %}" class="img-fluid" alt="Responsive image" width="60%">
-    </div>
-    </div>
-    <!--
-      ************************************************************************************************
-                  END - NAVBAR--sTUDENT/TEACHER
-      ************************************************************************************************
-    -->
 {%else %}
 <!--
       ************************************************************************************************
