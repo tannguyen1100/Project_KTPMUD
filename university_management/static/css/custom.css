@@ -10,4 +10,19 @@ body::before {
   border-bottom: 1px solid white;
 }
 
+.input-btn{
+  min-width: 90px;
+  min-height: 45px;
+  text-align: center;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-weight: 700;
+  opacity: 0.8;
+  border-radius: 3px;
+}
+.input-btn:hover {
+  opacity: 1;
+}
+
 

@@ -1,7 +1,7 @@
 {% extends 'base.html' %} 
-
+{% load static%}
 {% block content %}
-<<<<<<< HEAD
+
 
 <style>
         input::-webkit-outer-spin-button,
@@ -15,55 +15,71 @@
         }
 </style>
 
-<p>Lớp: {{ lopTC.hoc_phan }}</p>
+<!--<p>Lớp: {{ lopTC.hoc_phan }}</p>
 <p>Mã lớp: {{lopTC.code}}</p>
-=======
-<div class="d-flex justify-content-between page-content pr-5 pl-5"  id="content">
-    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white  shadow-sm px-2 mb-2 " style="max-width: 100px; max-height: 38px;">
-      <i class="fa fa-bars mr-2"></i></button>
-      <form class="d-flex form--responsive" action="{% url 'search_student' %}" method="GET">
-        <input class="form-control mr-2" type="search" placeholder="Search student" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit" style="max-height: 40px;"><i class="fas fa-search"></i></button>
-    </form>
-  </div>
-<p>Lớp: {{ lopTC.hoc_phan }} </p>
-<p> Mã lớp: {{lopTC.code}} </p>
->>>>>>> f97cc6d1ddc692af4e84ddf44757147182d1f213
+-->
+<div class="page-content p-5" id="content">
 
+    <div class="row mt-4">
+      <h3 class="text-warning">
+        <i class="fas fa-user-graduate me-1 text-primary fa-fw" style="width: 2.25em;"></i>
+         Lớp: {{ lopTC.hoc_phan }}
+      </h3>
+      <h4 class="text-warning">
+        <i class="fas fa-user-graduate me-1 text-primary fa-fw" style="width: 2.25em;"></i>
+        Mã lớp: {{lopTC.code}}
+      </h4>
+    
+      <div class="col-lg-12 mt-5">
+        <div class="row"><!---->
+          <div class="col-lg-12 mt-3">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ changeDiemForm.management_form }}
+                <table class="table table-bordered table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th class="text-warning">Họ và tên</th>
+                            <th class="text-warning">Mã số sinh viên</th>
+                            <th class="text-warning">Điểm giữa kì</th>
+                            <th class="text-warning">Điểm cuối kì</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for form in changeDiemForm %}
+                        
+                            <tr>
+                                <td><input class="bg-dark text-white border-0" type="text" name="{{form.sinh_vien.html_name}}" value="{{form.sinh_vien.value}}" readonly maxlength="15" id="{{form.sinh_vien.id_for_label}}"></td>
+                                <td><input class="bg-dark text-white border-0" type="text" name="{{form.code.html_name}}" value="{{form.code.value}}" readonly maxlength="15" id="{{form.code.id_for_label}}"></td>
+                                <td ><input class="w-100" type="number" placeholder="Enter score" name="{{form.giua_ki.html_name}}" value="{{form.giua_ki.value}}"  min="0" max="10" id="{{form.giua_ki.id_for_label}}"></td>
+                                <td ><input class="w-100 " type="number" placeholder="Enter score" name="{{form.cuoi_ki.html_name}}" value="{{form.cuoi_ki.value}}"  min="0" max="10" id="{{form.cuoi_ki.id_for_label}}"></td>
+                            </tr>
+                        
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+        
+               
+                
+                
+            <input class="float-right input-btn" type="submit" value="Save">
+            </form>
+            
+            
+          </div>  
+   
+        </div><!---->
+        
+      </div>
+     
+      
+      
+    </div>
+  </div>
 <ul>
 
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ changeDiemForm.management_form }}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Họ và tên</th>
-                    <th>Mã số sinh viên</th>
-                    <th>Điểm giữa kì</th>
-                    <th>Điểm cuối kì</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for form in changeDiemForm %}
-                
-                    <tr>
-                        <td><input type="text" name="{{form.sinh_vien.html_name}}" value="{{form.sinh_vien.value}}" readonly maxlength="15" id="{{form.sinh_vien.id_for_label}}"></td>
-                        <td><input type="text" name="{{form.code.html_name}}" value="{{form.code.value}}" readonly maxlength="15" id="{{form.code.id_for_label}}"></td>
-                        <td><input type="number" name="{{form.giua_ki.html_name}}" value="{{form.giua_ki.value}}"  min="0" max="10" id="{{form.giua_ki.id_for_label}}"></td>
-                        <td><input type="number" name="{{form.cuoi_ki.html_name}}" value="{{form.cuoi_ki.value}}"  min="0" max="10" id="{{form.cuoi_ki.id_for_label}}"></td>
-                    </tr>
-                
-                {% endfor %}
-                
-            </tbody>
-        </table>
-
-       
-        
-        
-    <input type="submit" value="Save">
-    </form>
+   
 
 </ul>
 
