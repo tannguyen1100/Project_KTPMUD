@@ -1,13 +1,74 @@
 {% extends 'base.html' %}
-
+{% load static%}
 {% block content %}
+<div class="d-flex justify-content-between page-content pr-5 pl-5"  id="content">
+    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white  shadow-sm px-2 mb-2 " style="max-width: 100px; max-height: 38px;">
+      <i class="fa fa-bars mr-2"></i></button>
+      <form class="d-flex form--responsive" action="{% url 'search_student' %}" method="GET">
+        <input class="form-control mr-2" type="search" placeholder="Search student" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit" style="max-height: 40px;"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
+  <div class="page-content p-5" id="content">
 
-    {% for loptc in lopTinChi %}
+    <div class="row mt-4">
+      <h3 class="text-warning">
+        <i class="fas fa-user-graduate me-1 text-primary fa-fw" style="width: 2.25em;"></i>
+          Lớp quản lý tín Chỉ
+      </h3>
+    
+      <div class="col-lg-12 mt-5">
+        <div class="row"><!---->
+
+          <div class="col-lg-12 mt-3">
+            <div class="table-responsive-sm">
+              <table class="table  text-light ">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Class</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  {% for loptc in lopTinChi %}
+                  <tr> 
+                    <!-- 
+                      ********************************
+                      Cột để đánh số
+                      ********************************
+                    -->
+                    <th scope="row">{{ 1 }}</th>
+                    <td><a href="lop_tin_chi/{{ loptc.code }}" class="nav-link">{{ loptc }}</a></td>
+                   
+                  </tr>
+                  {% endfor %}
+                  <!-- 
+                      ********************************
+                      Tổng kết số lớp
+                      ********************************
+                    -->
+                  <td colspan="2">Count: {{ lopTinChi|length }}</td>
+                </tbody>
+              </table>
+            </div>
+            
+          </div>  
+              
+        </div><!---->
+        
+      </div>
+     
+      
+      
+    </div>
+  </div>
+    <!--{% for loptc in lopTinChi %}
     <li>
         <a href="lop_tin_chi/{{ loptc.code }}">{{ loptc }}</a>
     </li>
     {% endfor %}
-
+  -->
     {% include 'teacher/teacher_base.html' %}
 
 {% endblock content %}

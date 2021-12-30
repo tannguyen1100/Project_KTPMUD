@@ -1,6 +1,7 @@
 {% extends 'base.html' %} 
 
 {% block content %}
+<<<<<<< HEAD
 
 <style>
         input::-webkit-outer-spin-button,
@@ -16,6 +17,18 @@
 
 <p>Lớp: {{ lopTC.hoc_phan }}</p>
 <p>Mã lớp: {{lopTC.code}}</p>
+=======
+<div class="d-flex justify-content-between page-content pr-5 pl-5"  id="content">
+    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white  shadow-sm px-2 mb-2 " style="max-width: 100px; max-height: 38px;">
+      <i class="fa fa-bars mr-2"></i></button>
+      <form class="d-flex form--responsive" action="{% url 'search_student' %}" method="GET">
+        <input class="form-control mr-2" type="search" placeholder="Search student" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit" style="max-height: 40px;"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
+<p>Lớp: {{ lopTC.hoc_phan }} </p>
+<p> Mã lớp: {{lopTC.code}} </p>
+>>>>>>> f97cc6d1ddc692af4e84ddf44757147182d1f213
 
 <ul>
 

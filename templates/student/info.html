@@ -28,7 +28,7 @@
                    SECTION/BODY - STUDENT--INFO, REPONSIVE BỊ LỖI, CHƯA SỬA!
       ************************************************************************************************
     -->
-    <div class="d-flex justify-content-between page-content pr-5 pl-5" id="content">
+    <div class="d-flex justify-content-between page-content pr-5 pl-5"  id="content">
       <button id="sidebarCollapse" type="button" class="btn btn-light bg-white  shadow-sm px-2 mb-2 " style="max-width: 100px; max-height: 38px;">
         <i class="fa fa-bars mr-2"></i></button>
         <form class="d-flex form--responsive">
@@ -46,7 +46,7 @@
         
           <div class="col-lg-12 mt-5">
             <h2 class="text-light">
-              ĐÀM PHI LONG
+              {{ student.lastname }} {{ student.surname }} {{ student.firstname }}
             </h2>
             <div class="row"><!---->
               <div class="col-lg-6 mt-5 text-center d-md-block d-lg-none " >
@@ -67,7 +67,7 @@
                       <tr>
                         <th scope="row">1</th>
                         <td>ID</td>
-                        <td>20192983</td>
+                        <td>{{ student.code }}</td>
                         
                       </tr>
                       <tr>
@@ -79,7 +79,7 @@
                       <tr>
                         <th scope="row">3</th>
                         <td>Sex</td>
-                        <td>Male</td>
+                        <td>{{ student.gender }}</td>
                       </tr>
                       <tr>
                         <th scope="row">4</th>
@@ -87,25 +87,25 @@
                         <td>{{ student.email }}</td>
                       </tr>
                       <tr>
-                        <th scope="row">1</th>
-                        <td>ID</td>
-                        <td>20192983</td>
+                        <th scope="row">5</th>
+                        <td>Class</td>
+                        <td>{{student.lop_chung}}</td>
                         
                       </tr>
                       <tr>
-                        <th scope="row">2</th>
-                        <td>Birthdate</td>
-                        <td>{{student.date_of_birth | date:"d-m-Y"}}</td>
-                        
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Viện</td>
-                        <td>ET1</td> 
-                      </tr>
-                      <tr>
-                        <th scope="row">4</th>
+                        <th scope="row">6</th>
                         <td>Faculty</td>
+                        <td>{{student.khoa}}</td>
+                        
+                      </tr>
+                      <tr>
+                        <th scope="row">7</th>
+                        <td>Viện</td>
+                        <td>{{student.vien}}</td> 
+                      </tr>
+                      <tr>
+                        <th scope="row">8</th>
+                        <td>YearStart</td>
                         <td>{{ student.year_start }}</td>
                       </tr>
                     </tbody>
