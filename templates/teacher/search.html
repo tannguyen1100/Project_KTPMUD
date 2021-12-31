@@ -1,9 +1,22 @@
 {% extends 'base.html' %}
 
+
+<div class="d-flex justify-content-between page-content pr-5 pl-5"  id="content">
+    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white  shadow-sm px-2 mb-2 " style="max-width: 100px; max-height: 38px;">
+      <i class="fa fa-bars mr-2"></i></button>
+      <form class="d-flex form--responsive" action="{% url 'search_student' %}" method="GET">
+        <input class="form-control mr-2" type="search" placeholder="Search student" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit" style="max-height: 40px;"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
+
+
 {% block content %}
+
 
     
     <div class="page-content p-5 position-relative" id="content">
+
 
         <div class="row mt-4">
           <h3 class="text-warning">
@@ -25,7 +38,7 @@
                     </thead>
                     <tbody>
     
-                        {% for record in records %}
+                        {% for student in students %}
                       <tr> 
                         <!-- 
                           ********************************
@@ -33,7 +46,7 @@
                           ********************************
                         -->
                         <th scope="row" class="td-count">{{ forloop.counter }}</th>
-                        <td class="td-value" ><a href="lop_tin_chi/{{ loptc.code }}" >{{record}}</a></td>
+                        <td class="td-value" ><a href="lop_tin_chi/{{ loptc.code }}" >{{student}}</a></td>
                        
                       </tr>
                       {% endfor %}

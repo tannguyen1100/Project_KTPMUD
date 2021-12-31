@@ -1,22 +1,8 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
+{% extends "base.html" %} 
+{% load static %} 
+{% block content %} 
 
-{% if request.user.role == 1 %}
-<!--<div class="container">
-    <div class="row">
-        <div class="col-sm mr-auto">
-            <p>Teacher page</p>
-        </div>
-        <div class="col-sm">
-            <form action='{% url 'search_student' %}' method="GET">
-                <input  id="search_box" type="text" name="q"  placeholder="Search student" > 
-                <button id="search_submit" type="submit" >Submit</button> 
-            </form>
-        </div>
-    </div>
-</div>
--->
+
 
   <div class="page-content p-5 position-relative" id="content">
 
@@ -110,8 +96,6 @@
 
 
 
-
-{% include 'teacher/teacher_base.html' %}
-{% endif %}
+{% include 'teacher/teacher_base.html' %} 
 
 {% endblock %}
