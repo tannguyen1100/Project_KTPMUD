@@ -94,13 +94,16 @@ def tung_lop_TC(request, lopTC_code):
         
     if request.method == "POST":
         bangDiemList = bangDiemSet(request.POST or None, initial=data)
-        # for bangDiem in bangDiemList:
-        #     bangDiem = ChangeDiemForm(request.POST)
-        #     if bangDiem.is_valid():
-        #         sinh_vien = bangDiem.cleaned_data['sinh_vien']
-        #         code = bangDiem.cleaned_data['code']
-        #         giua_ki = bangDiem.cleaned_data['giua_ki']
-        #         cuoi_ki = bangDiem.cleaned_data['cuoi_ki']
+        for bangDiem in bangDiemList:
+            if bangDiem.is_valid():
+                sinh_vien = bangDiem.cleaned_data['sinh_vien']
+                code = bangDiem.cleaned_data['code']
+                giua_ki = bangDiem.cleaned_data['giua_ki']
+                cuoi_ki = bangDiem.cleaned_data['cuoi_ki']
+                updated_values = {'giua_ki': giua_ki, 'cuoi_ki': cuoi_ki}
+                student_instance = Student.objects.get(code=code)
+                sinhvien_hocphan.objects.update_or_create(sinh_vien=student_instance, hoc_phan=lopTC.hoc_phan, lop=lopTC, defaults=updated_values)
+                print(1)
             
                 
                 # bd = sinhvien_hocphan.update_or_create()
