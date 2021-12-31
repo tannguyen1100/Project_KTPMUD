@@ -1,14 +1,7 @@
 {% extends 'base.html' %}
 {%load static%}
 {% block content %}
-<div class="d-flex justify-content-between page-content pr-5 pl-5"  id="content">
-    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white  shadow-sm px-2 mb-2 " style="max-width: 100px; max-height: 38px;">
-      <i class="fa fa-bars mr-2"></i></button>
-      <form class="d-flex form--responsive" action="{% url 'search_student' %}" method="GET">
-        <input class="form-control mr-2" type="search" placeholder="Search student" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit" style="max-height: 40px;"><i class="fas fa-search"></i></button>
-    </form>
-  </div>
+
   <div class="page-content p-5" id="content">
 
     <div class="row mt-4">
@@ -32,17 +25,20 @@
                   </tr>
                 </thead>
                 <tbody>
+                  
                   {% for lop in lop_chung_quan_ly %}
+                  
                   <tr> 
                     <!-- 
                       ********************************
                       Cột để đánh số
                       ********************************
                     -->
-                    <th scope="row">{{ lop }}</th>
-                    <td><a href="lop_chung_quan_ly/{{ lop }}" class="nav-link">{{ lop }}</a></td>
+                    <th scope="row">{{ forloop.counter}}</th>
+                    <td><a href="lop_chung_quan_ly/{{ lop }}" >{{ lop }}</a></td>
                    
                   </tr>
+                  
                   {% endfor %}
                   <!-- 
                       ********************************
