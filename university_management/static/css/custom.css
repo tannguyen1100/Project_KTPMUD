@@ -25,4 +25,11 @@ body::before {
   opacity: 1;
 }
 
+.input-placeholder {
+  display: block;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+ -webkit-line-clamp: 2;
+
+}
 
