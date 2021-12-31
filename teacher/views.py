@@ -20,11 +20,11 @@ def info(request):
 def search_student(request):
     if request.method == "GET":  
         search_text = request.GET.get("q", None)
-        records = None
+        students = None
         if search_text:
-            records=Student.objects.filter(email__contains=search_text)     
+            students=Student.objects.filter(email__contains=search_text)     
     return render(request, 'teacher/search.html', {
-        "records": records
+        "students": students
     })
 
 def info_student(request, student_code):

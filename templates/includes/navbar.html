@@ -7,22 +7,17 @@
                    NAVBAR--sTUDENT/TEACHER
       ************************************************************************************************
     -->
-{% comment %} <<<<<<< HEAD
-    <form class="d-flex form--responsive" action="{% url 'search_student' %}" method="GET" >
-        <input class="form-control ml-auto " type="search" placeholder="Search student" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit" style="max-height: 40px">
-            <i class="fas fa-search"></i>
-        </button>
-    </form>
-======= {% endcomment %}
 <div class="d-flex justify-content-between page-content pr-5 pl-5"  id="content">
         <button id="sidebarCollapse" type="button" class="btn btn-light bg-white  shadow-sm px-2 mb-2 " style="max-width: 100px; max-height: 38px;">
-          <i class="fa fa-bars mr-2"></i></button>
-          <form class="d-flex form--responsive" action="{% url 'search_student' %}" method="GET">
-            <input class="form-control mr-2" type="search" placeholder="Search student" aria-label="Search">
+            <i class="fa fa-bars mr-2"></i>
+        </button>
+        <form class="d-flex form--responsive" action="{% url 'search_student' %}" method="GET" >
+            <input class="form-control mr-2" type="search" placeholder="Search student" aria-label="Search" name="q">
             <button class="btn btn-outline-success" type="submit" style="max-height: 40px;"><i class="fas fa-search"></i></button>
         </form>
-</div>
+</div> 
+
+
 
 
 
@@ -50,24 +45,13 @@
                 </li>
 
                 <li class="nav-item mr-2">
-                    <a class="nav-link text-light" href="#">STUDENT</a>
-                </li>  
-                <li class="nav-item mr-2">
-                    <a class="nav-link text-light" href="#">TEACHER</a>
-                </li>
-                <li class="nav-item mr-2">
                     <a class="nav-link text-light" data-toggle="modal" data-target="#modelLogin">
                         SIGN IN
                     </a>
                 </li>
 
             </ul>
-           
-            <!--<div class="d-flex">
-                <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#modelLogin">
-                    Sign in
-                </button>
-            </div>-->
+
         </div>
     </nav>
 </header>

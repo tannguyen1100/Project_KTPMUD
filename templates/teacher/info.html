@@ -78,103 +78,10 @@
             </table>
           </div>
         </div>
-{% comment %} <<<<<<< HEAD
-        <div class="col-lg-6 mt-5 text-center d-sm-none d-lg-block d-none-responsive">
-          <img src="{% static 'logo/logo.jpg' %}" class="img-fuild" width="50%" alt="" width="85%"/>
-======= {% endcomment %}
+
     </div>
 </div>
 
-
-  <div class="page-content p-5" id="content">
-
-      <div class="row mt-4">
-        <h3 class="text-warning">
-          <i class="fas fa-user-graduate me-1 text-primary fa-fw" style="width: 2.25em;"></i>
-            Personal Information
-        </h3>
-      
-        <div class="col-lg-12 mt-5">
-          <h2 class="text-light">
-            {{ teacher.lastname }} {{ teacher.surname }} {{ teacher.firstname }}
-          </h2>
-          <div class="row"><!---->
-            <div class="col-lg-6 mt-5 text-center d-md-block d-lg-none " >
-              <img src="{% static 'logo/logo.jpg' %}"  width="85%" class="img_student" >
-            </div>
-            <div class="col-lg-6 mt-3">
-              <div class="table-responsive-sm">
-                <table class="table  text-light ">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Information</th>
-                      <th scope="col">Value</th>
-                     
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>ID</td>
-                      <td>{{ teacher.code }}</td>
-                      
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Birthdate</td>
-                      <td>{{teacher.date_of_birth | date:"d-m-Y"}}</td>
-                      
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Sex</td>
-                      <td>{{ teacher.gender }}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">4</th>
-                      <td>Email</td>
-                      <td>{{ teacher.email }}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">5</th>
-                      <td>Class</td>
-                      <td>{{student.lop_chung}}</td>
-                      
-                    </tr>
-                    <tr>
-                      <th scope="row">6</th>
-                      <td>Faculty</td>
-                      <td>{{teacher.chuyen_mon}}</td>
-                      
-                    </tr>
-                    <tr>
-                      <th scope="row">7</th>
-                      <td>Viện</td>
-                      <td>{{teacher.vien}}</td> 
-                    </tr>
-                    <tr>
-                      <th scope="row">8</th>
-                      <td>YearStart</td>
-                      <td>{{ teacher.year_start }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              
-            </div>  
-            <div class=" col-lg-6 mt-5 text-center d-sm-none d-lg-block d-none-responsive ">
-              <img src="{% static 'logo/logo.jpg' %}" class="img-fuild " width="50%" alt="" width="85%">
-            </div>     
-          </div><!---->
-          
-
-        </div>
-      </div>
-      
-    </div>
-  </div>
-</div>
 
 {% include 'teacher/teacher_base.html' %} 
 
