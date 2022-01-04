@@ -4,10 +4,13 @@ from django.urls.base import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.urls.conf import include
 from users.models import Student, Teacher
+from django.http import JsonResponse
+
 
 def home(request):
     if request.user.is_superuser:
         logout(request)
+    
     if request.user.is_authenticated:
         if request.user.role == 0:
             student = Student.objects.get(user_ptr=request.user)

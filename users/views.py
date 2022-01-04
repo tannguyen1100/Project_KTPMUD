@@ -1,31 +1,40 @@
-from django.http.response import  HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.http.response import  HttpResponseRedirect, JsonResponse
+from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.template.loader import render_to_string
-from users.models import User
 from django.urls.base import reverse
 from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
+from .models import User, Teacher, Student
+from .forms import loginForm
+from django.core import serializers
 
 
 def login_view(request):
-    if (request.method == 'POST'):
-        email = request.POST.get('email') #Get email value from form
-        password = request.POST.get('password') #Get password value from form
-        user = authenticate(request, email=email, password=password)
-        
-        if user is not None:
-            login(request, user)
-            if user.is_authenticated:
-                return HttpResponseRedirect(reverse("home"))
-             
+    form = loginForm()
+    return render(request, 'user/login.html', {
+        'form': form
+    })
+
+def login_validate(request):
+
+    if request.is_ajax() and request.method == "POST":
+        form = loginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            print(email, password)
+            user = authenticate(request, email=email, password=password)
+            if user:
+                login(request, user)
+                return JsonResponse({"data": 'success'}, status=200)
+            return JsonResponse({"data": 'fail'}, status=200)
         else:
-            return render(request, "user/login.html", {
-                "message": "Invalid credentials."
-            })
-    return render(request, 'user/login.html')
+            return JsonResponse({"data": "requied field"}, status=200)
+
+    return JsonResponse({"error": ""}, status=400)
 
 def logout_view(request):
     logout(request)
@@ -68,3 +77,33 @@ def forget_password(request):
     return render(request, 'user/forget_password.html')
     
     
+    # login_form = loginForm(request.POST or None)
+    # if request.method == 'POST':
+    #     email = request.POST.get('email') 
+    #     password = request.POST.get('password') 
+    #     user = authenticate(request, email=email, password=password)
+
+
+    # if request.is_ajax() and request.method == 'POST':
+    #     print("1")
+    #     email = request.POST.get('email') 
+    #     password = request.POST.get('password') 
+    #     user = authenticate(request, email=email, password=password)
+
+    #     if user is not None:
+    #         login(request, user)
+    #         if request.user.role == 0:
+    #             student = Student.objects.get(user_ptr=request.user)
+    #             return render(request, 'student/info.html', {
+    #                     'student': student
+    #                 })
+
+    #         else:
+    #             teacher = Teacher.objects.get(user_ptr=request.user)
+    #             return render(request, 'teacher/info.html', {
+    #                 'teacher': teacher
+    #             }) 
+
+    #     else:
+    #         data['email'] = email
+    #         return JsonResponse(data)

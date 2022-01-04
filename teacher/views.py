@@ -86,7 +86,9 @@ def tung_lop_TC(request, lopTC_code):
     for student in studentTC:
         data.append({
             'sinh_vien': student,
-            'code': student.code
+            'code': student.code,
+            'giua_ki': student.bang_diem.get(lop=lopTC).giua_ki,
+            'cuoi_ki': student.bang_diem.get(lop=lopTC).cuoi_ki,
         })
 
     bangDiemList = bangDiemSet(request.POST or None, initial=data)
@@ -103,10 +105,7 @@ def tung_lop_TC(request, lopTC_code):
                 updated_values = {'giua_ki': giua_ki, 'cuoi_ki': cuoi_ki}
                 student_instance = Student.objects.get(code=code)
                 sinhvien_hocphan.objects.update_or_create(sinh_vien=student_instance, hoc_phan=lopTC.hoc_phan, lop=lopTC, defaults=updated_values)
-                print(1)
             
-                
-                # bd = sinhvien_hocphan.update_or_create()
         return render(request, "teacher/tung_lop_TC.html", {
                 "lopTC": lopTC,
                 "changeDiemForm": bangDiemList,
