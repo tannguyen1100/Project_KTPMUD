@@ -7,7 +7,9 @@
         
         <div class="media-body">
             <button class="d-md-block d-sm-none float-right text-light btn btn-outline-none"  id="sidebarCollapse-small" type="button"><i class="fas fa-times"></i></button>
-          <h4 class="m-0 text-light">{{ request.user.lastname }} {{ teacher.firstname }}</h4>
+
+          <h4 class="m-0 text-light">{{ request.user.lastname }} {{ request.user.firstname }}</h4>
+
           <p class="font-weight-light text-light mb-0">Welcome back</p>
           
         </div>

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% comment %} <<<<<<< HEAD
+
 <div class="d-flex justify-content-between page-content pr-5 pl-5"  id="content">
     <button id="sidebarCollapse" type="button" class="btn btn-light bg-white  shadow-sm px-2 mb-2 " style="max-width: 100px; max-height: 38px;">
       <i class="fa fa-bars mr-2"></i></button>
@@ -9,14 +9,67 @@
         <button class="btn btn-outline-success" type="submit" style="max-height: 40px;"><i class="fas fa-search"></i></button>
     </form>
   </div>
-=======
->>>>>>> ed2e3f82f8855f8212db0f658725138e61f046c5 {% endcomment %}
+
+
 {% block content %}
 
-    {% for student in students %}
-        <li>{{student}}</li>
-    {% endfor %}
 
+    
+    <div class="page-content p-5 position-relative" id="content">
+
+
+        <div class="row mt-4">
+          <h3 class="text-warning">
+            <i class="fas fa-user-graduate me-1 text-primary fa-fw" style="width: 2.25em;"></i>
+              Kết quả tìm kiếm
+          </h3>
+        
+          <div class="col-lg-12 mt-5">
+            <div class="row"><!---->
+    
+              <div class="col-lg-12 mt-3">
+                <div class="table-responsive-sm">
+                  <table class="table  text-light ">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Information</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+    
+                        {% for student in students %}
+                      <tr> 
+                        <!-- 
+                          ********************************
+                          Cột để đánh số
+                          ********************************
+                        -->
+                        <th scope="row" class="td-count">{{ forloop.counter }}</th>
+                        <td class="td-value" ><a href="lop_tin_chi/{{ loptc.code }}" >{{student}}</a></td>
+                       
+                      </tr>
+                      {% endfor %}
+                      <!-- 
+                          ********************************
+                          Tổng kết số lớp
+                          ********************************
+                        -->
+                      <!--<td colspan="2" class="td-length">Count: {{ lopTinChi|length }}</td>-->
+                    </tbody>
+                  </table>
+                </div>
+                
+              </div>  
+                  
+            </div><!---->
+            
+          </div>
+         
+          
+          
+        </div>
+      </div>
     {% include "teacher/teacher_base.html" %}
 
 {% endblock content %}
