@@ -1,20 +1,45 @@
-from django.http.response import HttpResponseRedirect
+from django.http import response
+from django.http.response import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_list_or_404, render
 from django.urls import reverse
 from django.forms import formset_factory
+from django.db.models import Q
 
 from management.models import lop_chung
-from management.models import hoc_phan
-from student.forms import sinhVien_hocPhanForm
-from teacher.forms import ChangeDiemForm
+from teacher.forms import ChangeDiemForm, DoAnForm
 from users.models import Teacher, Student
 from student.models import lop, sinhvien_hocphan
+from teacher.models import do_an
 
 
 
 # Create your views here.
 def info(request):
     return HttpResponseRedirect(reverse("home"))
+
+def search(request):
+    return render(request, 'teacher/search-ajax.html', {
+    })
+
+def search_student_ajax(request):
+    if request.is_ajax():
+        students = request.POST.get('student')
+        qs = Student.objects.filter(Q(email__icontains=students) | Q(code__icontains=students))
+        if len(qs) > 0 and len(students) > 0:
+            data = []
+            for student in qs:
+                item = {
+                    'email': student.email,
+                    'code': student.code,
+                    'name': student.__str__()
+                }
+                data.append(item)
+            response = data
+        else:
+            response = "No Student found ..."
+
+        return JsonResponse({'data': response})
+    return JsonResponse({})
 
 
 def search_student(request):
@@ -118,6 +143,68 @@ def tung_lop_TC(request, lopTC_code):
                 "studentTC": studentTC,
             }) 
 
+def do_an_view(request):
+    teacher = Teacher.objects.get(user_ptr= request.user)
+    do_an_list = teacher.do_an_tham_gia.all().order_by('name')
+
+    return render(request, 'teacher/do_an.html', {
+        "do_an_list": do_an_list,
+    })
+
+def tung_do_an(request, slug_name):
+    doAnData = {}
+    doAn = do_an.objects.get(slug_name=slug_name)
+
+    student_init = ""
+    for student in doAn.student.all():
+        student_init = student_init + student.email + ","
+    student_init=student_init[:-1]
+    
+
+    teacher_init = ""
+    for teacher in doAn.teacher.all():
+        teacher_init = teacher_init + teacher.__str__() + ","
+    teacher_init=teacher_init[:-1]
+
+    doAnData = {
+        'name': doAn.name,
+        'slug_name': doAn.slug_name,
+        'start_time': doAn.start_time,
+        'end_time': doAn.end_time,
+        'sinh_vien': student_init,
+        'giao_vien': teacher_init,
+    }
+
+    for key, value in doAnData.items():
+        if value == None:
+            doAnData[key] = ""
+
+
+    form = DoAnForm(request.POST or None, initial=doAnData)
+
+    if request.method == "POST":
+        form = DoAnForm(request.POST or None, initial=doAnData)
+        print(form.is_valid())
+        if form.is_valid():
+            form.save()
+            print("1")
+            return HttpResponseRedirect(reverse('do_an'))
+
+    return render(request, 'teacher/tung_do_an.html', {
+        'do_an': doAn,
+        'form': form,
+    })
+
+def them_do_an(request):
+    teacher = Teacher.objects.get(user_ptr= request.user)
+    form = DoAnForm(request.POST or None)
+    if request.method ==  "POST":
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("do_an"))
+    return render(request, 'teacher/them_do_an.html', {
+        'form': form,
+    })
 
 
 

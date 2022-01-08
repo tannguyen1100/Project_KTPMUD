@@ -1,0 +1,19 @@
+.search:focus{
+        background-color: #e8e8e8;
+    }
+.not-visible {
+    display: none;
+}
+.result-card{
+    background-color: #e8e8e8;
+    width: 50%;
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.25);
+    transition: 0.5s;
+    border-radius: 7px;
+    padding: 15px 15px;
+    margin: auto; 
+}
+
+.item {
+    text-decoration: none;
+}

@@ -1,6 +1,6 @@
 {% load static %}
 
-{% if request.user.is_authenticated %}
+{% if request.user.role == 1 %}
 
 <!--
       ************************************************************************************************
@@ -16,8 +16,6 @@
             <button class="btn btn-outline-success" type="submit" style="max-height: 40px;"><i class="fas fa-search"></i></button>
         </form>
 </div> 
-
-
 
 
 
@@ -44,11 +42,14 @@
                     <a class="nav-link text-light" href="{% url 'home' %}">HOME <span class="sr-only">(current)</span></a>
                 </li>
 
+                {% if not request.user.is_autheticated %}
                 <li class="nav-item mr-2">
                     <a href="{% url 'login' %}">
                         SIGN IN
                     </a>
                 </li>
+                {% endif %}
+                
 
             </ul>
 

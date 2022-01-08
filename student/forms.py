@@ -9,7 +9,7 @@ from student.models import timing, lop
 from university_management.forms import TimeInput
 from crispy_forms.helper import FormHelper
 
-class StudentUpdateForm(ModelForm):
+class StudentUpdateForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = ('firstname', 'surname', 'lastname',"date_of_birth")
@@ -17,23 +17,7 @@ class StudentUpdateForm(ModelForm):
     helper = FormHelper()
     helper.add_input(Submit('Submit', 'Submit', css_class='btn-primary'))
     helper.form_method = "POST"
-        
-class StudentLoginForm(ModelForm):
-    email = forms.EmailField()
-    password = forms.CharField(widget=PasswordInput)
-
-    def clean(self, *args, **kwargs):
-        email = self.cleaned_data.get('email')
-        password = self.cleaned_data.get('password')
-
-        if email and password:
-            user = authenticate(email=email, password=password)
-            if not user:
-                raise forms.ValidationError("This user not exist")
-
-        return super(StudentLoginForm, self).clean(*args, **kwargs)
     
-
 class timingCreationForm(ModelForm):
     class Meta:
         model = timing
@@ -48,7 +32,6 @@ class timingForm(ModelForm):
     class Meta:
         model = timing
         fields = "__all__"
-
 
 class lopTCAdminForm(ModelForm):
 
@@ -66,8 +49,6 @@ class lopTCAdminForm(ModelForm):
         
 
 class sinhVien_hocPhanForm(forms.ModelForm):
-    
-
     class Meta:
         model = sinhvien_hocphan
         fields = ('sinh_vien', 'giua_ki', 'cuoi_ki', )
