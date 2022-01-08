@@ -1,9 +1,12 @@
 from django import forms
+from django.forms.widgets import PasswordInput
 from .models import Student, Teacher
 from management.models import lop_chung
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-# forms.DateInput.input_type='date'
+class loginForm(forms.Form):
+    email = forms.EmailField()
+    password = forms.CharField(widget=PasswordInput())
 
 class StudentCreationForm(forms.ModelForm):
 

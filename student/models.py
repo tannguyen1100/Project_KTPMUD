@@ -70,7 +70,7 @@ class lop(models.Model):
 
 
 class sinhvien_hocphan(models.Model):
-    sinh_vien=models.ForeignKey('users.Student', on_delete=CASCADE, verbose_name="Sinh viên")
+    sinh_vien=models.ForeignKey('users.Student', on_delete=CASCADE, verbose_name="Sinh viên", related_name='bang_diem')
     hoc_phan=models.ForeignKey(hoc_phan, on_delete=CASCADE, verbose_name='Học phần')
     number = models.PositiveSmallIntegerField(verbose_name="Lần thứ", default=1)
     lop = models.ForeignKey(lop, on_delete=CASCADE, verbose_name="Lớp đăng kí", blank=True, null=True)

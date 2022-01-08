@@ -8,4 +8,5 @@ class do_an(models.Model):
     student = models.ManyToManyField('users.Student', verbose_name='Sinh viên', related_name='do_an_tham_gia')
     start_time = models.DateField(default=datetime.datetime.now().year)
     end_time = models.DateField(default=datetime.datetime.now().year)
+    
 

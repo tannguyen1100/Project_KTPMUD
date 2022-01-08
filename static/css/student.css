@@ -1,0 +1,78 @@
+  /*
+    *STUDENT-CSS-BODY
+  */
+ 
+
+  .text-uppercase {
+    letter-spacing: 0.1em;
+  }
+  
+  .text-gray {
+    color: #aaa;
+  }
+  
+
+.vertical-nav {
+    min-width: 17rem;
+    width: 17rem;
+    min-height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s;
+  }
+.nav-link {
+    padding: 1.5rem 1rem !important;
+}
+  .page-content {
+    width: calc(100% - 17rem);
+    margin-left: 17rem;
+    transition: all 0.4s;
+  }
+  .page-content--btn{
+    margin-left: 17rem;
+  }
+  
+  /* CĂN CHỈNH NUT TOGGLE ĐỂ ẤN VỚI HIỆN KHI BẤM */
+  
+  #sidebar.active {
+    margin-left: -17rem;
+  }
+  
+  #content.active {
+    width: 100%;
+    margin: 0;
+  }
+  
+  @media (max-width: 767.5px) {
+    #sidebar {
+      margin-left: -17rem;
+    }
+    #sidebar.active {
+      margin-left: 0;
+    }
+    #content {
+      width: 100%;
+      margin: 0;
+    }
+    #content.active {
+      margin-left: 17rem;
+      width: calc(100% -17rem);
+    }
+    #sidebarCollapse.active {
+      margin-left:17rem;
+    }
+    .page-content--btn{
+      width: 100%;
+      margin: 0;
+    }
+    .d-none-responsive{
+      display: none !important;
+    }
+    .form--responsive{
+      max-width: 150px !important;
+    }
+  }
+  
+

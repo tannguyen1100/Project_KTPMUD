@@ -1,10 +1,6 @@
   /*
     *STUDENT-CSS-BODY
   */
-  body {
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
 
   .text-uppercase {
     letter-spacing: 0.1em;
