@@ -1,45 +1,49 @@
 html{
-  position: relative;
-  min-height: 100%;
-}
-
-body{
-  min-height: 100vh;
-    overflow-x: hidden;
-    color: #ffffff;
-}
-body::before {
-  display: block;
-  content: '';
-  height: 45px;
-}
-
-
-.navbar-dark .navbar-nav .nav-link:hover{
-  opacity: 1;
-  border-bottom: 1px solid white;
-}
-
-.input-btn{
-  min-width: 90px;
-  min-height: 45px;
-  text-align: center;
-  background-color: #007bff;
-  border: none;
-  color: white;
-  font-weight: 700;
-  opacity: 0.8;
-  border-radius: 3px;
-}
-.input-btn:hover {
-  opacity: 1;
-}
-
-.input-placeholder {
-  display: block;
-display: -webkit-box;
--webkit-box-orient: vertical;
- -webkit-line-clamp: 2;
-
-}
-
+    min-height: 100%;
+  }
+  
+  body{
+      position: relative !important;
+      overflow-x: hidden;
+      color: #ffffff;
+      min-height: 120vh !important;
+  }
+  body::before {
+    display: block;
+    content: '';
+    height: 45px;
+  }
+  
+  .navbar-dark .navbar-nav .nav-link:hover{
+    opacity: 1;
+    border-bottom: 1px solid white;
+  }
+  
+  .input-btn{
+    min-width: 90px;
+    min-height: 45px;
+    text-align: center;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-weight: 700;
+    opacity: 0.8;
+    border-radius: 3px;
+  }
+  .input-btn:hover {
+    opacity: 1;
+  }
+  
+  .input-placeholder {
+    display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+   -webkit-line-clamp: 2;
+  
+  }
+  @media (max-width: 576px) {
+    .picture_css{
+        display: none !important;
+    }
+  }
+  
