@@ -1,9 +1,11 @@
 {% extends "base.html" %}
+
 {%load static%}
 
 {% block content %}
 
     <div class="container">
+
        <div class="row">
            <div class="col-6 mt-5 d-md-block d-sm-none ">
             <img src="{% static 'logo/Clip_recruting_ad_transparent_by_Icons8.gif' %}" class="img-responsive" alt="" width="90%">
@@ -21,13 +23,37 @@
                     <input type='password' name="{{form.password.html_name}}" class="form-control " placeholder="Password" id="{{ form.password.id_for_label }}"/>
                 </div>
                 
-                <div>
-                    <div class=" justify-content-end">
+                <div class=" justify-content-end">
                         <div class=" justify-content-end">
                             <button type="submit" value="Login" class="btn btn-primary float-right" id='login_button' >Login</button>
                         </div>
                         
                         <div class=' mt-2'><a href="{% url 'forget_password' %}" class="blue-text">Forgot Password?</a></div>
+                    </div>
+            </form>
+        </div>
+    </div>   
+    </div> 
+        <!--       <div class="col-sm-4">
+            <p class="lead">Please enter your <span class="text-primary">Email</span> and <span class="text-primary">Password</span></p>
+        <form method="POST" id="loginForm">
+            {% csrf_token %}
+            <span class='error text-danger' id='error'></span>
+            <div class="mb-3">
+                {{form.email.label_tag}}
+                <input type='text' name="{{form.email.html_name}}" class="form-control" placeholder="Email" id="{{ form.email.id_for_label }}"/>
+            </div>
+            <div class="mb-3">
+                {{form.password.label_tag}}
+                <input type='password' name="{{form.password.html_name}}" class="form-control" placeholder="Password" id="{{ form.password.id_for_label }}"/>
+            </div>
+            
+            <div class="container">
+                <div class="row justify-content-end">
+                    <p class='col-sm-4 mt-2'><a href="{% url 'forget_password' %}" class="blue-text">Forgot Password?</a></p>
+                    <div class="col-sm-3 justify-content-end">
+                        <button type="submit" value="Login" class="btn btn-primary" id='login_button' >Login</button>
+
                     </div>
                 </div>
     
@@ -35,37 +61,69 @@
            </div>
        </div>
     </div>
+        </div>
+        
     
-
+--> 
 {% endblock %}
 
 {% block javascript %}
 
 <script>
+
     $(document).ready(function () {
+        var count = 0;
 
         $('#loginForm').submit(function(e){
             e.preventDefault()
+            count ++;
 
             var serializedData = $(this).serialize();
+            
             console.log(serializedData)
+            console.log(count)
             
             $.ajax({
                 type: 'POST',
                 url: "{% url 'login_validate' %}",
                 async: false,
                 data: serializedData,
+                
                 success: function(response){
                     if (response.data == 'success'){
                         $(location).attr('href', "{% url 'home' %}")
                     }
+                    else
+                        if (count < 3){
+                            if (response.data == 'fail'){
+                                $('#error').text('Tài khoản hoặc mật khẩu không đúng')
+                            };
+                            if (response.data == 'requied field'){
+                                $('#error').text('Tài khoản hoặc mật khẩu không được để trống')
+
+                            };
+                            setTimeout(()=>{
+                                $('#id_email').val("")
+                                $('#id_password').val("") 
+                            }, 0);
+                        }
+                        else 
+                            {
+                                $('#error').text('Nhập quá số lần')
+                                $('#login_button').prop('disabled', true);
+                                setTimeout(function() { 
+                                    $('#login_button').prop('disabled', false);
+                                }, 1000);
+                                count = 0;
+                            }                   
                 },
                 error: function(response){
-                    console.log(resonse)
+                    console.log(response)
                 },
             })
         });
     });
+
 
 </script>
 

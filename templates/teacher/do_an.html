@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container text-center text-light">
+{% for do_an in do_an_list %}
+    <li><a href="{% url 'tung_do_an' do_an.slug_name %}">{{do_an}}</a></li>
+{% endfor %}
+</div>
+
+<div class="container">
+        <div class="text-right">
+            <a href="{% url 'them_do_an' %}">
+                <button class="btn btn-secondary btn-success" type='submit'>Thêm</button>
+            </a>
+            
+        </div>
+</div>
+
+
+{% include 'teacher/teacher_base.html' %}
+{% endblock content %}

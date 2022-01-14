@@ -12,11 +12,7 @@
 
 
 {% block content %}
-
-
-    
     <div class="page-content p-5 position-relative" id="content">
-
 
         <div class="row mt-4">
           <h3 class="text-warning">
@@ -40,22 +36,12 @@
     
                         {% for student in students %}
                       <tr> 
-                        <!-- 
-                          ********************************
-                          Cột để đánh số
-                          ********************************
-                        -->
+                        
                         <th scope="row" class="td-count">{{ forloop.counter }}</th>
-                        <td class="td-value" ><a href="lop_tin_chi/{{ loptc.code }}" >{{student}}</a></td>
+                        <td class="td-value" ><a href="{% url 'info_student' student.code %}" >{{student}}</a></td>
                        
                       </tr>
                       {% endfor %}
-                      <!-- 
-                          ********************************
-                          Tổng kết số lớp
-                          ********************************
-                        -->
-                      <!--<td colspan="2" class="td-length">Count: {{ lopTinChi|length }}</td>-->
                     </tbody>
                   </table>
                 </div>

@@ -10,36 +10,37 @@
     <title>University name</title>
 
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css">
-
     <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/all.css' %}" type="text/css">
-
     <link rel="stylesheet" href="{% static 'fonts/roboto/font.css' %}">
-
     <link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/student.css' %}" type="text/css">
 
-</head>
-
-<body class="bg-dark d-flex flex-column min-vh-100">
-    
-
-    {% include 'includes/navbar.html' %}
-    
-    
-    {% block content %}
-    {% endblock content %}
-
-    {% include 'includes/footer.html' %}
-    
     <script src="{% static 'js/jquery-3.6.0.min.js' %}" type='text/javascript'></script>
     <script src="{% static 'js/bootstrap.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/base.js' %}" type="text/javascript"></script>
 
-    
-    {% block javascript %}
-    {% endblock javascript %}
+    {% block style %}{% endblock style %}
 
-    
+</head>
+
+
+<body class="bg-dark d-flex flex-column min-vh-100">
+
+
+
+
+{% include 'includes/navbar.html' %}
+ 
+    {% block content %}
+    {% endblock content %}
+
+    {% block javascript %}
+    {% endblock javascript %} 
+
+{% include 'includes/footer.html' %}
+
 </body>
+
+
 
 </html>

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block content %}
+
+<div class="container">
+    <h4 class='text-light'>Đồ án {{do_an.name}}</h4>
+    <form action="" method='POST'>
+        {% csrf_token %}
+        <div class="row m-4" >
+            <label for="{{form.name.id_for_label}}" class="col-4">Tên đồ án</label>
+            <input type="text" name="{{form.name.html_name}}" value="{{form.name.value}}" id="{{form.name.id_for_label}}" class="col-8">
+        </div>
+
+        <div class="row m-4">
+            
+            <label for="{{form.slug_name.id_for_label}}" class='col-4'>URL label</label>
+            <input type="text" name="{{form.slug_name.html_name}}" value="{{form.slug_name.value}}" id="{{form.slug_name.id_for_label}}" class='col-8'>
+            
+        </div>
+        
+        <div class="row m-4" >
+            <label for="{{form.giao_vien.id_for_label}}" class="col-4">Giáo viên hướng dẫn</label>
+            <input type="text" name="{{form.giao_vien.html_name}}" value="{{form.giao_vien.value}}" id="{{form.giao_vien.id_for_label}}" class="col-8">
+        </div>
+
+        <div class="row m-4">
+            <label for="{{form.sinh_vien.id_for_label}}" class='col-4'>Sinh viên tham gia</label>
+            <input type="text" name="{{form.sinh_vien.html_name}}" value="{{form.sinh_vien.value}}" id="{{form.sinh_vien.id_for_label}}" class='col-8'>
+        </div>
+
+        <div class="row m-4">
+            <label for="{{form.start_time.id_for_label}}" class='col-4'>Thời gian bắt đầu</label>
+            <input type="text" name="{{form.start_time.html_name}}" value="{{form.start_time.value}}" id="{{form.start_time.id_for_label}}" class='col-8'>
+        </div>
+
+        <div class="row m-4">
+            <label for="{{form.end_time.id_for_label}}" class='col-4'>Thời gian kết thúc</label>
+            <input type="text" name="{{form.end_time.html_name}}" value="{{form.end_time.value}}" id="{{form.end_time.id_for_label}}" class='col-8'>
+        </div>
+        
+        
+        <button type='submit' class="btn btn-primary btn-secondary">Submit</button>
+    </form>
+</div>
+
+{% include 'teacher/teacher_base.html' %}
+
+{% endblock %}

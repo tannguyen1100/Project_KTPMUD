@@ -77,33 +77,4 @@ def forget_password(request):
     return render(request, 'user/forget_password.html')
     
     
-    # login_form = loginForm(request.POST or None)
-    # if request.method == 'POST':
-    #     email = request.POST.get('email') 
-    #     password = request.POST.get('password') 
-    #     user = authenticate(request, email=email, password=password)
-
-
-    # if request.is_ajax() and request.method == 'POST':
-    #     print("1")
-    #     email = request.POST.get('email') 
-    #     password = request.POST.get('password') 
-    #     user = authenticate(request, email=email, password=password)
-
-    #     if user is not None:
-    #         login(request, user)
-    #         if request.user.role == 0:
-    #             student = Student.objects.get(user_ptr=request.user)
-    #             return render(request, 'student/info.html', {
-    #                     'student': student
-    #                 })
-
-    #         else:
-    #             teacher = Teacher.objects.get(user_ptr=request.user)
-    #             return render(request, 'teacher/info.html', {
-    #                 'teacher': teacher
-    #             }) 
-
-    #     else:
-    #         data['email'] = email
-    #         return JsonResponse(data)
+    

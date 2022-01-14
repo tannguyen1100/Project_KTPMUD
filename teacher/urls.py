@@ -14,6 +14,10 @@ urlpatterns = [
 
     path('lop_tin_chi', views.lop_tin_chi_ql, name='lop_tin_chi_ql'),
     path('lop_tin_chi/<int:lopTC_code>', views.tung_lop_TC, name='tung_lop_TC'),
-
+    path('do_an', views.do_an_view, name='do_an'),
+    path('do_an/add', views.them_do_an, name='them_do_an'),
+    path('do_an/<str:slug_name>/change', views.tung_do_an, name='tung_do_an'),
+    path('search', views.search, name='search'),
+    path('get/ajax/search_student', views.search_student_ajax, name='search_student_ajax'),
 
 ]

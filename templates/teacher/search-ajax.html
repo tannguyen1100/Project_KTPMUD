@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock style %}
+
+{% block javascript %}
+<script defer>
+
+    $(document).ready(function() {
+
+        const csrf = $("input[name='csrfmiddlewaretoken']").val()
+        console.log(csrf)
+
+        const sendSearchData = function(student) {
+            $.ajax({
+                type: "POST", 
+                url: "{% url 'search_student_ajax' %}",
+                data: {
+                    'csrfmiddlewaretoken': csrf,
+                    'student': student,
+                },
+                success: (response) =>{
+                    var data = response.data
+                    if (Array.isArray(data)) {
+                        $("#results-box").html("")
+                        data.forEach(student => {
+                            $("#results-box").append(
+                                `<div class='item-list'><div class='row mt-2 mb-2'><div class='col-10'><p>${student.name}</p></div></div></div>`
+                            );
+                        })
+
+                        $(".item-list").click(function() {
+                            var data = $(this).text()
+                            var added_list = $('.added-list').text().split("\n")
+                            console.log(added_list)
+                            if (added_list.includes(data)) {
+                                console.log('exist');
+                            } else {
+                                $('#results-click').append(`<div class="row parent-panel"><div class="col-6 offset-3"><div class="panel panel-primary copyright-wrap row"><div class="panel-heading added-list col-10">${data}\n</div><button type="button" class="close col-2"><span aria-hidden="true">&times;</span></button></div></div></div>`
+                            )
+                            }
+
+                            $(".close").click(function(){
+                                $(this).parent().parent().parent().remove()
+                            })
+                        })
+                    }else{
+                        $("#results-box").html("")
+                        if ($("#search-input").val().length > 0) {
+                            $("#results-box").append(`<b>${data}</b>`)
+                        } else {
+                            $("#results-box").addClass("not-visible");
+                        }
+                    }
+
+                    
+                },
+                error: (error) => {
+                    console.log(error)
+                } 
+            })
+        }
+
+        $("#search-input").focus(function(){
+            $('#search-input').keyup(function(e){
+                if ($("#results-box").hasClass("not-visible"))
+                {
+                    $("#results-box").removeClass("not-visible")
+                }
+                sendSearchData(e.target.value)
+            })
+        })
+
+        $("#search-input").focusout(function(){
+            if ($("#search-input").val().length == 0){
+                $("#results-box").addClass("not-visible");
+            }
+        })
+
+        
+    });   
+</script>
+
+{% endblock javascript %}
+
+{% block content %}
+ 
+<!-- search with ajax testing    -->
+<div class="w-100 text-center">
+    <form id="search-form" autocomplete='off' method="POST">
+        {% csrf_token %}
+        <input type="text" id="search-input" class="p-1 w-50 search" placeholder="Search">
+    </form>
+    <div id="results-box" class="result-card not-visible">
+
+    </div>
+</div>
+
+<div class="text-center pt-3 text-light" id='results-click' >
+    
+</div>
+<!-- End search -->
+{% include 'teacher/teacher_base.html' %}
+
+{% endblock content %}
