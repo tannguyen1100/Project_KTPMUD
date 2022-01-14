@@ -1,0 +1,9 @@
+ /* data.forEach(student => {
+                            var item_list_max = $('item-list').length()
+                            if (item_list_max === 2){
+                                break; 
+                            }   
+                            $("#results-box").append(
+                            `<div class='item-list'><div class='row mt-2 mb-2'><div class='col-10'><p>${student.name}</p></div></div></div>`
+                            );
+                        }) */

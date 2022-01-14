@@ -1,5 +1,101 @@
 {% extends 'base.html' %}
 {% load static%}
+
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/tung_do_an.css' %}">
+{% endblock style %}
+
+{% block javascript %}
+
+<script defer>
+
+    $(document).ready(function() {
+        console.log($("input[name='sinh_vien']").val());
+    
+
+        const csrf = $("input[name='csrfmiddlewaretoken']").val()
+        console.log(csrf)
+
+        const sendStudentSearchData = function(student) {
+            $.ajax({
+                type: "POST", 
+                url: "{% url 'search_student_ajax' %}",
+                data: {
+                    'csrfmiddlewaretoken': csrf,
+                    'student': student,
+                },
+                success: (response) =>{
+                    var data = response.data
+                    console.log(data)
+                    if (Array.isArray(data)) {
+                        $("#student-results-box").html("")
+                        for (var i=0; i < data.length; i++){
+                            if (i > 2) {
+                                break;
+                            }
+                            $("#student-results-box").append(
+                            `<div class='student-item-list'><div class='row mt-2 mb-2'><div class='col-10'><p>${data[i].name}</p></div></div></div>`
+                            );
+                            
+                        }
+
+                        $(".student-item-list").click(function() {
+                            var data = $(this).text()
+                            console.log(data)
+                            var added_list = $('.added-list').text().split("\n")
+                            if (added_list.includes(data)) {
+                                console.log('exist');
+                            } else {
+                                $('#results-click').append(`<div class="row parent-panel"><div class="col-6 offset-3"><div class="panel panel-primary copyright-wrap row"><div class="panel-heading added-list col-10">${data}\n</div><button type="button" class="close col-2"><span aria-hidden="true">&times;</span></button></div></div></div>`
+                                )
+                            }
+
+                            $(".close").click(function(){
+                                $(this).parent().parent().parent().remove()
+                            })
+                        })
+                    }else{
+                        $("#results-box").html("")
+                        if ($("#search-input").val().length > 0) {
+                            $("#results-box").append(`<b>${data}</b>`)
+                        } else {
+                            $("#results-box").addClass("not-visible");
+                        }
+                    }
+
+                    
+                },
+                error: (error) => {
+                    console.log(error)
+                } 
+            })
+        }
+
+        $("#student-search-input").focus(function(){
+            $('#student-search-input').keyup(function(e){
+                if ($("#student-results-box").hasClass("not-visible"))
+                {
+                    $("#student-results-box").removeClass("not-visible")
+                }
+                sendStudentSearchData(e.target.value)
+            })
+        })
+
+        $("#student-search-input").focusout(function(){
+            if ($("#student-search-input").val().length == 0){
+                $("#student-results-box").addClass("not-visible");
+            }
+        })
+
+        
+    });
+
+</script>
+
+{% endblock javascript %}
+
+
 {% block content %}
 
 <div class="container">
@@ -17,16 +113,42 @@
             <input type="text" name="{{form.slug_name.html_name}}" value="{{form.slug_name.value}}" id="{{form.slug_name.id_for_label}}" class='col-8'>
             
         </div>
-        
+        <!--
+            Tìm kiếm giáo viên để thêm vào input giáo viên
+        -->
         <div class="row m-4" >
             <label for="{{form.giao_vien.id_for_label}}" class="col-4">Giáo viên hướng dẫn</label>
-            <input type="text" name="{{form.giao_vien.html_name}}" value="{{form.giao_vien.value}}" id="{{form.giao_vien.id_for_label}}" class="col-8">
+            <input type="text" class="col-8" id='teacher-search-input'>
         </div>
 
-        <div class="row m-4">
-            <label for="{{form.sinh_vien.id_for_label}}" class='col-4'>Sinh viên tham gia</label>
-            <input type="text" name="{{form.sinh_vien.html_name}}" value="{{form.sinh_vien.value}}" id="{{form.sinh_vien.id_for_label}}" class='col-8'>
+        <div class="row m-4" >
+            <label class="col-4"></label>
+            <input type="text" name="{{form.giao_vien.html_name}}" value="{{form.giao_vien.value}}" id="{{form.giao_vien.id_for_label}}" class="col-8" readonly>
         </div>
+
+        
+        <!--
+            Tìm kiếm sinh viên để thêm vào input sinh viên
+        -->
+        <div class="row m-4" >
+            <label for="{{form.sinh_vien.id_for_label}}" class="col-4">Sinh viên tham gia</label>
+            <input type="text" class="col-8" id='student-search-input'>
+            
+        </div>
+        <div id="student-results-box" class="result-card not-visible col-8"></div>
+        
+        
+        
+        <div class="row m-4"> <!--id='id_sinh_vien' name='sinh_vien'-->
+            <label class='col-4'></label>
+            <input type="text" name="{{form.sinh_vien.html_name}}" value="{{form.sinh_vien.value}}" id="{{form.sinh_vien.id_for_label}}" class='col-8' readonly>
+        </div>
+
+        
+
+        <!--
+            END
+        -->
 
         <div class="row m-4">
             <label for="{{form.start_time.id_for_label}}" class='col-4'>Thời gian bắt đầu</label>
@@ -45,4 +167,5 @@
 
 {% include 'teacher/teacher_base.html' %}
 
-{% endblock %}
+{% endblock content %}
+

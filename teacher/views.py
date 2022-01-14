@@ -187,7 +187,6 @@ def tung_do_an(request, slug_name):
         print(form.is_valid())
         if form.is_valid():
             form.save()
-            print("1")
             return HttpResponseRedirect(reverse('do_an'))
 
     return render(request, 'teacher/tung_do_an.html', {

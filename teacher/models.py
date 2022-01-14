@@ -12,4 +12,7 @@ class do_an(models.Model):
     def __str__(self):
         return self.name
     
+    class Meta: 
+        verbose_name = "Đồ án"
+        verbose_name_plural = "Đồ án"
 
