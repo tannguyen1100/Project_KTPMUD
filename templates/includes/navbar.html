@@ -44,7 +44,7 @@
 
                 {% if not request.user.is_autheticated %}
                 <li class="nav-item mr-2">
-                    <a href="{% url 'login' %}">
+                    <a href="{% url 'login' %}" class="nav-link text-primary" style="font-weight: 600;">
                         SIGN IN
                     </a>
                 </li>

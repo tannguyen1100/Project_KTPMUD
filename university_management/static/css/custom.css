@@ -1,10 +1,17 @@
+html{
+  position: relative;
+  min-height: 100%;
+}
 
-
+body{
+  min-height: 100vh;
+    overflow-x: hidden;
+    color: #ffffff;
+}
 body::before {
   display: block;
   content: '';
   height: 45px;
-  
 }
 
 
@@ -35,6 +42,4 @@ display: -webkit-box;
  -webkit-line-clamp: 2;
 
 }
-#loginForm label {
-  color: white !important;
-}
+
