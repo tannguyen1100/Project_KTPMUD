@@ -1,6 +1,6 @@
 {% load static %}
 
-{% if request.user.role == 1 %}
+{% if request.user.role == 1 or request.user.role == 0%}
 
 <!--
       ************************************************************************************************
@@ -11,10 +11,11 @@
         <button id="sidebarCollapse" type="button" class="btn btn-light bg-white  shadow-sm px-2 mb-2 " style="max-width: 100px; max-height: 38px;">
             <i class="fa fa-bars mr-2"></i>
         </button>
-        <form class="d-flex form--responsive" action="{% url 'search_student' %}" method="GET" >
+        <a class="nav-link text-light" href="{% url 'home' %}"> <i class="fas fa-home  me-1 text-primary fa-fw"></i> HOME <span class="sr-only">(current)</span></a>
+        <!--<form class="d-flex form--responsive" action="{% url 'search_student' %}" method="GET" >
             <input class="form-control mr-2" type="search" placeholder="Search student" aria-label="Search" name="q">
             <button class="btn btn-outline-success" type="submit" style="max-height: 40px;"><i class="fas fa-search"></i></button>
-        </form>
+        </form>-->
 </div> 
 
 
@@ -39,7 +40,7 @@
 
             <ul class="d-flex align-items-end navbar-nav ml-lg-auto">
                 <li class="nav-item active mr-2">
-                    <a class="nav-link text-light" href="{% url 'home' %}">HOME <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-light" href="{% url 'home' %}">  HOME <span class="sr-only">(current)</span></a>
                 </li>
 
                 {% if not request.user.is_autheticated %}

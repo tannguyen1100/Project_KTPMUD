@@ -1,12 +1,19 @@
+html{
+  min-height: 100%;
+  position: relative !important;
+}
 
-
+body{
+   
+    overflow-x: hidden;
+    color: #ffffff;
+    min-height: 100vh !important;
+}
 body::before {
   display: block;
   content: '';
   height: 45px;
-  
 }
-
 
 .navbar-dark .navbar-nav .nav-link:hover{
   opacity: 1;
@@ -35,6 +42,8 @@ display: -webkit-box;
  -webkit-line-clamp: 2;
 
 }
-#loginForm label {
-  color: white !important;
+@media (max-width: 576px) {
+  .picture_css{
+      display: none !important;
+  }
 }
