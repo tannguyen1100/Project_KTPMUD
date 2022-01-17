@@ -11,9 +11,6 @@
 <script defer>
 
     $(document).ready(function() {
-        console.log($("input[name='sinh_vien']").val());
-    
-
         const csrf = $("input[name='csrfmiddlewaretoken']").val()
         console.log(csrf)
 
@@ -27,7 +24,6 @@
                 },
                 success: (response) =>{
                     var data = response.data
-                    console.log(data)
                     if (Array.isArray(data)) {
                         $("#student-results-box").html("")
                         for (var i=0; i < data.length; i++){
@@ -42,29 +38,28 @@
 
                         $(".student-item-list").click(function() {
                             var data = $(this).text()
-                            console.log(data)
-                            var added_list = $('.added-list').text().split("\n")
-                            if (added_list.includes(data)) {
-                                console.log('exist');
-                            } else {
-                                $('#results-click').append(`<div class="row parent-panel"><div class="col-6 offset-3"><div class="panel panel-primary copyright-wrap row"><div class="panel-heading added-list col-10">${data}\n</div><button type="button" class="close col-2"><span aria-hidden="true">&times;</span></button></div></div></div>`
-                                )
+                            if ($("input[name='sinh_vien']").val().length === 0){
+                                $("input[name='sinh_vien']").val($("input[name='sinh_vien']").val() + data)
                             }
-
-                            $(".close").click(function(){
-                                $(this).parent().parent().parent().remove()
-                            })
+                            else {
+                                var student_added_list = $("input[name='sinh_vien']").val().match(/\d+/g)
+                                console.log(student_added_list)
+                                if (student_added_list.includes(data.match(/\d+/g)[0])) {
+                                    console.log('exist');
+                                } 
+                                else {
+                                    $("input[name='sinh_vien']").val($("input[name='sinh_vien']").val() + ", " + data)
+                                }
+                            }
                         })
                     }else{
-                        $("#results-box").html("")
-                        if ($("#search-input").val().length > 0) {
-                            $("#results-box").append(`<b>${data}</b>`)
+                        $("#student-results-box").html("")
+                        if ($("#student-search-input").val().length > 0) {
+                            $("#student-results-box").append(`<b>${data}</b>`)
                         } else {
-                            $("#results-box").addClass("not-visible");
+                            $("#student-results-box").addClass("not-visible");
                         }
                     }
-
-                    
                 },
                 error: (error) => {
                     console.log(error)
@@ -100,6 +95,11 @@
 
 <div class="container">
     <h4 class='text-light'>Đồ án {{do_an.name}}</h4>
+    {% if message %}
+        <div class="text-success h4 text-center">
+            {{message}}
+        </div>
+    {% endif %}
     <form action="" method='POST'>
         {% csrf_token %}
         <div class="row m-4" >
@@ -137,14 +137,10 @@
         </div>
         <div id="student-results-box" class="result-card not-visible col-8"></div>
         
-        
-        
-        <div class="row m-4"> <!--id='id_sinh_vien' name='sinh_vien'-->
+        <div class="row m-4"> <!--id='id_sinh_vien' name='sinh_vien' value="{{form.sinh_vien.value}}" -->
             <label class='col-4'></label>
-            <input type="text" name="{{form.sinh_vien.html_name}}" value="{{form.sinh_vien.value}}" id="{{form.sinh_vien.id_for_label}}" class='col-8' readonly>
+            <input type="text" name="{{form.sinh_vien.html_name}}" id="{{form.sinh_vien.id_for_label}}" value="{{form.sinh_vien.value}}" class='col-8'>
         </div>
-
-        
 
         <!--
             END
@@ -152,7 +148,7 @@
 
         <div class="row m-4">
             <label for="{{form.start_time.id_for_label}}" class='col-4'>Thời gian bắt đầu</label>
-            <input type="text" name="{{form.start_time.html_name}}" value="{{form.start_time.value}}" id="{{form.start_time.id_for_label}}" class='col-8'>
+            <input type="text" name="{{form.start_time.html_name}}" value="{{form.start_time.value}}"  id="{{form.start_time.id_for_label}}" class='col-8'>
         </div>
 
         <div class="row m-4">

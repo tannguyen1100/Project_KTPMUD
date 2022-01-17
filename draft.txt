@@ -7,3 +7,7 @@
                             `<div class='item-list'><div class='row mt-2 mb-2'><div class='col-10'><p>${student.name}</p></div></div></div>`
                             );
                         }) */
+
+
+
+`<div class="panel panel-default added-list p-1 m-2" style="border:solid 2px; border-radius: 5%">${data}<button type="button" class="close ml-2" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>`

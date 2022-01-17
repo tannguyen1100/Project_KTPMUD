@@ -1,4 +1,4 @@
-from django.http import response
+from email import message
 from django.http.response import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_list_or_404, render
 from django.urls import reverse
@@ -24,14 +24,14 @@ def search(request):
 def search_student_ajax(request):
     if request.is_ajax():
         students = request.POST.get('student')
-        qs = Student.objects.filter(Q(email__icontains=students) | Q(code__icontains=students))
+        qs = Student.objects.filter(Q(email__icontains=students) | Q(code__icontains=students) | Q(firstname__icontains=students) | Q(surname__icontains=students) | Q(lastname__icontains=students))
         if len(qs) > 0 and len(students) > 0:
             data = []
             for student in qs:
                 item = {
                     'email': student.email,
                     'code': student.code,
-                    'name': student.__str__()
+                    'name': student.getfullname()
                 }
                 data.append(item)
             response = data
@@ -152,13 +152,14 @@ def do_an_view(request):
     })
 
 def tung_do_an(request, slug_name):
+    message = "Save success"
     doAnData = {}
     doAn = do_an.objects.get(slug_name=slug_name)
 
     student_init = ""
     for student in doAn.student.all():
-        student_init = student_init + student.email + ","
-    student_init=student_init[:-1]
+        student_init = student_init + student.getfullname() + ", "
+    student_init=student_init.strip()[:-1]
     
 
     teacher_init = ""
@@ -184,10 +185,13 @@ def tung_do_an(request, slug_name):
 
     if request.method == "POST":
         form = DoAnForm(request.POST or None, initial=doAnData)
-        print(form.is_valid())
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('do_an'))
+            return render(request, 'teacher/tung_do_an.html', {
+                'do_an': doAn,
+                'form': form,
+                'message': message,
+            })
 
     return render(request, 'teacher/tung_do_an.html', {
         'do_an': doAn,

@@ -1,10 +1,7 @@
-from django.http.response import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.urls.base import reverse
-from django.contrib.auth import authenticate, login, logout
-from django.urls.conf import include
+from django.contrib.auth import logout
 from users.models import Student, Teacher
-from django.http import JsonResponse
 
 
 def home(request):
@@ -21,7 +18,7 @@ def home(request):
         if request.user.role == 1:
             teacher = Teacher.objects.get(user_ptr=request.user)
             return render(request, 'teacher/info.html', {
-                'teacher': teacher
+                'teacher': teacher,
             }) 
 
     return render(request, 'home.html')

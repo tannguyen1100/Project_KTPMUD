@@ -32,7 +32,13 @@ class StudentAdmin(BaseUserAdmin):
     list_display_links = ('full_name',)
     def full_name(self, obj):
         student = Student.objects.get(user_ptr=obj)
-        return f"{student.lastname} {student.surname} {student.firstname}"
+        if student.lastname:
+            if student.surname:
+                return f"{student.lastname} {student.surname} {student.firstname} {student.code}"
+            else:
+                return f"{student.lastname} {student.firstname} {student.code}"
+        else:
+            return f"{student.firstname} {student.code}"
 
     list_filter = ('vien','lop_chung',)
     fieldsets = (

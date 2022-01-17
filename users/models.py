@@ -61,9 +61,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    def __str__(self):
-        return f"{self.firstname + self.lastname}"
-
     @property
     def is_staff(self):
         return self.is_superuser  
@@ -80,6 +77,14 @@ class Student(User):
     def __str__(self):
         return self.email.replace("@edu.com.vn", "")
     
+    def getfullname(self):
+        if self.lastname:
+            if self.surname:
+                return f"{self.lastname} {self.surname} {self.firstname} {self.code}"
+            else:
+                return f"{self.lastname} {self.firstname} {self.code}"
+        else:
+            return f"{self.firstname} {self.code}"
     class Meta:
         verbose_name = "Sinh viên"
         verbose_name_plural = 'Sinh viên'
@@ -90,11 +95,20 @@ class Teacher(User):
     year_start = models.IntegerField(_("Năm bắt đầu công tác"), default=2015)
     vien = models.ForeignKey('management.vien_dao_tao', on_delete=models.CASCADE, verbose_name="Viện",related_name="cac_giao_vien", null=True,blank=True)
 
-    chuyen_mon = models.ManyToManyField('management.hoc_phan', verbose_name="Học phần")
+    chuyen_mon = models.ManyToManyField('management.hoc_phan', verbose_name="Học phần", related_name='giao_vien_theo_chuyen_mon')
 
 
     def __str__(self):
         return f"{self.email}"
+
+    def getfullname(self):
+        if self.lastname:
+            if self.surname:
+                return f"{self.lastname} {self.surname} {self.firstname}"
+            else:
+                return f"{self.lastname} {self.firstname}"
+        else:
+            return f"{self.firstname}"
 
     class Meta:
         verbose_name = "Giáo viên"

@@ -1,7 +1,7 @@
-from collections import defaultdict
 from django import forms
 from users.models import Teacher, Student
 from teacher.models import do_an
+import re
 
 
 class ChangeDiemForm(forms.Form):
@@ -29,8 +29,8 @@ class DoAnForm(forms.Form):
         slug_name_field = data['slug_name']
         start_time = data['start_time']
         end_time = data['end_time']
-        sinh_vien = data['sinh_vien'].split(",")
-        giao_vien = data['giao_vien'].split(",")
+        sinh_vien = re.findall(r"\d+", data['sinh_vien'])
+        giao_vien = data['giao_vien'].replace(" ", "").split(",")
 
         updated_values = {'start_time': start_time, 'end_time': end_time}
         
@@ -40,7 +40,7 @@ class DoAnForm(forms.Form):
         doAn.teacher.clear()
 
         for sinhVien in sinh_vien:
-            studentInstance = Student.objects.get(email=sinhVien)
+            studentInstance = Student.objects.get(code=sinhVien)
             doAn.student.add(studentInstance)
 
         for giaoVien in giao_vien:
