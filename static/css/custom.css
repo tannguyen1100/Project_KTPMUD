@@ -7,7 +7,7 @@ body{
    
     overflow-x: hidden;
     color: #ffffff;
-    min-height: 100vh !important;
+    min-height: 100vh;
 }
 body::before {
   display: block;
@@ -47,3 +47,4 @@ display: -webkit-box;
       display: none !important;
   }
 }
+

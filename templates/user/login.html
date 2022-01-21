@@ -6,7 +6,7 @@
 
     <div class="container">
 
-       <div class="row">
+       <div class="row mt-4">
             <div class="col-md-6 d-sm-none d-md-block mt-5 picture_css">
                 <img src="{% static 'logo/Clip_recruting_ad_transparent_by_Icons8.gif' %}" class="img-responsive" alt="" width="90%">
             </div>
@@ -36,37 +36,6 @@
                 </div>
         </div>   
     </div> 
-        <!--       <div class="col-sm-4">
-            <p class="lead">Please enter your <span class="text-primary">Email</span> and <span class="text-primary">Password</span></p>
-        <form method="POST" id="loginForm">
-            {% csrf_token %}
-            <span class='error text-danger' id='error'></span>
-            <div class="mb-3">
-                {{form.email.label_tag}}
-                <input type='text' name="{{form.email.html_name}}" class="form-control" placeholder="Email" id="{{ form.email.id_for_label }}"/>
-            </div>
-            <div class="mb-3">
-                {{form.password.label_tag}}
-                <input type='password' name="{{form.password.html_name}}" class="form-control" placeholder="Password" id="{{ form.password.id_for_label }}"/>
-            </div>
-            
-            <div class="container">
-                <div class="row justify-content-end">
-                    <p class='col-sm-4 mt-2'><a href="{% url 'forget_password' %}" class="blue-text">Forgot Password?</a></p>
-                    <div class="col-sm-3 justify-content-end">
-                        <button type="submit" value="Login" class="btn btn-primary" id='login_button' >Login</button>
-
-                    </div>
-                </div>
-    
-            </form>
-           </div>
-       </div>
-    </div>
-        </div>
-        
-    
---> 
 {% endblock %}
 
 {% block javascript %}
