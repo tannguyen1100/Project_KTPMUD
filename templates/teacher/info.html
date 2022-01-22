@@ -4,12 +4,12 @@
 
 
 
-<div class="page-content p-5 position-relative" id="content">
+<div class="page-content pl-5 pb-5 position-relative" id="content">
 
     <div class="row mt-4">
         <h3 class="text-warning">
             <i class="fas fa-user-graduate me-1 text-primary fa-fw" style="width: 2.25em;"></i>
-            Personal Information
+            Thông tin cá nhân
         </h3>
     
         <div class="col-lg-12 mt-5">
@@ -26,8 +26,8 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Information</th>
-                                <th scope="col">Value</th>
+                                <th scope="col">Thông tin</th>
+                                <th scope="col">Nội dung</th>
                                 
                             </tr>
                             </thead>
@@ -40,13 +40,13 @@
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
-                                <td>Birthdate</td>
+                                <td>Ngày sinh</td>
                                 <td>{{teacher.date_of_birth | date:"d-m-Y"}}</td>
                                 
                             </tr>
                             <tr>
                                 <th scope="row">3</th>
-                                <td>Sex</td>
+                                <td>Giới tính</td>
                                 <td>{{ teacher.gender }}</td>
                             </tr>
                             <tr>
@@ -62,14 +62,14 @@
                             </tr>
                             <tr>
                                 <th scope="row">8</th>
-                                <td>YearStart</td>
+                                <td>Năm vào trường</td>
                                 <td>{{ teacher.year_start }}</td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>  
-            <div class=" col-lg-6 mt-5 text-center d-sm-none d-lg-block d-none-responsive ">
+            <div class=" col-lg-6 mt-2 text-center d-sm-none d-lg-block d-none-responsive ">
                 <img src="{% static 'logo/logo.jpg' %}" class="img-fuild " width="50%" alt="" width="85%">
             </div>     
         </div>

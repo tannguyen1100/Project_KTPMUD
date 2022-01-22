@@ -7,10 +7,10 @@
         
         <div class="media-body">
             <button class="d-md-block d-sm-none float-right text-light btn btn-outline-none"  id="sidebarCollapse-small" type="button"><i class="fas fa-times"></i></button>
-
+            <p class="font-weight-light text-light mb-0">Xin chào!</p> 
           <h4 class="m-0 text-light">{{ request.user.lastname }} {{ request.user.firstname }}</h4>
 
-          <p class="font-weight-light text-light mb-0">Welcome back</p>
+          
           
         </div>
       </div>
@@ -24,12 +24,12 @@
 
 
 
-            Personal Information</a>
+            Thông tin cá nhân</a>
        
       </li>
       <li class="nav-item">
         <a href="" target="_"class="nav-link text-light"><i class="fas fa-trophy me-1 text-primary fa-fw"></i>
-          Achievement
+          Thành tích học tập
         </a>
 
             
@@ -37,13 +37,13 @@
       </li>
       <li class="nav-item">
         <a href="{% url 'genaral_class' %}" class="nav-link text-light"><i class="far fa-calendar-alt me-1 text-primary fa-fw"></i>
-            General Class</a>
+            Lớp chung tín chỉ</a>
       </li>
       
       <li class="nav-item">
         <a href="{% url 'logout' %}" class="nav-link text-light">
             <i class="fas fa-sign-out-alt me-1 text-primary fa-fw"></i>
-                 Log Out</a>
+                 Đăng xuất</a>
       </li>
     </ul>
   
