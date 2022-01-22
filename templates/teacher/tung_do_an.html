@@ -132,12 +132,12 @@
         -->
         <div class="row m-4" >
             <label for="{{form.sinh_vien.id_for_label}}" class="col-4">Sinh viên tham gia</label>
-            <input type="text" class="col-8" id='student-search-input'>
+            <input type="text" class="col-8 text-gray" id='student-search-input' placeholder='Search student for appending ...'>
             
         </div>
         <div id="student-results-box" class="result-card not-visible col-8"></div>
         
-        <div class="row m-4"> <!--id='id_sinh_vien' name='sinh_vien' value="{{form.sinh_vien.value}}" -->
+        <div class="row m-4">
             <label class='col-4'></label>
             <input type="text" name="{{form.sinh_vien.html_name}}" id="{{form.sinh_vien.id_for_label}}" value="{{form.sinh_vien.value}}" class='col-8'>
         </div>

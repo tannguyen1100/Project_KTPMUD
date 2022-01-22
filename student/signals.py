@@ -1,24 +1,24 @@
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
-from student.models import lop, sinhvien_hocphan
+import csv
+from users.models import Student
 
-@receiver(pre_save, sender=lop)
-def post_save_create_bang_diem(sender, instance, **kwargs):
+from student.models import csvStudent
 
-    # sinhVienList = instance.sinh_vien.all()
-    # hocPhan = instance.hoc_phan
-    # lop = instance
-
-    # print(sinhVienList)
-    # print(hocPhan)
-    # print(lop)
-    pass
-    # for sinhVien in sinhVienList:
-
-    # update_values = {"is_manager": False}
-    # new_values = {"name": "Bob", "age": 25, "is_manager":True}
-
-    # bang_diem, created = sinhvien_hocphan.objects.update_or_create(identifier='id', defaults=update_values)
-
-    # if created:
-    #     bang_diem.update(**new_values)
+@receiver(post_save, sender=csvStudent)
+def create_student_from_csv(sender, instance, created, **kwargs):
+    csv_file = instance.file_name
+    activated = instance.activated
+    if activated:
+        with open(csv_file.path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
+            for i, row in enumerate(reader):
+                student = Student.objects.create(
+                    lastname = row[0], 
+                    surname = row[1],
+                    firstname = row[2],
+                    gender = row[3],
+                    year_start = row[4],
+                    date_of_birth = row[5]
+                )
+                student.save()

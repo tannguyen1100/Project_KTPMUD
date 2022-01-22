@@ -2,13 +2,25 @@ from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from . import unidecode
 from .emails import save_raw_password, send_raw_password
-
 from .models import Student, Teacher
-    
+from management.models import khoa
+
+
 @receiver(pre_save, sender=Student)
 def pre_save_set_student_role(sender, instance, **kwargs):
     if instance.role != 0:
         instance.role = 0
+
+@receiver(post_save, sender=Student)
+def post_save_set_student_khoa(sender, instance, created, **kwargs):
+    instance_yearStart = instance.year_start
+    khoa_number = instance_yearStart - 1955
+    print(khoa_number)
+    khoa_instance, created = khoa.objects.get_or_create(
+        name= f'K{khoa_number}',
+    )
+    print(khoa_instance)
+    instance.khoa = khoa_instance    
 
 @receiver(post_save, sender=Student)
 def post_save_set_student_code(sender, instance, created, **kwargs):

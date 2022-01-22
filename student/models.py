@@ -1,9 +1,20 @@
+from distutils.command.upload import upload
+from pyexpat import model
+from statistics import mode
 from django.db import models
 from django.db.models.deletion import CASCADE
 from management.models import hoc_phan
 from django.utils.translation import gettext_lazy as _
 from .validators import validate_score
 # Create your models here.
+
+class csvStudent(models.Model):
+    file_name = models.FileField(_("Student CSV file"), upload_to='student_csvs', max_length=100)
+    uploaded = models.DateTimeField(_("Uploaded time"), auto_now_add=True)
+    activated = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"File id: {self.id} "
 
 DAYS_OF_WEEK = (
     ('Monday', 'Monday'),

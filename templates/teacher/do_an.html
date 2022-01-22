@@ -3,11 +3,7 @@
 
 
 {% block content %}
-<div class="container text-center text-light">
-{% for do_an in do_an_list %}
-    <li><a href="{% url 'tung_do_an' do_an.slug_name %}">{{do_an}}</a></li>
-{% endfor %}
-</div>
+
 
 <div class="container">
         <div class="text-right">
@@ -16,6 +12,14 @@
             </a>
             
         </div>
+</div>
+
+
+
+<div class="container text-light pt-3">
+{% for do_an in do_an_list %}
+    <li><a href="{% url 'tung_do_an' do_an.slug_name %}">{{do_an}}</a></li>
+{% endfor %}
 </div>
 
 

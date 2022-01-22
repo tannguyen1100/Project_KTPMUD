@@ -1,13 +1,21 @@
+from dataclasses import field
 from crispy_forms.layout import Submit
 from django.forms import ModelForm
 from django import forms
-from django.forms.widgets import PasswordInput
-from django.contrib.auth import authenticate
-from student.models import sinhvien_hocphan
+from student.models import csvStudent, sinhvien_hocphan
 from users.models import Student, Teacher
 from student.models import timing, lop
 from university_management.forms import TimeInput
 from crispy_forms.helper import FormHelper
+
+class StudentCsvForm(forms.ModelForm):
+    class Meta:
+        model = csvStudent
+        fields = ('file_name',)
+
+
+
+
 
 class StudentUpdateForm(forms.ModelForm):
     class Meta:

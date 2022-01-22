@@ -3,9 +3,15 @@ from django.shortcuts import get_object_or_404, get_list_or_404, render
 from django.urls.base import reverse
 from users.models import Student
 from management.models import lop_chung
-from .forms import StudentUpdateForm
-from django.views.generic import TemplateView, ListView
+from .forms import StudentCsvForm, StudentUpdateForm
 
+def upload_file(request):
+    form = StudentCsvForm(request.POST or None, request.FILES or None)
+    return render(request, 'admin/student_upload.html', {
+        'form': form,
+    })
+
+ 
 # Create your views here.
 def student_info(request):
     return HttpResponseRedirect(reverse("home"))
