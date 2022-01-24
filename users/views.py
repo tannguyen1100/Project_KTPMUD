@@ -44,11 +44,10 @@ def forget_password(request):
     if request.method == "POST":
         email = request.POST['email']
         try:
-            user = User.objects.get(email=email)
-        except:
-            return render(request, 'user/forget_password.html', {
-                'message': "Email not found"
-            })
+            user = User.objects.filter(email=email).first()
+        except User.DoesNotExist:
+            user = None
+        
         if user:
             massage_template = 'user\password_reset_email.txt' 
             context = {
@@ -68,11 +67,13 @@ def forget_password(request):
                 [user.email],
                 fail_silently=False
             )
-    
             return render(request, "home.html", {
                 "message": "Success sending reset password"
             })
-            
+        else:   
+            return render(request, 'user/forget_password.html', {
+                'message': "Email not found"
+            })
 
     return render(request, 'user/forget_password.html')
     

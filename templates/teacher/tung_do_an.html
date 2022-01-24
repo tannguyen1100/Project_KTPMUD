@@ -85,20 +85,27 @@
 
         
         $("#student-search-input").click(function(){
-           
                 $("#student_results-search").removeClass("add_student--project-off")
-         
         })
 
         $("#icon_close-student--project").click(function(){
             $("#student_results-search").removeClass("add_student--project-off")
         })
+
         $('#icon_close-student--project').click(function(){
             console.log(123);
             $("#add_student--project").removeClass("add_student--project-on");
             $("#student_results-search").addClass("add_student--project-off")
         })
-        
+
+       
+        setTimeout(function(){
+            console.log("long_1");
+               $("#save-success").css("display","none");
+               
+           }, 1000)
+      
+
     });
 
 </script>
@@ -112,7 +119,7 @@
 <div class="page-content pl-5 pr-5 pb-5 position-relative" id="content">
     <h4 class='text-warning'>Đồ án {{do_an.name}}</h4>
     {% if message %}
-        <div class="text-success h4 text-center">
+        <div class="text-success h4 text-center" id="save-success">
             {{message}}
         </div>
     {% endif %}
@@ -147,6 +154,7 @@
                     <input type="text" class="col-9 css_input--project" id='teacher-search-input'>
                 </div>
 
+
                 
                 <!--
                     Tìm kiếm sinh viên để thêm vào input sinh viên
@@ -159,7 +167,7 @@
                 
                 <div class="row m-4" id = "add_student--project"> <!--id='id_sinh_vien' name='sinh_vien' value="{{form.sinh_vien.value}}" -->
                     <label class='col-md-3 col-sm-12 text-primary mb-0 h5'>Thêm sinh viên</label>
-                    <input type="text" class="col-8 css_input--project" id='student-search-input'>
+                    <input type="text" class="col-8 css_input--project" id='student-search-input' placeholder='Search student for appending ...'>
                     <button type="button" id="icon_close-student--project" class="col-1" style="background-color: #343a40; border: none;"><i class="fas fa-times text-white mt-2"></i></button>
                 </div>
                 <div class="row m-4 add_student--project-off" id="student_results-search">
@@ -167,6 +175,8 @@
                     <div id="student-results-box" class="result-card not-visible col-8 css_input--project" style="cursor: pointer;"></div>
                     <div class="col-1"></div>
                 </div>
+
+        
 
                 <!--
                     END
@@ -182,9 +192,7 @@
                     <input type="text" name="{{form.end_time.html_name}}" value="{{form.end_time.value}}" id="{{form.end_time.id_for_label}}" class='col-9 css_input--project'>
                 </div>
 
-
-                    
-                    <button type='submit' class="btn btn-success float-right">Save</button>
+                <button type='submit' id="button-save" class="btn btn-success float-right" >Save</button>
         </form>
     </div>
 

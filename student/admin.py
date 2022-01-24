@@ -1,10 +1,14 @@
 from django.contrib import admin
 from student.forms import lopTCAdminForm
 from student.forms import timingForm, timingCreationForm
-from .models import lop, sinhvien_hocphan, timetable, week, timing
+from .models import csvStudent, lop, sinhvien_hocphan, timetable, week, timing
 # from vien_dao_tao.admin import StudentInline
 from .forms import sinhVien_hocPhanForm
 # Register your models here.
+
+
+class studentCsvAdmin(admin.ModelAdmin):
+    list_display = ('file_name', 'uploaded', 'activated', )
 
 class timetableAdmin(admin.ModelAdmin):
     def show_week(self, obj):
@@ -60,8 +64,6 @@ class sinhVien_hocPhanAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         if not obj:
-            # self.form = self.add_form
-            # self.inlines = ()
             pass
         else:
             self.form = self.change_form
@@ -69,6 +71,8 @@ class sinhVien_hocPhanAdmin(admin.ModelAdmin):
             
         return super(sinhVien_hocPhanAdmin, self).get_form(request, obj, **kwargs)
 
+
+admin.site.register(csvStudent ,studentCsvAdmin)
 admin.site.register(lop, lopAdmin)
 admin.site.register(timing, timingAdmin)
 admin.site.register(week)
