@@ -31,7 +31,7 @@
                                 break;
                             }
                             $("#student-results-box").append(
-                            `<div class='student-item-list'><div class='row mt-2 mb-2'><div class='col-10'><p>${data[i].name}</p></div></div></div>`
+                            `<div class='student-item-list'><div class='row mt-2 mb-2'><div class='col-12'><p>${data[i].name}</p></div></div></div>`
                             );
                             
                         }
@@ -84,6 +84,21 @@
         })
 
         
+        $("#student-search-input").click(function(){
+           
+                $("#student_results-search").removeClass("add_student--project-off")
+         
+        })
+
+        $("#icon_close-student--project").click(function(){
+            $("#student_results-search").removeClass("add_student--project-off")
+        })
+        $('#icon_close-student--project').click(function(){
+            console.log(123);
+            $("#add_student--project").removeClass("add_student--project-on");
+            $("#student_results-search").addClass("add_student--project-off")
+        })
+        
     });
 
 </script>
@@ -93,73 +108,85 @@
 
 {% block content %}
 
-<div class="container">
-    <h4 class='text-light'>Đồ án {{do_an.name}}</h4>
+
+<div class="page-content pl-5 pr-5 pb-5 position-relative" id="content">
+    <h4 class='text-warning'>Đồ án {{do_an.name}}</h4>
     {% if message %}
         <div class="text-success h4 text-center">
             {{message}}
         </div>
     {% endif %}
-    <form action="" method='POST'>
+    <form action="" method='POST' class="mt-5">
         {% csrf_token %}
-        <div class="row m-4" >
-            <label for="{{form.name.id_for_label}}" class="col-4">Tên đồ án</label>
-            <input type="text" name="{{form.name.html_name}}" value="{{form.name.value}}" id="{{form.name.id_for_label}}" class="col-8">
-        </div>
+                <div class="row m-4 " >
+                    
+                    <h4 class="col-12 text-warning">Thông tin đồ án</h4>
+                </div>
+                <div class="row m-4" >
+                    <label for="{{form.name.id_for_label}}" class="col-md-3 col-sm-12 text-primary mb-0 h5">Tên đồ án:</label>
+                    <input type="text" name="{{form.name.html_name}}" value="{{form.name.value}}" id="{{form.name.id_for_label}}" class="col-md-9 col-sm-12 css_input--project">
+                </div>
 
-        <div class="row m-4">
-            
-            <label for="{{form.slug_name.id_for_label}}" class='col-4'>URL label</label>
-            <input type="text" name="{{form.slug_name.html_name}}" value="{{form.slug_name.value}}" id="{{form.slug_name.id_for_label}}" class='col-8'>
-            
-        </div>
-        <!--
-            Tìm kiếm giáo viên để thêm vào input giáo viên
-        -->
-        <div class="row m-4" >
-            <label for="{{form.giao_vien.id_for_label}}" class="col-4">Giáo viên hướng dẫn</label>
-            <input type="text" class="col-8" id='teacher-search-input'>
-        </div>
+                <div class="row m-4">
+                    
+                    <label for="{{form.slug_name.id_for_label}}" class='col-md-3 col-sm-12 text-primary mb-0 h5'>URL label:</label>
+                    <input type="text" name="{{form.slug_name.html_name}}" value="{{form.slug_name.value}}" id="{{form.slug_name.id_for_label}}" class='col-md-9 col-sm-12 css_input--project'>
+                    
+                </div>
+                <!--
+                    Tìm kiếm giáo viên để thêm vào input giáo viên
+                -->
+                <div class="row m-4" >
+                    <label for="{{form.giao_vien.id_for_label}}" class="col-md-3 col-sm-12 text-primary mb-0 h5">Giáo viên hướng dẫn:</label>
+                    <input type="text" name="{{form.giao_vien.html_name}}" value="{{form.giao_vien.value}}" id="{{form.giao_vien.id_for_label}}" class="col-8  css_input--project" readonly>
+                    <button type="button" id="icon_add-teacher--project" class="col-1  " style=" background-color: #343a40;  border: none;"><i class="fas fa-user-plus text-success mt-2"></i></button>
+                </div>
 
-        <div class="row m-4" >
-            <label class="col-4"></label>
-            <input type="text" name="{{form.giao_vien.html_name}}" value="{{form.giao_vien.value}}" id="{{form.giao_vien.id_for_label}}" class="col-8" readonly>
-        </div>
+                <div class="row m-4" id = "add_teacher--project" >
+                    <label class="col-md-3 col-sm-12 text-primary mb-0 h5">Thêm giảng viên</label>
+                    <input type="text" class="col-9 css_input--project" id='teacher-search-input'>
+                </div>
 
-        
-        <!--
-            Tìm kiếm sinh viên để thêm vào input sinh viên
-        -->
-        <div class="row m-4" >
-            <label for="{{form.sinh_vien.id_for_label}}" class="col-4">Sinh viên tham gia</label>
-            <input type="text" class="col-8" id='student-search-input'>
-            
-        </div>
-        <div id="student-results-box" class="result-card not-visible col-8"></div>
-        
-        <div class="row m-4"> <!--id='id_sinh_vien' name='sinh_vien' value="{{form.sinh_vien.value}}" -->
-            <label class='col-4'></label>
-            <input type="text" name="{{form.sinh_vien.html_name}}" id="{{form.sinh_vien.id_for_label}}" value="{{form.sinh_vien.value}}" class='col-8'>
-        </div>
+                
+                <!--
+                    Tìm kiếm sinh viên để thêm vào input sinh viên
+                -->
+                <div class="row m-4" >
+                    <label for="{{form.sinh_vien.id_for_label}}" class="col-md-3 col-sm-12 text-primary mb-0 h5">Sinh viên tham gia:</label>
+                    <input type="text" name="{{form.sinh_vien.html_name}}" id="{{form.sinh_vien.id_for_label}}" value="{{form.sinh_vien.value}}" class='col-8 css_input--project' readonly>
+                    <button type="button" id="icon_add-student--project" class="col-1" style="background-color: #343a40; border: none;"><i class="fas fa-user-plus text-success mt-2"></i></button>
+                </div>
+                
+                <div class="row m-4" id = "add_student--project"> <!--id='id_sinh_vien' name='sinh_vien' value="{{form.sinh_vien.value}}" -->
+                    <label class='col-md-3 col-sm-12 text-primary mb-0 h5'>Thêm sinh viên</label>
+                    <input type="text" class="col-8 css_input--project" id='student-search-input'>
+                    <button type="button" id="icon_close-student--project" class="col-1" style="background-color: #343a40; border: none;"><i class="fas fa-times text-white mt-2"></i></button>
+                </div>
+                <div class="row m-4 add_student--project-off" id="student_results-search">
+                    <div class="col-md-3 col-sm-12"></div>
+                    <div id="student-results-box" class="result-card not-visible col-8 css_input--project" style="cursor: pointer;"></div>
+                    <div class="col-1"></div>
+                </div>
 
-        <!--
-            END
-        -->
+                <!--
+                    END
+                -->
 
-        <div class="row m-4">
-            <label for="{{form.start_time.id_for_label}}" class='col-4'>Thời gian bắt đầu</label>
-            <input type="text" name="{{form.start_time.html_name}}" value="{{form.start_time.value}}"  id="{{form.start_time.id_for_label}}" class='col-8'>
-        </div>
+                <div class="row m-4">
+                    <label for="{{form.start_time.id_for_label}}" class='col-md-3 col-sm-12 text-primary mb-0 h5'>Thời gian bắt đầu:</label>
+                    <input type="text" name="{{form.start_time.html_name}}" value="{{form.start_time.value}}"  id="{{form.start_time.id_for_label}}" class='col-9 css_input--project'>
+                </div>
 
-        <div class="row m-4">
-            <label for="{{form.end_time.id_for_label}}" class='col-4'>Thời gian kết thúc</label>
-            <input type="text" name="{{form.end_time.html_name}}" value="{{form.end_time.value}}" id="{{form.end_time.id_for_label}}" class='col-8'>
-        </div>
-        
-        
-        <button type='submit' class="btn btn-primary btn-secondary">Submit</button>
-    </form>
-</div>
+                <div class="row m-4">
+                    <label for="{{form.end_time.id_for_label}}" class='col-md-3 col-sm-12 text-primary mb-0 h5'>Thời gian kết thúc:</label>
+                    <input type="text" name="{{form.end_time.html_name}}" value="{{form.end_time.value}}" id="{{form.end_time.id_for_label}}" class='col-9 css_input--project'>
+                </div>
+
+
+                    
+                    <button type='submit' class="btn btn-success float-right">Save</button>
+        </form>
+    </div>
 
 {% include 'teacher/teacher_base.html' %}
 
