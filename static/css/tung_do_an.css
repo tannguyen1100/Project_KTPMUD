@@ -17,4 +17,27 @@
 .item {
     text-decoration: none;
 }
-
+.css_input--project{
+    background-color: #343a40;
+     border: none;
+     color: white;
+     width: 100%;
+}
+#add_teacher--project, #add_student--project{
+    display: none;
+}
+.add_student--project-off{
+    display: none !important;
+}
+.add_teacher--project-on, .add_student--project-on{
+    display: flex !important;
+}
+#icon_add-teacher--project{
+    cursor: pointer;
+}
+#student-search-input{
+    cursor: pointer;
+}
+.student-item-list p:hover{
+    border-bottom: 1px solid #ccc;
+}
