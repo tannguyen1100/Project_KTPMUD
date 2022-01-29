@@ -1,6 +1,20 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
+
+class csvTeacher(models.Model):
+    file_name = models.FileField(_("Teacher CSV file"), upload_to='teacher_csvs', max_length=100)
+    uploaded = models.DateTimeField(_("Uploaded time"), auto_now_add=True)
+    activated = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"File id: {self.id}"
+
+    class Meta:
+        verbose_name = "Thêm giáo viên từ file CSV"
+        verbose_name_plural = "Thêm giáo viên từ file CSV"
+
 class do_an(models.Model):
     name = models.CharField(max_length=50, verbose_name='Tên đồ án')
     slug_name = models.SlugField(unique=True, null=True)

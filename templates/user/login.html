@@ -4,68 +4,38 @@
 
 {% block content %}
 
-    <!-- <div class="container">
-
-        <div class="row">
-            <div class="col-6 mt-5 d-md-block d-sm-none ">
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-6 d-sm-none d-md-block mt-5 picture_css">
                 <img src="{% static 'logo/Clip_recruting_ad_transparent_by_Icons8.gif' %}" class="img-responsive" alt="" width="90%">
             </div>
-            <div class="col-md-6 col-sm-12 mt-5">
-                <h1 class="text-warning text-center mb-md-5">SIGN IN</h1>
-                <form method="POST" id="loginForm">
-                    {% csrf_token %}
-                    <span class='error text-danger' id='error'></span>
-                    <div class="mb-3">
-                        {{form.email.label_tag}}
-                        <input type='text' name="{{form.email.html_name}}" class="form-control" placeholder="Email" id="{{ form.email.id_for_label }}"/>
-                    </div>
-                    <div class="mb-3">
-                        {{form.password.label_tag}}
-                        <input type='password' name="{{form.password.html_name}}" class="form-control " placeholder="Password" id="{{ form.password.id_for_label }}"/>
-                    </div>
-                    
-                    <div class=" justify-content-end">
-                            <div class=" justify-content-end">
-                                <button type="submit" value="Login" class="btn btn-primary float-right" id='login_button' >Login</button>
-                            </div>
-                            
-                            <div class=' mt-2'><a href="{% url 'forget_password' %}" class="blue-text">Forgot Password?</a></div>
-                    </div>
-                </form>
-                </div>
-        </div>   
-    </div>  -->
-        
-    <div class="row mt-4">
-        <div class="col-md-6 d-sm-none d-md-block mt-5 picture_css">
-            <img src="{% static 'logo/Clip_recruting_ad_transparent_by_Icons8.gif' %}" class="img-responsive" alt="" width="90%">
-        </div>
-        <div class="col-md-6 col-sm-12  mt-5">
-                <h2 class="text-warning text-center mb-md-5">SIGN IN</h2>
-                <form method="POST" id="loginForm">
-                    {% csrf_token %}
-                    <span class='error text-danger' id='error'></span>
-                    <div class="mb-3">
-                        {{form.email.label_tag}}
-                        <input type='text' name="{{form.email.html_name}}" class="form-control" placeholder="Email" id="{{ form.email.id_for_label }}"/>
-                    </div>
-                    <div class="mb-3">
-                        {{form.password.label_tag}}
-                        <input type='password' name="{{form.password.html_name}}" class="form-control " placeholder="Password" id="{{ form.password.id_for_label }}"/>
+            <div class="col-md-6 col-sm-12  mt-5">
+                    <h2 class="text-warning text-center mb-md-5">SIGN IN</h2>
+                    <form method="POST" id="loginForm">
+                        {% csrf_token %}
+                        <span class='error text-danger' id='error'></span>
+                        <div class="mb-3">
+                            {{form.email.label_tag}}
+                            <input type='text' name="{{form.email.html_name}}" class="form-control" placeholder="Email" id="{{ form.email.id_for_label }}"/>
+                        </div>
+                        <div class="mb-3">
+                            {{form.password.label_tag}}
+                            <input type='password' name="{{form.password.html_name}}" class="form-control " placeholder="Password" id="{{ form.password.id_for_label }}"/>
 
-                    </div>
-        
-                    <div class=" justify-content-end">
-                            <div class=" justify-content-end">
-                                <button type="submit" value="Login" class="btn btn-primary float-right" id='login_button' >Login</button>
-                            </div>
-                            
-                            <div class=' mt-2'><a href="{% url 'forget_password' %}" class="blue-text">Forgot Password?</a></div>
-                    </div>
-                </form>
-            </div>
-        </div>   
-    </div> 
+                        </div>
+            
+                        <div class=" justify-content-end">
+                                <div class=" justify-content-end">
+                                    <button type="submit" value="Login" class="btn btn-primary float-right" id='login_button' >Login</button>
+                                </div>
+                                
+                                <div class=' mt-2'><a href="{% url 'forget_password' %}" class="blue-text">Forgot Password?</a></div>
+                        </div>
+                    </form>
+                </div>
+            </div>   
+        </div> 
+    </div>  
 {% endblock %}
 
 {% block javascript %}
@@ -73,16 +43,11 @@
 <script>
 
     $(document).ready(function () {
-        var count = 0;
-
+        var count = 0
         $('#loginForm').submit(function(e){
             e.preventDefault()
-            count ++;
-
-            var serializedData = $(this).serialize();
             
-            console.log(serializedData)
-            console.log(count)
+            var serializedData = $(this).serialize();
             
             $.ajax({
                 type: 'POST',
@@ -91,17 +56,20 @@
                 data: serializedData,
                 
                 success: function(response){
+                    
                     if (response.data == 'success'){
                         $(location).attr('href', "{% url 'home' %}")
                     }
                     else
                         if (count < 3){
+                            
                             if (response.data == 'fail'){
+                                count++
                                 $('#error').text('Tài khoản hoặc mật khẩu không đúng')
                             };
                             if (response.data == 'requied field'){
+                                count++
                                 $('#error').text('Tài khoản hoặc mật khẩu không được để trống')
-
                             };
                             setTimeout(()=>{
                                 $('#id_email').val("")
@@ -110,6 +78,7 @@
                         }
                         else 
                             {
+                                console.log(response.login_times)
                                 $('#error').text('Nhập quá số lần')
                                 $('#login_button').prop('disabled', true);
                                 setTimeout(function() { 

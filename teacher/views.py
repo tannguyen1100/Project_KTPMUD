@@ -1,14 +1,13 @@
-from email import message
 from django.http.response import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_list_or_404, render
 from django.urls import reverse
 from django.forms import formset_factory
 from django.db.models import Q
 
-from management.models import lop_chung
+from management.models import lop_chung, semester
 from teacher.forms import ChangeDiemForm, DoAnForm
 from users.models import Teacher, Student
-from student.models import lop, sinhvien_hocphan
+from student.models import lop_tin_chi_detail, sinhVien_lopTinChiDetail
 from teacher.models import do_an
 
 
@@ -89,31 +88,32 @@ def tung_lop_chung(request, ten_lop_chung):
 
 def lop_tin_chi_ql(request):
     try:
-        lopTinChi = get_list_or_404(lop, teacher=request.user)
+        lopTinChiDetail_objects = get_list_or_404(lop_tin_chi_detail, teacher=request.user)
     except:
-        lopTinChi = None
+        lopTinChiDetail_objects = None
 
     return render(request, 'teacher/lopTC_quan_ly.html', {
-        'lopTinChi': lopTinChi
+        'lopTinChiDetail_objects': lopTinChiDetail_objects
     })
 
-def tung_lop_TC(request, lopTC_code):
-    lopTC = lop.objects.get(code=lopTC_code)
-    
-    try: 
-        studentTC = lopTC.sinh_vien.all().order_by('code')
+def tung_lop_TC(request, sem , lopTC_code):
+    print(lopTC_code)
+    print(sem)
+    semester_object = semester.objects.get(name=sem)
+    try:
+        bangDiem_object = sinhVien_lopTinChiDetail.objects.filter(lopTinChiDetail__lopTinChi__code=lopTC_code, lopTinChiDetail__semester=semester_object)
     except:
-        studentTC = None
-    
+        bangDiem_object = None
+
     data = []
 
     bangDiemSet = formset_factory(ChangeDiemForm, extra=0)
-    for student in studentTC:
+    for bangDiem in bangDiem_object:
         data.append({
-            'sinh_vien': student,
-            'code': student.code,
-            'giua_ki': student.bang_diem.get(lop=lopTC).giua_ki,
-            'cuoi_ki': student.bang_diem.get(lop=lopTC).cuoi_ki,
+            'sinh_vien': bangDiem.sinhVien.getfullname(),
+            'code': bangDiem.sinhVien.code,
+            'giua_ki': bangDiem.giua_ki,
+            'cuoi_ki': bangDiem.cuoi_ki,
         })
 
     bangDiemList = bangDiemSet(request.POST or None, initial=data)
@@ -123,24 +123,21 @@ def tung_lop_TC(request, lopTC_code):
         bangDiemList = bangDiemSet(request.POST or None, initial=data)
         for bangDiem in bangDiemList:
             if bangDiem.is_valid():
-                sinh_vien = bangDiem.cleaned_data['sinh_vien']
                 code = bangDiem.cleaned_data['code']
                 giua_ki = bangDiem.cleaned_data['giua_ki']
                 cuoi_ki = bangDiem.cleaned_data['cuoi_ki']
                 updated_values = {'giua_ki': giua_ki, 'cuoi_ki': cuoi_ki}
                 student_instance = Student.objects.get(code=code)
-                sinhvien_hocphan.objects.update_or_create(sinh_vien=student_instance, hoc_phan=lopTC.hoc_phan, lop=lopTC, defaults=updated_values)
+                sinhVien_lopTinChiDetail.objects.update_or_create(sinhVien=student_instance,lopTinChiDetail__lopTinChi__code=lopTC_code, lopTinChiDetail__semester=semester_object, defaults=updated_values)
             
         return render(request, "teacher/tung_lop_TC.html", {
-                "lopTC": lopTC,
                 "changeDiemForm": bangDiemList,
-                "studentTC": studentTC,
+                "bangDiem_object": bangDiem_object,
             })   
             
     return render(request, "teacher/tung_lop_TC.html", {
-                "lopTC": lopTC,
                 "changeDiemForm": bangDiemList,
-                "studentTC": studentTC,
+                "bangDiem_object": bangDiem_object,
             }) 
 
 def do_an_view(request):

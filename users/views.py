@@ -21,20 +21,25 @@ def login_view(request):
 def login_validate(request):
 
     if request.is_ajax() and request.method == "POST":
+        
         form = loginForm(request.POST)
+
+        login_times = request.session.get('login_times', 0)
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            print(email, password)
             user = authenticate(request, email=email, password=password)
             if user:
                 login(request, user)
                 return JsonResponse({"data": 'success'}, status=200)
-            return JsonResponse({"data": 'fail'}, status=200)
+            else:
+                request.session['login_times'] = login_times + 1
+                return JsonResponse({"data": "fail", "login_times": login_times}, status=200)
         else:
-            return JsonResponse({"data": "requied field"}, status=200)
+            request.session['login_times'] = login_times + 1
+            return JsonResponse({"data": "requied field","login_times": login_times}, status=200)
 
-    return JsonResponse({"error": ""}, status=400)
+    return JsonResponse({"error": "Error"}, status=400)
 
 def logout_view(request):
     logout(request)

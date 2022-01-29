@@ -28,6 +28,9 @@
                   <thead>
                     <tr>
                       <th scope="col">ID</th>
+                      <th scope="col">Họ</th>
+                      <th scope="col">Tên đệm</th>
+                      <th scope="col">Tên</th>
                       <th scope="col">Email</th>
                       <th scope="col">Class</th>
                      
@@ -37,12 +40,15 @@
                       {% for student in studentList %}
                     <tr>
                       <th scope="row">{{student.code}}</th>
-                      <td>{{student}}</td>
+                      <td>{{student.lastname}}</td>
+                      <td>{{student.surname}}</td>
+                      <td>{{student.firstname}}</td>
+                      <td>{{student.email}}</td>
                       <td>{{genaralClass.name}}</td>
                       
                     </tr>
                     {% endfor %}
-                    <td colspan="3">Count: {{ studentList|length }}</td>
+                    <td colspan="6">Count: {{ studentList|length }}</td>
                   </tbody>   
                   
               </table> 

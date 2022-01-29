@@ -21,8 +21,8 @@ class StudentAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(StudentAdminForm, self).__init__(*args, **kwargs)
         self.fields['password'].required = False
-        self.fields['lop_chung'].queryset = lop_chung.objects.filter(vien_id=self.instance.vien_id)
-
+        if self.instance.vien:
+            self.fields['lop_chung'].queryset = lop_chung.objects.filter(vien_id=self.instance.vien_id)     
     class Meta:
         model = Student
         fields = "__all__"

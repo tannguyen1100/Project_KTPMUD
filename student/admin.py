@@ -1,66 +1,38 @@
 from django.contrib import admin
-from student.forms import lopTCAdminForm
-from student.forms import timingForm, timingCreationForm
-from .models import csvStudent, lop, sinhvien_hocphan, timetable, week, timing
-# from vien_dao_tao.admin import StudentInline
-from .forms import sinhVien_hocPhanForm
+from .forms import lopTinChiDetailForm,sinhVien_lopTinChiDetailForm,lopTinChiDetailCreationForm
+from .models import csvStudent, lop_tin_chi_detail, sinhVien_lopTinChiDetail, sinhVien_dangKi_lopTinChi
 # Register your models here.
 
 
 class studentCsvAdmin(admin.ModelAdmin):
     list_display = ('file_name', 'uploaded', 'activated', )
 
-class timetableAdmin(admin.ModelAdmin):
-    def show_week(self, obj):
-        description = ""
-        weeks = obj.week.all()
-        for week in weeks:
-            description = description +"," + (str(week.id))
-        return description[1:]
+
+class lopTinChiDetailAdmin(admin.ModelAdmin):
     
-    show_week.short_description = "Tuần"
+    add_form = lopTinChiDetailCreationForm
+    change_form = lopTinChiDetailForm
 
-    list_display = ('day', 'show_week')
-    list_display_links = ()
-    exclude = ()
-
-class lopInline(admin.TabularInline):
-    model = lop
-    extra = 0
-
-
-
-class timingAdmin(admin.ModelAdmin):
-
-    add_form = timingCreationForm
-    change_form = timingForm
 
     def get_form(self, request, obj=None, **kwargs):
-        if not obj:
-            self.form = self.add_form
-            self.inlines = ()
-        else:
+        if obj:
             self.form = self.change_form
-            self.inlines = ()
+        else:
+            self.form = self.add_form
             
-        return super(timingAdmin, self).get_form(request, obj, **kwargs)
-
-    ordering = ("time_start",)
-
-class lopAdmin(admin.ModelAdmin):
-
-    form = lopTCAdminForm
+        return super(lopTinChiDetailAdmin, self).get_form(request, obj, **kwargs)
 
     fieldsets = (
-        (None, {'fields': ('code', 'hoc_phan','type', 'timing', 'timetable', 'teacher', 'sinh_vien')}),
-        
+        (None, {'fields': ('lopTinChi','timing', 'timetable', 'teacher','semester',)}),
     )
 
-    inlines = ()
+    list_display = ('__str__', 'semester', 'teacher', )
+    ordering = ('semester','lopTinChi')
 
-class sinhVien_hocPhanAdmin(admin.ModelAdmin):
 
-    change_form = sinhVien_hocPhanForm
+class sinhVien_lopTinChiDetailAdmin(admin.ModelAdmin):
+
+    change_form = sinhVien_lopTinChiDetailForm
 
     def get_form(self, request, obj=None, **kwargs):
         if not obj:
@@ -69,15 +41,17 @@ class sinhVien_hocPhanAdmin(admin.ModelAdmin):
             self.form = self.change_form
             self.inlines = ()
             
-        return super(sinhVien_hocPhanAdmin, self).get_form(request, obj, **kwargs)
+        return super(sinhVien_lopTinChiDetailAdmin, self).get_form(request, obj, **kwargs)
 
+class sinhVien_DangKi_lopTinChiAdmin(admin.ModelAdmin):
+
+    list_display = ('sinhVien', 'lopTinChiDetail', 'is_accepted', )
+    ordering = ()
 
 admin.site.register(csvStudent ,studentCsvAdmin)
-admin.site.register(lop, lopAdmin)
-admin.site.register(timing, timingAdmin)
-admin.site.register(week)
-admin.site.register(timetable, timetableAdmin)
-admin.site.register(sinhvien_hocphan, sinhVien_hocPhanAdmin)
+admin.site.register(sinhVien_lopTinChiDetail, sinhVien_lopTinChiDetailAdmin)
+admin.site.register(lop_tin_chi_detail, lopTinChiDetailAdmin)
+admin.site.register(sinhVien_dangKi_lopTinChi, sinhVien_DangKi_lopTinChiAdmin)
 
 
 

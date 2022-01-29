@@ -6,205 +6,195 @@
 {% if request.user.role == 1 %}
 
     {% if student %}
-<!--
-      ************************************************************************************************
-                   CÁI GIÁO VIÊN XEM THÌ CHƯA LÀM NÊN ĐỂ TẠM
-      ************************************************************************************************
-    -->
+
     <div class="page-content p-5 position-relative" id="content">
 
-      <div class="row mt-4">
-        <h3 class="text-warning">
-          <i class="fas fa-user-graduate me-1 text-primary fa-fw" style="width: 2.25em;"></i>
-            Thông tin sinh viên
-        </h3>
-      
-        <div class="col-lg-12 mt-5">
-          <h2 class="text-light">
-            {{ student.lastname }} {{ student.surname }} {{ student.firstname }}
-          </h2>
-          <div class="row"><!---->
-            <div class="col-lg-6 mt-5 text-center d-md-block d-lg-none " >
-              <img src="{% static 'logo/logo.jpg' %}"  width="85%" class="img_student" >
-            </div>
-            <div class="col-lg-6 mt-3">
-              <div class="table-responsive-sm">
-                <table class="table  text-light ">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Thông tin</th>
-                      <th scope="col">Nội dung</th>
-                     
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>ID</td>
-                      <td>{{ student.code }}</td>
-                      
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Ngày sinh</td>
-                      <td>{{student.date_of_birth | date:"d-m-Y"}}</td>
-                      
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Giới tính</td>
-                      <td>{{ student.gender }}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">4</th>
-                      <td>Email</td>
-                      <td>{{ student.email }}</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">5</th>
-                      <td>Lớp sinh viên</td>
-                      <td>{{student.lop_chung}}</td>
-                      
-                    </tr>
-                    <tr>
-                      <th scope="row">6</th>
-                      <td>Khóa</td>
-                      <td>{{student.khoa}}</td>
-                      
-                    </tr>
-                    <tr>
-                      <th scope="row">7</th>
-                      <td>Viện</td>
-                      <td>{{student.vien}}</td> 
-                    </tr>
-                    <tr>
-                      <th scope="row">8</th>
-                      <td>Năm vào trường</td>
-                      <td>{{ student.year_start }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              
-            </div>  
-            <div class=" col-lg-6 mt-5 text-center d-sm-none d-lg-block d-none-responsive ">
-              <img src="{% static 'logo/logo.jpg' %}" class="img-fuild " width="50%" alt="" width="85%">
-            </div>     
-          </div><!---->
-          
-        </div>
-       
-        
-        
-      </div>
-    </div>
-        
-    {% else %}
-        <p>No student with code {{ input_code }}</p>
-    {% endif %}
-
-
-    {% include 'teacher/teacher_base.html' %}
-
-
-{% else %}
-    
-    <!--
-      ************************************************************************************************
-                   SECTION/BODY - STUDENT--INFO, REPONSIVE BỊ LỖI, CHƯA SỬA!
-      ************************************************************************************************
-    -->
-   
-    
-    <div class="page-content pl-5 pb-5 position-relative" id="content">
-
         <div class="row mt-4">
-          <h3 class="text-warning">
-            <i class="fas fa-user-graduate me-1 text-primary fa-fw" style="width: 2.25em;"></i>
-              Thông tin sinh viên
-          </h3>
+            <h3 class="text-warning">
+                <i class="fas fa-user-graduate me-1 text-primary fa-fw" style="width: 2.25em;"></i>
+                Thông tin sinh viên
+            </h3>
         
-          <div class="col-lg-12 mt-5">
+            <div class="col-lg-12 mt-5">
             <h2 class="text-light">
-              {{ student.lastname }} {{ student.surname }} {{ student.firstname }}
+                {{ student.lastname }} {{ student.surname }} {{ student.firstname }}
             </h2>
             <div class="row"><!---->
-              <div class="col-lg-6 mt-5 text-center d-md-block d-lg-none " >
-                <img src="{% static 'logo/logo.jpg' %}"  width="85%" class="img_student" >
-              </div>
-              <div class="col-lg-6 mt-3">
+                <div class="col-lg-6 mt-5 text-center d-md-block d-lg-none " >
+                <img src="/media/{{student.avatar}}" alt="Profile Picture"   width="20%"  class="img_student" >
+                </div>
+                <div class="col-lg-6 mt-3">
                 <div class="table-responsive-sm">
-                  <table class="table  text-light ">
+                    <table class="table  text-light ">
                     <thead>
-                      <tr>
+                        <tr>
                         <th scope="col">#</th>
                         <th scope="col">Thông tin</th>
                         <th scope="col">Nội dung</th>
-                       
-                      </tr>
+                        
+                        </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                        <tr>
                         <th scope="row">1</th>
                         <td>ID</td>
                         <td>{{ student.code }}</td>
                         
-                      </tr>
-                      <tr>
+                        </tr>
+                        <tr>
                         <th scope="row">2</th>
                         <td>Ngày sinh</td>
                         <td>{{student.date_of_birth | date:"d-m-Y"}}</td>
                         
-                      </tr>
-                      <tr>
+                        </tr>
+                        <tr>
                         <th scope="row">3</th>
                         <td>Giới tính</td>
                         <td>{{ student.gender }}</td>
-                      </tr>
-                      <tr>
+                        </tr>
+                        <tr>
                         <th scope="row">4</th>
                         <td>Email</td>
                         <td>{{ student.email }}</td>
-                      </tr>
-                      <tr>
+                        </tr>
+                        <tr>
                         <th scope="row">5</th>
-                        <td>Class</td>
+                        <td>Lớp sinh viên</td>
                         <td>{{student.lop_chung}}</td>
                         
-                      </tr>
-                      <tr>
+                        </tr>
+                        <tr>
                         <th scope="row">6</th>
                         <td>Khóa</td>
                         <td>{{student.khoa}}</td>
                         
-                      </tr>
-                      <tr>
+                        </tr>
+                        <tr>
                         <th scope="row">7</th>
                         <td>Viện</td>
                         <td>{{student.vien}}</td> 
-                      </tr>
-                      <tr>
+                        </tr>
+                        <tr>
                         <th scope="row">8</th>
                         <td>Năm vào trường</td>
                         <td>{{ student.year_start }}</td>
-                      </tr>
+                        </tr>
                     </tbody>
-                  </table>
+                    </table>
                 </div>
                 
-              </div>  
-              <div class=" col-lg-6 mt-5 text-center d-sm-none d-lg-block d-none-responsive ">
+                </div>  
+                <div class=" col-lg-6 mt-5 text-center d-sm-none d-lg-block d-none-responsive ">
                 <img src="{% static 'logo/logo.jpg' %}" class="img-fuild " width="50%" alt="" width="85%">
-              </div>     
+                </div>     
             </div><!---->
             
-          </div>
-         
-          
-          
+            </div>
+        
+            
+            
         </div>
-      </div>
+        </div>
+            
+        {% else %}
+            <p>No student with code {{ input_code }}</p>
+        {% endif %}
+
+
+        {% include 'teacher/teacher_base.html' %}
+
+
+    {% else %}
+    
+        
+        <div class="page-content pl-5 pb-5 position-relative" id="content">
+
+            <div class="row mt-4">
+            <h3 class="text-warning">
+                <i class="fas fa-user-graduate me-1 text-primary fa-fw" style="width: 2.25em;"></i>
+                Thông tin sinh viên
+            </h3>
+            
+            <div class="col-lg-12 mt-5">
+                <h2 class="text-light">
+                {{ student.lastname }} {{ student.surname }} {{ student.firstname }}
+                </h2>
+                <div class="row"><!---->
+                <div class="col-lg-6 mt-5 text-center d-md-block d-lg-none " >
+                    <img src="/media/{{student.avatar}}" alt="Profile Picture"   width="20%"  class="img_student" >
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <div class="table-responsive-sm">
+                    <table class="table  text-light ">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Thông tin</th>
+                            <th scope="col">Nội dung</th>
+                        
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>ID</td>
+                            <td>{{ student.code }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Ngày sinh</td>
+                            <td>{{student.date_of_birth | date:"d-m-Y"}}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Giới tính</td>
+                            <td>{{ student.gender }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>Email</td>
+                            <td>{{ student.email }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>Class</td>
+                            <td>{{student.lop_chung}}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td>Khóa</td>
+                            <td>{{student.khoa}}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row">7</th>
+                            <td>Viện</td>
+                            <td>{{student.vien}}</td> 
+                        </tr>
+                        <tr>
+                            <th scope="row">8</th>
+                            <td>Năm vào trường</td>
+                            <td>{{ student.year_start }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    
+                </div>  
+                <div class=" col-lg-6 mt-5 text-center d-sm-none d-lg-block d-none-responsive ">
+                    <img src="/media/{{student.avatar}}" alt="Profile Picture"   width="30%"  class="img-fuild" >
+                </div>     
+                </div><!---->
+                
+            </div>
+            
+            
+            
+            </div>
+        </div>
 <!--
       ************************************************************************************************
                    END- SECTION/BODY - STUDENT--INFO

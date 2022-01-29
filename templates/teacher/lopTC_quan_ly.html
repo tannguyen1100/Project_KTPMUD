@@ -24,7 +24,7 @@
                 </thead>
                 <tbody>
 
-                  {% for loptc in lopTinChi %}
+                  {% for loptc in lopTinChiDetail_objects %}
                   <tr> 
                     <!-- 
                       ********************************
@@ -32,16 +32,12 @@
                       ********************************
                     -->
                     <th scope="row" class="td-count">{{ forloop.counter }}</th>
-                    <td class="td-value" ><a href="lop_tin_chi/{{ loptc.code }}" >{{ loptc }}</a></td>
+                    <td class="td-value" ><a href="{% url 'tung_lop_TC' loptc.semester loptc.lopTinChi.code %}" >{{ loptc }}</a></td>
                    
                   </tr>
                   {% endfor %}
-                  <!-- 
-                      ********************************
-                      Tổng kết số lớp
-                      ********************************
-                    -->
-                  <td colspan="2" class="td-length">Count: {{ lopTinChi|length }}</td>
+                  
+                  <td colspan="2" class="td-length">Count: {{ lopTinChiDetail_objects|length }}</td>
                 </tbody>
               </table>
             </div>

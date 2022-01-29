@@ -4,14 +4,13 @@ from management.admin import LopChungInline
 from .models import Student, Teacher
 from .forms import StudentCreationForm, TeacherAdminForm, TeacherCreationForm, StudentAdminForm
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from student.admin import lopInline
 
 
-class StudentInlinem2m(admin.TabularInline):
-    model = Student.lopTC.through
-    extra = 0
-    class Meta:
-        verbose_name = 'Lớp tín chỉ'
+# class StudentInlinem2m(admin.TabularInline):
+#     model = Student.lopTC.through
+#     extra = 0
+#     class Meta:
+#         verbose_name = 'Lớp tín chỉ'
 
 class StudentAdmin(BaseUserAdmin):
     # The forms to add and change user instances
@@ -24,7 +23,7 @@ class StudentAdmin(BaseUserAdmin):
             self.inlines = ()
         else:
             self.form = self.change_form
-            self.inlines = (StudentInlinem2m, )
+            self.inlines = ()
             
         return super(StudentAdmin, self).get_form(request, obj, **kwargs)
 
@@ -43,8 +42,9 @@ class StudentAdmin(BaseUserAdmin):
     list_filter = ('vien','lop_chung',)
     fieldsets = (
         (None, {'fields': ('email', 'password',)}),
-        ('Personal info', {'fields': ('firstname', 'lastname', 'surname', 'gender','date_of_birth', 'phone', )}),
+        ('Personal info', {'fields': ('avatar','firstname', 'lastname', 'surname', 'gender','date_of_birth', 'phone', )}),
         ('Quản lý', {'fields': ('code', ('vien', 'lop_chung'), ('year_start', 'khoa'), )}),
+        ('Lớp tín chỉ đăng kí', {'fields': ('lop_tin_chi_dang_ki',)}),
     )
     
     add_fieldsets = (
@@ -55,8 +55,8 @@ class StudentAdmin(BaseUserAdmin):
     )
 
     search_fields = ('code','firstname')
-    ordering = ('code',)
-    filter_vertical = ()
+    ordering = ('-code',)
+    filter_horizontal = ('lop_tin_chi_dang_ki',)
 
 
 class TeacherAdmin(BaseUserAdmin):
@@ -76,7 +76,7 @@ class TeacherAdmin(BaseUserAdmin):
             self.inlines = ()
         else:
             self.form = self.change_form
-            self.inlines = (lopInline, LopChungInline)
+            self.inlines = ()
             
         return super(TeacherAdmin, self).get_form(request, obj, **kwargs)
 
@@ -100,8 +100,9 @@ class TeacherAdmin(BaseUserAdmin):
     ordering = ('vien',)
     filter_horizontal = ('chuyen_mon',)
 
-admin.site.register(Student, StudentAdmin)
+
 admin.site.register(Teacher, TeacherAdmin)
+admin.site.register(Student, StudentAdmin)
 
 
 

@@ -1,20 +1,13 @@
-from dataclasses import field
 from crispy_forms.layout import Submit
-from django.forms import ModelForm
 from django import forms
-from student.models import csvStudent, sinhvien_hocphan
+from student.models import csvStudent, lop_tin_chi_detail, sinhVien_lopTinChiDetail
 from users.models import Student, Teacher
-from student.models import timing, lop
-from university_management.forms import TimeInput
 from crispy_forms.helper import FormHelper
 
 class StudentCsvForm(forms.ModelForm):
     class Meta:
         model = csvStudent
         fields = ('file_name',)
-
-
-
 
 
 class StudentUpdateForm(forms.ModelForm):
@@ -25,39 +18,32 @@ class StudentUpdateForm(forms.ModelForm):
     helper = FormHelper()
     helper.add_input(Submit('Submit', 'Submit', css_class='btn-primary'))
     helper.form_method = "POST"
-    
-class timingCreationForm(ModelForm):
-    class Meta:
-        model = timing
-        fields = "__all__"
+
+
+class lopTinChiDetailForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['time_start'].widget = TimeInput()
-        self.fields['time_end'].widget = TimeInput()
-
-class timingForm(ModelForm):
+        super(lopTinChiDetailForm, self).__init__(*args, **kwargs)
+        if self.instance.lopTinChi:
+            self.fields['teacher'].queryset = Teacher.objects.filter(chuyen_mon=self.instance.lopTinChi.hocPhan.pk)
+        
     class Meta:
-        model = timing
-        fields = "__all__"
+        model = lop_tin_chi_detail
+        fields = '__all__'
 
-class lopTCAdminForm(ModelForm):
+class lopTinChiDetailCreationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        super(lopTCAdminForm, self).__init__(*args, **kwargs)
-        self.fields['teacher'].queryset = Teacher.objects.filter(chuyen_mon=self.instance.hoc_phan_id)
-        try: 
-            hocPhan = self.instance.hoc_phan    
-            self.fields['sinh_vien'].queryset = hocPhan.sinh_vien.all()
-        except:
-            self.fields['sinh_vien'].queryset = Student.objects.none()
+        super(lopTinChiDetailCreationForm, self).__init__(*args, **kwargs)
+        self.fields['teacher'].queryset = Teacher.objects.none()
+        
     class Meta:
-        model = lop
+        model = lop_tin_chi_detail
         fields = '__all__'
         
 
-class sinhVien_hocPhanForm(forms.ModelForm):
+class sinhVien_lopTinChiDetailForm(forms.ModelForm):
     class Meta:
-        model = sinhvien_hocphan
-        fields = ('sinh_vien', 'giua_ki', 'cuoi_ki', )
+        model = sinhVien_lopTinChiDetail
+        fields = ('sinhVien', 'lopTinChiDetail', 'giua_ki', 'cuoi_ki', )
     

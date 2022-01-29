@@ -1,15 +1,10 @@
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, get_list_or_404, render
 from django.urls.base import reverse
+from student.models import lop_tin_chi_detail, sinhVien_lopTinChiDetail
 from users.models import Student
-from management.models import lop_chung
-from .forms import StudentCsvForm, StudentUpdateForm
-
-def upload_file(request):
-    form = StudentCsvForm(request.POST or None, request.FILES or None)
-    return render(request, 'admin/student_upload.html', {
-        'form': form,
-    })
+from management.models import lop_chung, semester
+from .forms import StudentUpdateForm
 
  
 # Create your views here.
@@ -42,3 +37,42 @@ def change_info(request):
     return render(request, "student/change_info.html", {
         "change_form": change_form,
     })
+
+def lopTC_trong_ki(request):
+    semester_object = semester.objects.get(is_active=True)
+    lopTinChitrongKi = lop_tin_chi_detail.objects.filter(semester=semester_object).order_by('lopTinChi__code')
+
+    return render(request, 'student/lopTC_trong_ki.html', {
+        "lopTinChitrongKi": lopTinChitrongKi,
+    })
+
+
+def add_lopTinChi_ajax(request):
+    if request.is_ajax():
+        students = request.POST.get('student')
+        response = None
+    else:
+        response = "No Student found ..."
+
+        return JsonResponse({'data': response})
+    return JsonResponse({})
+
+
+def dang_ki_hoc_tap(request):
+
+
+
+    return render(request, 'student/dang_ki_hoc_tap.html', {
+
+    })
+
+
+def ket_qua_hoc_tap(request):
+    student = Student.objects.get(user_ptr=request.user)
+    bangDiem = sinhVien_lopTinChiDetail.objects.filter(sinhVien=student).order_by('lopTinChiDetail__semester')
+
+    return render(request, 'student/ket_qua_hoc_tap.html', {
+        'bangDiem': bangDiem,
+    })
+
+    

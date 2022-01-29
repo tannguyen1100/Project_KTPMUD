@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block style %}
+
+{% endblock style %}
+
+{% block javascript %}
+
+<script defer>  
+
+$(document).ready(function() {
+        const csrf = $("input[name='csrfmiddlewaretoken']").val()
+        console.log(csrf)
+
+        const sendlopTinChiData = function(lopTinChi) {
+            $.ajax({
+                type: "POST", 
+                url: "{% url 'add_lopTinChi_ajax' %}",
+                data: {
+                    'csrfmiddlewaretoken': csrf,
+                    'lopTinChi': lopTinChi,
+                },
+                success: (response) =>{
+                    var data = response.data
+                },
+                error: (error) => {
+                    console.log(error)
+                } 
+            })
+        }
+
+ 
+    });
+
+
+</script>
+
+{% endblock javascript %}
+
+
+{% block content %}
+    <div class="container">
+        <form action="" method="POST">
+            {% csrf_token %}
+            
+            <div class="row mt-2">
+                <div class="col-3">
+                    <input type="text" class='form-control' placeholder='Thêm lớp tín chỉ'>
+                </div>
+                <div>
+                    <button type="button" id="btn-add" class="btn btn-primary btn-block">Add</button>
+                </div>
+            </div>
+
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>Mã lớp</th>
+                        <th>Học phần</th>
+                        <th>Giáo viên giảng dạy</th>
+                        <th>Thời gian</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <input class='btn btn-success mt-4' type="submit" value="OK">
+        </form>
+    </div>
+
+
+{% include 'student/student_base.html' %}
+
+{% endblock content %}

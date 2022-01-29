@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container text-center">
+        {% for ket_qua in bangDiem %}
+
+        {{ ket_qua.lopTinChiDetail }}
+        {{ ket_qua.giua_ki }}
+        {{ ket_qua.cuoi_ki }}
+    
+    {% endfor %}
+    </div>
+
+
+{% include 'student/student_base.html' %}
+
+{% endblock content %}

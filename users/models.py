@@ -4,7 +4,6 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db.models.deletion import CASCADE
 from django.utils.translation import gettext_lazy as _
 from management.models import vien_dao_tao, lop_chung, khoa
-from student.models import lop
 
 import datetime
 
@@ -37,7 +36,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Genders(models.TextChoices):
         MALE = "MALE", "Male"
         FEMALE = "FEMALE", "Female"
-   
+
+    avatar = models.ImageField(_("Ảnh đại diện"), upload_to="Avatar", blank=True, null=True)
     email = models.EmailField(_("Email"),max_length=50, unique=True, blank=True)
     firstname = models.CharField(_("Tên"),max_length=20,  blank=False, null=True)
     surname = models.CharField(_("Tên đệm"),max_length=20, null=True, blank=True)
@@ -67,12 +67,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Student(User):
-
     year_start = models.IntegerField(_("Năm vào trường"), default=datetime.datetime.now().year)
     vien = models.ForeignKey(vien_dao_tao, verbose_name="Viện", on_delete=models.CASCADE, null=True, blank=True)
     lop_chung = models.ForeignKey(lop_chung,verbose_name="Lớp chung", on_delete=models.CASCADE, related_name="sinh_vien", null=True, blank=True)
     code = models.CharField(_("Mã số sinh viên"), max_length=8, blank=True, unique=True)
     khoa = models.ForeignKey(khoa, verbose_name="Khóa" , max_length=3, blank=True, on_delete=CASCADE, null=True)
+
+    lop_tin_chi_dang_ki = models.ManyToManyField('student.lop_tin_chi_detail', verbose_name="Lớp tín chỉ đăng kí", related_name='sinh_vien_trong_lop_tin_chi')
 
     def __str__(self):
         return self.email.replace("@edu.com.vn", "")
@@ -80,18 +81,17 @@ class Student(User):
     def getfullname(self):
         if self.lastname:
             if self.surname:
-                return f"{self.lastname} {self.surname} {self.firstname} {self.code}"
+                return f"{self.lastname} {self.surname} {self.firstname}"
             else:
-                return f"{self.lastname} {self.firstname} {self.code}"
+                return f"{self.lastname} {self.firstname}"
         else:
-            return f"{self.firstname} {self.code}"
+            return f"{self.firstname}"
     class Meta:
         verbose_name = "Sinh viên"
         verbose_name_plural = 'Sinh viên'
 
 
 class Teacher(User):
-
     year_start = models.IntegerField(_("Năm bắt đầu công tác"), default=2015)
     vien = models.ForeignKey('management.vien_dao_tao', on_delete=models.CASCADE, verbose_name="Viện",related_name="cac_giao_vien", null=True,blank=True)
 
