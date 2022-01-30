@@ -51,9 +51,11 @@ $(document).ready(function() {
                 <div class="col-lg-7">
                     <select class="form-select form-select-lg mb-3 form-select-css" aria-label=".form-select-lg example"  id="form-select">
                         <option selected value="">Chọn học kỳ</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {% for ket_qua in bangDiem %}
+                        <option value="{{ ket_qua.lopTinChiDetail }}">{{ ket_qua.lopTinChiDetail }}</option>
+                        {% endfor %}
+                       
+  
                       </select>
                 </div>
                <div class="col-lg-3">
@@ -63,10 +65,12 @@ $(document).ready(function() {
             <div class="select_term-content--off text-danger"  id="select_term-content--nodata" >Chưa có dữ liệu cho kỳ này</div>
             <div class=" select_term-content--off text-danger"  id="select_term-content--null" >Chưa chọn kỳ để kiểm tra</div>
             <div class="row select_term-content--off"  id="select_term-content" >
-            <div class="col-lg-12 d-none" id="term_value" >1</div> 
+                {% for ket_qua in bangDiem %}
+            <div class="col-lg-12 d-none" id="term_value" >{{ ket_qua.lopTinChiDetail }}</div> 
+                 {% endfor %}
                 <!--Này để lấy giá trị của kỳ học rồi so sánh với cái value ở trên select
                      đã display none nó-->
-            </div>
+            
           <div class="col-lg-12 mt-5">
             <div class="table-responsive">
             <table class="table table-bordered text-light">
@@ -89,6 +93,7 @@ $(document).ready(function() {
                   
                 </tbody>
             </table>
+        </div>
             </div>  
          </div> 
         </div>      
