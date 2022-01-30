@@ -31,6 +31,7 @@ class lop_tin_chi_detail(models.Model):
     class Meta:
         verbose_name = "Lớp tín chỉ chi tiết"
         verbose_name_plural = 'Lớp tín chỉ chi tiết'
+        unique_together = ('lopTinChi', 'semester')
 
 
 class sinhVien_lopTinChiDetail(models.Model):

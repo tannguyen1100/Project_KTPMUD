@@ -48,6 +48,7 @@ def lopTC_trong_ki(request):
 
 
 def add_lopTinChi_ajax(request):
+    active_semester = semester.objects.get(is_active=True)
     if request.is_ajax():
         lopTinChi = request.POST.get('lopTinChi')
         if len(lopTinChi) != 6:
@@ -55,17 +56,33 @@ def add_lopTinChi_ajax(request):
             return JsonResponse({'data': response})
         else:
             try:
-                lopTC = lop_tin_chi_detail.objects.get(lopTinChi__code=lopTinChi)
+                lopTC_object = lop_tin_chi_detail.objects.get(lopTinChi__code=lopTinChi,semester=active_semester )
             except lop_tin_chi_detail.DoesNotExist:
-                lopTC = None
+                lopTC_object = None
+                return JsonResponse({'data': "Invalid"})
 
-            return JsonResponse({'data': lopTC})
+            data = {
+                'code': lopTC_object.lopTinChi.code,
+                'hocPhan': lopTC_object.lopTinChi.hocPhan.name,
+                'teacher': lopTC_object.teacher.getfullname(),
+                'thoiGian': lopTC_object.timing.__str__(),
+                'day': lopTC_object.timetable.day,
+                'week': lopTC_object.timetable.display_week(),
+            }
+            response = data
+
+            return JsonResponse({'data': response})
     return JsonResponse({})
 
 
 def dang_ki_hoc_tap(request):
-
-
+    if request.method == "POST":    
+        lopDangKi = request.POST.getlist('lopTinChiCode')
+        deletions = request.POST.items()
+        print(lopDangKi)
+        for key, value in deletions:
+            print(key)
+            print(value)
 
     return render(request, 'student/dang_ki_hoc_tap.html', {
 

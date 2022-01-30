@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/dangKyHocPhan.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dangKyHocPhan.css' %}">
 {% endblock style %}
 
 {% block javascript %}
 
-<script defer>  
-
-$(document).ready(function() {
+<script defer>
+    $(document).ready(function() {
         const csrf = $("input[name='csrfmiddlewaretoken']").val()
         console.log(csrf)
 
@@ -22,14 +21,29 @@ $(document).ready(function() {
                 },
                 success: (response) =>{
                     var data = response.data
-                    console.log(data)
                     if (data == "Invalid"){
                         $(".error-lopTinChi").html("Lớp tín chỉ không hợp lệ")
                         setTimeout(function(){
                             $(".error-lopTinChi").html("");
                         }, 2000)
                     }else{
-
+                        $('tbody').append(
+                            `
+                                <tr class='input-lopTinChi' >
+                                    <td scope="row">${data.code}</td>
+                                    <input type="hidden" value='${data.code}' name='lopTinChiCode'>                                     
+                                    <td>${data.hocPhan}</td>
+                                    <td>${data.teacher}</td>
+                                    <td>${data.thoiGian}</td>
+                                    <td>${data.day}</td>
+                                    <td>${data.week}</td>
+                                    <td> 
+                                        <input type="checkbox" value="False" name='deleteBox'>
+                                    </td>
+                                </tr>
+                            `
+                        )
+                        
                     }
 
                 },
@@ -42,45 +56,7 @@ $(document).ready(function() {
         $("#btn-add_lopTinChi").click(function(){
             sendlopTinChiData($("#lopTinChi").val())
         })
-
-        /*
-        var tbody = $(".table-condensed tbody");
-    if (tbody.children().length === 0) {
-        
-        $("#button-save").css("display", "none");
-     }
-    
-    $("#search_btn").click(function() {
-       
-        
-
-            var input_value = $("#input_value").val();
-            if (input_value === "" // bị trùng ){
-                $("#text-message").removeClass("d-none");
-                $("#text-message").html("Không có học phần này");
-             }
-            else {
-                for (lopTC in lopTinChitrongKi) {
-                    if (input_value === lopTC.lopTinChi.code) {
-                        console.log(1);
-                        $("#text-message").addClass("d-none");
-                        var _tr = '<tr><th scope="row" class="td-count">' + lopTC.lopTinChi.code + '</th> <td class="td-value">'+ input_value +'</td>  <td class="td-value">'+ input_value +'</td> <td class="td-value">'+ input_value +'</td> <td class="td-value">'+ input_value +'</td> <td class="td-value">'+ '<i class="fas fa-trash" ></i>' +'</td></tr>' ;
-                        $("tbody").append(_tr);
-                        if (tbody.children().length != 0) {
-                            $("#button-save").css("display", "block");
-                            $(".fa-trash").css("cursor", "pointer");
-                        }
-                    }
-                }
-                
-            }
-            $("tbody").on("click",".fa-trash", function(){    
-                $(this).parents("tr").fadeOut(200);   
-            })
     })
-    });
-    */
-
 
 </script>
 
@@ -88,6 +64,8 @@ $(document).ready(function() {
 
 
 {% block content %}
+
+
 <div class="page-content pl-5 pr-5 pb-5 position-relative" id="content">
     <div class=" mt-4">
             <h3 class="text-warning">
@@ -116,19 +94,13 @@ $(document).ready(function() {
                         <th>Học phần</th>
                         <th>Giáo viên giảng dạy</th>
                         <th>Thời gian</th>
+                        <th>Thứ</th>
+                        <th>Tuần</th>
                         <th>Xóa</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class='input-lopTinChi' >
-                        <td scope="row"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td> 
-                            <input type="checkbox">
-                        </td>
-                    </tr>
+                    <!--  -->
                 </tbody>
             </table>
 
@@ -141,43 +113,3 @@ $(document).ready(function() {
 
 {% endblock %}
 
-<!--
-                <div class="row">
-                <div class="col-lg-3 col-sm-12">
-                   <p class="text-warning " style=" font-size:1.2rem;height: 2.4rem;line-height: 2.4rem;">  Tra cứu học phần đăng ký </p>
-                </div>
-                <div class="col-lg-6 col-sm-12 mb-sm-3">
-                     <input type="text" class="" placeholder="Nhập học phần muốn đăng ký" id="input_value">
-                </div>
-                <div class="col-lg-3 col-sm-12">
-                    <button type="button" class="btn btn-primary" id="search_btn">Search</button>
-                </div> 
-            </div>
-            <div class="row">
-             <div class="col-lg-12 mt-3">
-               <div class="table-responsive-sm">
-                 <p class="text-center text-danger  d-none" id="text-message"></p>
-                 <table class="table table-bordered table-condensed text-light ">
-                   <thead>
-                     <tr>
-                       <th scope="col">#</th>
-                       <th scope="col">Mã HP</th>
-                       <th scope="col">Tên môn học</th>
-                       <th scope="col">Ngày đăng ký</th>
-                       <th scope="col">TT đăng ký</th>
-                       <th scope="col"><i class="fas fa-trash"></i></th>
-                     </tr>
-                   </thead>
-                   <tbody>
-    
-                           
-                   </tbody>
-                 </table>
-               </div>
-               
-             </div>  
-                 
-           </div>
-           <input type='submit' id="button-save" class="btn btn-success float-right " value="SEND" >
-
--->

@@ -5,7 +5,7 @@
 {% endblock style %}
 {% block javascript %}
 
-<script >
+{% comment %} <script >
     $(document).ready(function() {
             $("#btn-search").click(function() {
               console.log("456");
@@ -28,7 +28,7 @@
         })
     })    
 
-</script>
+</script> {% endcomment %}
 
 {% endblock javascript %}
 {% block content %}
@@ -44,22 +44,22 @@
             <th>Thứ</th>
             <th>Tuần</th>
         </tr>
-        </thead>
-        <tbody>
-            {% for lopTC in lopTinChitrongKi %}
-                <tr>
-                    <td scope="row">{{lopTC.lopTinChi.code}}</td>
-                    <td>{{lopTC.lopTinChi.hocPhan}}</td>
-                    <td>{{lopTC.teacher.getfullname}}</td>
-                    <td>{{lopTC.timing}}</td>
-                    <td>{{lopTC.timetable.day}}</td>
-                    <td>
-                        {{ lopTC.timetable.display_week }}
-                    </td>
-                </tr>
-            {% endfor %}
-
-            
+    </thead>
+    <tbody>
+        {% for lopTC in lopTinChitrongKi %}
+            <tr>
+                <td scope="row">{{lopTC.lopTinChi.code}}</td>
+                <td>{{lopTC.lopTinChi.hocPhan}}</td>
+                <td>{{lopTC.teacher.getfullname}}</td>
+                <td>{{lopTC.timing}}</td>
+                <td>{{lopTC.timetable.day}}</td>
+                <td>
+                    {{ lopTC.timetable.display_week }}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
             
 </div>
 
