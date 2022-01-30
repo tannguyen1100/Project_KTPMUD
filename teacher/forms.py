@@ -8,20 +8,21 @@ class ChangeDiemForm(forms.Form):
     sinh_vien = forms.CharField(max_length=15, label="Họ và tên", widget=forms.TextInput(attrs={'readonly': True, 'border': False}))
     code = forms.CharField(max_length=15, label="Mã số sinh viên", widget=forms.TextInput(attrs={'readonly': True, 'border': False}))
     giua_ki = forms.FloatField(max_value=10, min_value=0, required=False, label="Điểm giữa kì")
-    cuoi_ki = forms.FloatField(max_value=10, min_value=0, required=False, label='Điểm cuối kì')
+    cuoi_ki = forms.FloatField(max_value=10, min_value=0, required=False, label='Điểm cuối kì', )
 
 
 class DoAnForm(forms.Form):
 
-    name = forms.CharField(max_length=150, label="Tên đồ án", widget=forms.TextInput(attrs={'border': False}))
+    name = forms.CharField(max_length=150, label="Tên đồ án", widget=forms.TextInput(attrs={'border': False}), required=True)
     slug_name = forms.SlugField()
     giao_vien = forms.CharField(max_length=1000, label='Giáo viên tham gia')
     sinh_vien = forms.CharField(max_length=1000, label='Sinh viên tham gia')
 
-    start_time = forms.DateField(required=False)
-    end_time = forms.DateField(required=False)
+    start_time = forms.DateField(required=True, widget=forms.DateInput(format='%d/%m/%Y'), input_formats=('%d/%m/%Y', ))
+    end_time = forms.DateField(required=False, widget=forms.DateInput(format='%d/%m/%Y'), input_formats=('%d/%m/%Y', ))
     class Meta:
         fields = "__all__"
+
 
     def save(self):
         data = self.cleaned_data

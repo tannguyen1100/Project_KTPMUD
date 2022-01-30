@@ -22,12 +22,26 @@ $(document).ready(function() {
                 },
                 success: (response) =>{
                     var data = response.data
+                    console.log(data)
+                    if (data == "Invalid"){
+                        $(".error-lopTinChi").html("Lớp tín chỉ không hợp lệ")
+                        setTimeout(function(){
+                            $(".error-lopTinChi").html("");
+                        }, 2000)
+                    }else{
+
+                    }
+
                 },
                 error: (error) => {
                     console.log(error)
                 } 
             })
         }
+
+        $("#btn-add_lopTinChi").click(function(){
+            sendlopTinChiData($("#lopTinChi").val())
+        })
 
  
     });
@@ -45,28 +59,35 @@ $(document).ready(function() {
             
             <div class="row mt-2">
                 <div class="col-3">
-                    <input type="text" class='form-control' placeholder='Thêm lớp tín chỉ'>
+                    <input type="text" class='form-control' placeholder='Thêm lớp tín chỉ' id='lopTinChi'>
                 </div>
                 <div>
-                    <button type="button" id="btn-add" class="btn btn-primary btn-block">Add</button>
+                    <button type="button" id="btn-add_lopTinChi" class="btn btn-primary btn-block">Add</button>
                 </div>
+                <span class='error-lopTinChi ml-3 text-danger'>
+
+                </span>
             </div>
 
-            <table class="table mt-4">
+            <table class="table mt-4 lopTinChiDangKi">
                 <thead>
                     <tr>
                         <th>Mã lớp</th>
                         <th>Học phần</th>
                         <th>Giáo viên giảng dạy</th>
                         <th>Thời gian</th>
+                        <th>Xóa</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr class='input-lopTinChi' >
                         <td scope="row"></td>
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td> 
+                            <input type="checkbox">
+                        </td>
                     </tr>
                 </tbody>
             </table>
