@@ -1,0 +1,11 @@
+#input_value{
+    width: 100%;
+    border: none;
+    border-radius: 7px;
+    outline: none;
+    height: 2.4rem;
+    line-height: 2.4rem;
+}
+#input_value::placeholder {
+    color: #bbb;
+}

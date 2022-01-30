@@ -1,0 +1,26 @@
+.form-select-css{
+    width: 100%;
+    height: 2.4rem;
+    font-size: 1rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+    border-radius: 5px;
+}
+.btn-select-css{
+    height: 2.4rem;
+    width: 3rem;
+}
+.select_term-content--off{
+    display: none;
+}
+#input_value{
+    width: 100%;
+    border: none;
+    border-radius: 7px;
+    outline: none;
+    height: 2.4rem;
+    line-height: 2.4rem;
+}
+#input_value::placeholder {
+    color: #bbb;
+}
