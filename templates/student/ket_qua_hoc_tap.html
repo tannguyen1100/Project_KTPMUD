@@ -1,14 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container text-center">
-        {% for ket_qua in bangDiem %}
-
-        {{ ket_qua.lopTinChiDetail }}
-        {{ ket_qua.giua_ki }}
-        {{ ket_qua.cuoi_ki }}
     
-    {% endfor %}
+    <div class="page-content p-5 position-relative" id="content">
+     
+        <div class="row mt-4">
+          <h3 class="text-warning">
+            <i class="fas fa-trophy me-1 text-primary fa-fw" style="width: 2.25em;"></i>
+            Điểm học phần
+          </h3>
+          <div class="col-lg-12 mt-5">
+            <div class="table-responsive">
+              
+            <table class="table table-bordered text-light">
+            <thead class="thead">
+                <tr>
+                    <th>Lớp tín chỉ</th>
+                    <th>Điểm giữa kì</th>
+                    <th>Điểm cuối kì</th>
+                    
+                </tr>
+            </thead>
+                <tbody>
+                    {% for ket_qua in bangDiem %}
+                    <tr>
+                        <td scope="row">{{ ket_qua.lopTinChiDetail }}</td>
+                        <td> {{ ket_qua.giua_ki }}</td>
+                        <td>{{ ket_qua.cuoi_ki }}</td>
+                        
+                    </tr>          
+                {% endfor %}
+                  
+                </tbody>
+            </table>
+            </div>  
+         </div> 
+        </div>      
     </div>
 
 

@@ -49,12 +49,17 @@ def lopTC_trong_ki(request):
 
 def add_lopTinChi_ajax(request):
     if request.is_ajax():
-        students = request.POST.get('student')
-        response = None
-    else:
-        response = "No Student found ..."
+        lopTinChi = request.POST.get('lopTinChi')
+        if len(lopTinChi) != 6:
+            response = "Invalid" 
+            return JsonResponse({'data': response})
+        else:
+            try:
+                lopTC = lop_tin_chi_detail.objects.get(lopTinChi__code=lopTinChi)
+            except lop_tin_chi_detail.DoesNotExist:
+                lopTC = None
 
-        return JsonResponse({'data': response})
+            return JsonResponse({'data': lopTC})
     return JsonResponse({})
 
 

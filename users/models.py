@@ -86,6 +86,15 @@ class Student(User):
                 return f"{self.lastname} {self.firstname}"
         else:
             return f"{self.firstname}"
+
+    def name_with_code(self):
+        if self.lastname:
+            if self.surname:
+                return f"{self.lastname} {self.surname} {self.firstname} {self.code} "
+            else:
+                return f"{self.lastname} {self.firstname} {self.code}"
+        else:
+            return f"{self.firstname} {self.code}"
     class Meta:
         verbose_name = "Sinh viên"
         verbose_name_plural = 'Sinh viên'

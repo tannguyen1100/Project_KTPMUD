@@ -1,3 +1,4 @@
+from email import message
 from django.http.response import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_list_or_404, render
 from django.urls import reverse
@@ -30,7 +31,7 @@ def search_student_ajax(request):
                 item = {
                     'email': student.email,
                     'code': student.code,
-                    'name': student.getfullname()
+                    'name': student.name_with_code()
                 }
                 data.append(item)
             response = data
@@ -97,13 +98,13 @@ def lop_tin_chi_ql(request):
     })
 
 def tung_lop_TC(request, sem , lopTC_code):
-    print(lopTC_code)
-    print(sem)
     semester_object = semester.objects.get(name=sem)
     try:
         bangDiem_object = sinhVien_lopTinChiDetail.objects.filter(lopTinChiDetail__lopTinChi__code=lopTC_code, lopTinChiDetail__semester=semester_object)
     except:
         bangDiem_object = None
+
+    lopTC_info = bangDiem_object[0].lopTinChiDetail
 
     data = []
 
@@ -132,12 +133,12 @@ def tung_lop_TC(request, sem , lopTC_code):
             
         return render(request, "teacher/tung_lop_TC.html", {
                 "changeDiemForm": bangDiemList,
-                "bangDiem_object": bangDiem_object,
+                "lopInfo": lopTC_info,
             })   
             
     return render(request, "teacher/tung_lop_TC.html", {
                 "changeDiemForm": bangDiemList,
-                "bangDiem_object": bangDiem_object,
+                "lopInfo": lopTC_info,
             }) 
 
 def do_an_view(request):
@@ -149,13 +150,12 @@ def do_an_view(request):
     })
 
 def tung_do_an(request, slug_name):
-    message = "Save success"
     doAnData = {}
     doAn = do_an.objects.get(slug_name=slug_name)
 
     student_init = ""
     for student in doAn.student.all():
-        student_init = student_init + student.getfullname() + ", "
+        student_init = student_init + student.name_with_code() + ", "
     student_init=student_init.strip()[:-1]
     
 
@@ -184,10 +184,16 @@ def tung_do_an(request, slug_name):
         form = DoAnForm(request.POST or None, initial=doAnData)
         if form.is_valid():
             form.save()
+            print(form['start_time'])
             return render(request, 'teacher/tung_do_an.html', {
                 'do_an': doAn,
                 'form': form,
-                'message': message,
+            })
+        else:
+            print(2)
+            return render(request, 'teacher/tung_do_an.html', {
+                'do_an': doAn,
+                'form': form,
             })
 
     return render(request, 'teacher/tung_do_an.html', {
@@ -202,6 +208,14 @@ def them_do_an(request):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("do_an"))
+        else:
+            message = form.errors
+            print(message)
+            return render(request, 'teacher/them_do_an.html', {
+                'form': form,
+                'message': message,
+            })
+
     return render(request, 'teacher/them_do_an.html', {
         'form': form,
     })
