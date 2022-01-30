@@ -59,10 +59,13 @@ $(document).ready(function() {
             {% csrf_token %}
             
             <div class="row mt-2">
-                <div class="col-3">
+                <div class="col-lg-2 col-sm-12 w-100 d-block m-auto">
+                    <h5 class="text-warning">Nhập lớp tín chỉ:</h5>
+                </div>
+                <div class="col-lg-8 col-sm-12 w-100">
                     <input type="text" class='form-control' placeholder='Thêm lớp tín chỉ' id='lopTinChi'>
                 </div>
-                <div>
+                <div class="col-lg-2 col-sm-12">
                     <button type="button" id="btn-add_lopTinChi" class="btn btn-primary btn-block">Add</button>
                 </div>
                 <span class='error-lopTinChi ml-3 text-danger'>
