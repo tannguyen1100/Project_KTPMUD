@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block style %}
-
+<link rel="stylesheet" href="{% static 'css/dangKyHocPhan.css' %}">
 {% endblock style %}
 
 {% block javascript %}
@@ -29,7 +29,40 @@ $(document).ready(function() {
             })
         }
 
- 
+        var tbody = $(".table-condensed tbody");
+    if (tbody.children().length === 0) {
+        
+        $("#button-save").css("display", "none");
+     }
+    
+    $("#search_btn").click(function() {
+       
+        
+
+            var input_value = $("#input_value").val();
+            if (input_value === "" /**|| bị trùng */){
+                $("#text-message").removeClass("d-none");
+                $("#text-message").html("Không có học phần này");
+             }
+            else {
+                for (lopTC in lopTinChitrongKi) {
+                    if (input_value === lopTC.lopTinChi.code) {
+                        console.log(1);
+                        $("#text-message").addClass("d-none");
+                        var _tr = '<tr><th scope="row" class="td-count">' + lopTC.lopTinChi.code + '</th> <td class="td-value">'+ input_value +'</td>  <td class="td-value">'+ input_value +'</td> <td class="td-value">'+ input_value +'</td> <td class="td-value">'+ input_value +'</td> <td class="td-value">'+ '<i class="fas fa-trash" ></i>' +'</td></tr>' ;
+                        $("tbody").append(_tr);
+                        if (tbody.children().length != 0) {
+                            $("#button-save").css("display", "block");
+                            $(".fa-trash").css("cursor", "pointer");
+                        }
+                    }
+                }
+                
+            }
+            $("tbody").on("click",".fa-trash", function(){    
+                $(this).parents("tr").fadeOut(200);   
+            })
+    })
     });
 
 
@@ -39,43 +72,58 @@ $(document).ready(function() {
 
 
 {% block content %}
-    <div class="container">
-        <form action="" method="POST">
+<div class="page-content pl-5 pr-5 pb-5 position-relative" id="content">
+    <div class=" mt-4">
+            <h3 class="text-warning">
+                <i class="far fa-calendar-plus me-1 text-primary fa-fw" style="width: 2.25em;"></i>
+                Đăng ký học phần.
+            </h3>
+        <form action="" method="POST" class="mt-5">
             {% csrf_token %}
             
-            <div class="row mt-2">
-                <div class="col-3">
-                    <input type="text" class='form-control' placeholder='Thêm lớp tín chỉ'>
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                   <p class="text-warning " style=" font-size:1.2rem;height: 2.4rem;line-height: 2.4rem;">  Tra cứu học phần đăng ký </p>
                 </div>
-                <div>
-                    <button type="button" id="btn-add" class="btn btn-primary btn-block">Add</button>
+                <div class="col-lg-6 col-sm-12 mb-sm-3">
+                     <input type="text" class="" placeholder="Nhập học phần muốn đăng ký" id="input_value">
                 </div>
+                <div class="col-lg-3 col-sm-12">
+                    <button type="button" class="btn btn-primary" id="search_btn">Search</button>
+                 </div>
+             
             </div>
+            <div class="row"><!---->
+             <div class="col-lg-12 mt-3">
+               <div class="table-responsive-sm">
+                 <p class="text-center text-danger  d-none" id="text-message"></p>
+                 <table class="table table-bordered table-condensed text-light ">
+                   <thead>
+                     <tr>
+                       <th scope="col">#</th>
+                       <th scope="col">Mã HP</th>
+                       <th scope="col">Tên môn học</th>
+                       <th scope="col">Ngày đăng ký</th>
+                       <th scope="col">TT đăng ký</th>
+                       <th scope="col"><i class="fas fa-trash"></i></th>
+                     </tr>
+                   </thead>
+                   <tbody>
+    
+                           
+                   </tbody>
+                 </table>
+               </div>
+               
+             </div>  
+                 
+           </div><!---->
+           <input type='submit' id="button-save" class="btn btn-success float-right " value="SEND" >
 
-            <table class="table mt-4">
-                <thead>
-                    <tr>
-                        <th>Mã lớp</th>
-                        <th>Học phần</th>
-                        <th>Giáo viên giảng dạy</th>
-                        <th>Thời gian</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td scope="row"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <input class='btn btn-success mt-4' type="submit" value="OK">
         </form>
     </div>
-
+</div>
 
 {% include 'student/student_base.html' %}
 
-{% endblock content %}
+{% endblock %}
