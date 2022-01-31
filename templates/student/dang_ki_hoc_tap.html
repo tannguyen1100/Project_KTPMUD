@@ -11,13 +11,17 @@
         const csrf = $("input[name='csrfmiddlewaretoken']").val()
         console.log(csrf)
 
-        const sendlopTinChiData = function(lopTinChi) {
+        
+
+
+        const sendlopTinChiData = function(lopTinChiInput, lopDaDangKi) {
             $.ajax({
                 type: "POST", 
                 url: "{% url 'add_lopTinChi_ajax' %}",
                 data: {
                     'csrfmiddlewaretoken': csrf,
-                    'lopTinChi': lopTinChi,
+                    'lopTinChiInput': lopTinChiInput,
+                    'lopDaDangKi': lopDaDangKi,
                 },
                 success: (response) =>{
                     var data = response.data
@@ -26,26 +30,44 @@
                         setTimeout(function(){
                             $(".error-lopTinChi").html("");
                         }, 2000)
-                    }else{
-                        $('tbody').append(
+                    }
+                    else if (data == "Invalid hocPhan")
+                    {
+                       $(".error-lopTinChi").html("Trùng học phần")
+                        setTimeout(function(){
+                            $(".error-lopTinChi").html("");
+                        }, 2000) 
+                    }
+                    else{
+                        var lopDangKiText = $(".lopTinChiDangKiCode").text()
+                        var lopDaDangKi = lopDangKiText.split(/(\d{6})/)
+
+                        if (lopDaDangKi.includes(String(data.code))){
+                            $(".error-lopTinChi").html("Lớp tồn tại")
+                            setTimeout(function(){
+                                $(".error-lopTinChi").html("");
+                            }, 2000)
+                        }
+                        else{
+                            
+                            $('tbody').append(
                             `
                                 <tr class='input-lopTinChi' >
-                                    <td scope="row">${data.code}</td>
-                                    <input type="hidden" value='${data.code}' name='lopTinChiCode'>                                     
-                                    <td>${data.hocPhan}</td>
+                                    <td scope="row" class='lopTinChiDangKiCode'>${data.code}</td>
+                                    <input type='hidden' value='${data.code}' name='lopTinChiCode'>                                     
+                                    <td class='hocPhanDangKi'>${data.hocPhan}</td>
                                     <td>${data.teacher}</td>
                                     <td>${data.thoiGian}</td>
                                     <td>${data.day}</td>
                                     <td>${data.week}</td>
                                     <td> 
-                                        <input type="checkbox" value="False" name='deleteBox'>
+                                        <input type="checkbox" value="${data.code}" name='deleteBox'>
                                     </td>
                                 </tr>
                             `
-                        )
-                        
+                            )
+                        }
                     }
-
                 },
                 error: (error) => {
                     console.log(error)
@@ -54,8 +76,13 @@
         }
 
         $("#btn-add_lopTinChi").click(function(){
-            sendlopTinChiData($("#lopTinChi").val())
+            var lopDangKiText = $(".lopTinChiDangKiCode").text()
+            var lopDaDangKi = lopDangKiText.split(/(\d{6})/)
+            console.log(lopDaDangKi)
+            sendlopTinChiData($("#lopTinChi").val(), lopDaDangKi)
         })
+
+    }) 
 
 </script>
 
@@ -89,7 +116,8 @@
                 </span>
             </div>
             
-            <table class="table table-bordered text-light mt-4 lopTinChiDangKi">
+            <table class="table table-bordered text-light mt-4 table-lopTinChiDangKi" >
+
                 <thead>
                     <tr>
                         <th>Mã lớp</th>
@@ -104,6 +132,7 @@
                 <tbody>
                     
                 </tbody>
+                <input type="hidden" class='count-lopDangKi' value="0" name='count_lopDangKi'>
             </table>
 
             <input class='btn btn-success mt-4 float-right' type="submit" value="SEND">

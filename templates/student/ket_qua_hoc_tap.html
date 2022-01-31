@@ -9,26 +9,49 @@
 <script defer>  
 
 $(document).ready(function() {
-    $("#btn-search").click(function() {
-              console.log("456");
-            if ($("#form-select").val() === $("#term_value").text()) {
-                    $("#select_term-content").removeClass("select_term-content--off");
-                    $("#select_term-content--null").addClass("select_term-content--off");
-                    $("#select_term-content--nodata").addClass("select_term-content--off");
-                }
-                else if ($("#form-select").val() == "") {
-                    $("#select_term-content--null").removeClass("select_term-content--off");
-                    $("#select_term-content").addClass("select_term-content--off");
-                    $("#select_term-content--nodata").addClass("select_term-content--off");
-                }
-                else {
-                     $("#select_term-content--nodata").removeClass("select_term-content--off");
-                     $("#select_term-content--null").addClass("select_term-content--off");
-                    $("#select_term-content").addClass("select_term-content--off");
-                }
-       
-        })
 
+    // const csrf = $("input[name='csrfmiddlewaretoken']").val()
+    // console.log(csrf)
+    
+    const sendScoreData = function(sem) {
+        $.ajax({
+            type: "GET", 
+            url: "{% url 'show_score_ajax' %}",
+            data: {
+                'sem': sem,
+            },
+            success: (response) =>{
+                var data = response.data
+                if (data == "Not found"){
+                    $('tbody').html("")
+                    console.log(data)
+                }else{
+                    data.forEach(element => {
+                        $('tbody').html(
+                        `
+                        <tr>
+                            <td scope="row">${element.hocPhan}</td>
+                            <td class="midterm-score">${element.giua_ki}</td>
+                            <td class="endterm-score">${element.cuoi_ki}</td>
+                        </tr> 
+                        `
+                    )
+                    })
+                    
+                }
+
+            },
+            error: (error) => {
+                console.log(error)
+            } 
+        })
+    }
+
+    $("#btn-search").click(function() {
+        let sem = $('select option:selected').val()
+        sendScoreData(sem)
+
+    })
 })
 
 </script>
@@ -39,63 +62,52 @@ $(document).ready(function() {
 <div class="page-content p-5 position-relative" id="content">
      
         <div class="row mt-4">
-          <h3 class="text-warning">
-            <i class="fas fa-trophy me-1 text-primary fa-fw" style="width: 2.25em;"></i>
-            Điểm học phần
-          </h3>
-          <div class="col-lg-12 mt-5">
-            <div class="row">
-              <div class="col-lg-2">
-                <p class="text-warning " style=" font-size:1.2rem;height: 2.4rem;line-height: 2.4rem;">  Chọn kỳ tra cứu </p>
-              </div>
-                <div class="col-lg-7">
-                    <select class="form-select form-select-lg mb-3 form-select-css" aria-label=".form-select-lg example"  id="form-select">
-                        <option selected value="">Chọn học kỳ</option>
-                        {% for ket_qua in bangDiem %}
-                        <option value="{{ ket_qua.lopTinChiDetail }}">{{ ket_qua.lopTinChiDetail }}</option>
-                        {% endfor %}
-                       
-  
-                      </select>
+            <h3 class="text-warning">
+                <i class="fas fa-trophy me-1 text-primary fa-fw" style="width: 2.25em;"></i>
+                Điểm học phần
+            </h3>
+            <div class="col-lg-12 mt-5">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <p class="text-warning " style=" font-size:1.2rem;height: 2.4rem;line-height: 2.4rem;">  Chọn kỳ tra cứu </p>
+                    </div>
+                    <div class="col-lg-7">
+                        <select class="form-select form-select-lg mb-3 form-select-css" aria-label=".form-select-lg example"  id="form-select">
+                            <option selected value="">Chọn học kỳ</option>
+                            
+                            {% for sem in all_semester %}
+                            <option value="{{ sem.name }}">{{ sem.name }}</option>
+                            {% endfor %}
+                        
+                        </select>
+                    </div>
+                    <div class="col-lg-3">
+                        <button type="submit" class="btn btn-success btn-select-css" id="btn-search"><i class="fas fa-search"></i></button>
+                    </div>
                 </div>
-               <div class="col-lg-3">
-                <button type="submit" class="btn btn-success btn-select-css" id="btn-search"><i class="fas fa-search"></i></button>
-               </div>
-            </div>
-            <div class="select_term-content--off text-danger"  id="select_term-content--nodata" >Chưa có dữ liệu cho kỳ này</div>
-            <div class=" select_term-content--off text-danger"  id="select_term-content--null" >Chưa chọn kỳ để kiểm tra</div>
-            <div class="row select_term-content--off"  id="select_term-content" >
-                {% for ket_qua in bangDiem %}
-            <div class="col-lg-12 d-none" id="term_value" >{{ ket_qua.lopTinChiDetail }}</div> 
-                 {% endfor %}
-                <!--Này để lấy giá trị của kỳ học rồi so sánh với cái value ở trên select
-                     đã display none nó-->
+                <div class="select_term-content--off text-danger"  id="select_term-content--nodata" >Chưa có dữ liệu cho kỳ này</div>
+                <div class=" select_term-content--off text-danger"  id="select_term-content--null" >Chưa chọn kỳ để kiểm tra</div>
             
-          <div class="col-lg-12 mt-5">
-            <div class="table-responsive">
-            <table class="table table-bordered text-light">
-            <thead class="thead">
-                <tr>
-                    <th>Lớp tín chỉ</th>
-                    <th>Điểm giữa kì</th>
-                    <th>Điểm cuối kì</th>
+                <div class="col-lg-12 mt-5">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-light">
+                            <thead class="thead">
+                                <tr>
+                                    <th>Học phần</th>
+                                    <th>Điểm giữa kì</th>
+                                    <th>Điểm cuối kì</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                               
                     
-                </tr>
-            </thead>
-                <tbody>
-                    {% for ket_qua in bangDiem %}
-                    <tr>
-                        <td scope="row">{{ ket_qua.lopTinChiDetail }}</td>
-                        <td class="midterm-score"> {{ ket_qua.giua_ki }}</td>
-                        <td class="endterm-score">{{ ket_qua.cuoi_ki }}</td>
-                    </tr>          
-                {% endfor %}
-                  
-                </tbody>
-            </table>
-        </div>
-            </div>  
-         </div> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>  
+            </div> 
         </div>      
     </div>
 </div>
