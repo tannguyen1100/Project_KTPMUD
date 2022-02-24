@@ -36,7 +36,7 @@ def create_semester_from_csv(sender, instance, created, **kwargs):
             for i, row in enumerate(reader):
                 try:
                     sem = semester.objects.create(
-                        name=row[0],
+                        name=int(row[0]),
                     )                 
                     sem.save()
                 except IndexError:

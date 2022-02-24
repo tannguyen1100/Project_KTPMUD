@@ -111,11 +111,11 @@ class csv_hocPhan(models.Model):
 
 
 class semester(models.Model):
-    name = CharField(_("Kì"), max_length=5, unique=True, validators=[validate_semester])
+    name = models.IntegerField(_("Kì"), unique=True, validators=[validate_semester])
     is_active = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
     class Meta:
         verbose_name = "4. Kì"

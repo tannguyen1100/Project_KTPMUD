@@ -1,3 +1,4 @@
+from email.policy import default
 from crispy_forms.layout import Submit
 from django import forms
 from student.models import csvStudent, lop_tin_chi_detail, sinhVien_lopTinChiDetail
@@ -46,4 +47,7 @@ class sinhVien_lopTinChiDetailForm(forms.ModelForm):
     class Meta:
         model = sinhVien_lopTinChiDetail
         fields = ('sinhVien', 'lopTinChiDetail', 'giua_ki', 'cuoi_ki', )
+
+class addLopTinChiForm(forms.Form):
+    check = forms.BooleanField(initial=False)
     
