@@ -3,10 +3,10 @@ from django.http.response import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, get_list_or_404, render
 from django.urls.base import reverse
 from django.forms import formset_factory
-from student.models import lop_tin_chi_detail, sinhVien_lopTinChiDetail
+from student.models import lop_tin_chi_detail, sinhVien_lopTinChiDetail, sinhVien_dangKi_lopTinChi
 from users.models import Student
 from management.models import lop_chung, lop_tin_chi, semester
-from .forms import StudentUpdateForm, addLopTinChiForm
+from .forms import StudentUpdateForm
 
  
 # Create your views here.
@@ -100,7 +100,14 @@ def add_lopTinChi_ajax(request):
 
 
 def dang_ki_hoc_tap(request):
-    formset = formset_factory(addLopTinChiForm, extra=0)
+
+    student = Student.objects.get(user_ptr=request.user)
+    active_sem = semester.objects.get(is_active=True)
+
+    current_dangKi_lopTinChi = sinhVien_dangKi_lopTinChi.objects.filter(lopTinChiDetail__semester=active_sem, sinhVien=student)
+    current_lopTinChi = []
+    for lop in current_dangKi_lopTinChi:
+        current_lopTinChi.append(lop.lopTinChiDetail)
 
     if request.method == "POST":
         lopTinChi = request.POST.getlist('lopTinChiCode')
@@ -110,10 +117,7 @@ def dang_ki_hoc_tap(request):
         for lop in lopTinChi:
             if lop not in deletions:
                 lopDangKi.append(lop)
-        
-        student = Student.objects.get(user_ptr=request.user)
-        active_sem = semester.objects.get(is_active=True)
-        
+                
         for lop in lopDangKi:
             lopTinChi_object = lop_tin_chi.objects.get(code=int(lop))
             lopTinChiDetail_object = lop_tin_chi_detail.objects.get(semester=active_sem, lopTinChi=lopTinChi_object)
@@ -127,7 +131,21 @@ def dang_ki_hoc_tap(request):
         })
     
     return render(request, 'student/dang_ki_hoc_tap.html', {
-        'formset': formset
+        'current_lopTinChi': current_lopTinChi,
+    })
+
+def student_timetable(request):
+    student = Student.objects.get(user_ptr=request.user)
+    active_sem = semester.objects.get(is_active=True)
+
+    thoi_khoa_bieu = sinhVien_dangKi_lopTinChi.objects.filter(lopTinChiDetail__semester=active_sem, sinhVien=student, is_accepted=True)
+
+    current_lopTinChi = []
+    for lop in thoi_khoa_bieu:
+        current_lopTinChi.append(lop.lopTinChiDetail)
+
+    return render(request, 'student/thoi_khoa_bieu.html', {
+        'thoi_khoa_bieu': current_lopTinChi,
     })
 
 

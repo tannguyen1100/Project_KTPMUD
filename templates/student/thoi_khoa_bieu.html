@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <table class="table table-bordered text-light mt-4 table-lopTinChiDangKi" >
+        <thead>
+            <tr>
+                <th>Mã lớp</th>
+                <th>Học phần</th>
+                <th>Giáo viên giảng dạy</th>
+                <th>Thời gian</th>
+                <th>Thứ</th>
+                <th>Tuần</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            {% for lop in thoi_khoa_bieu %}
+                <td>{{lop.lopTinChi.code}}</td>
+                <td class='hocPhanDangKi'>{{lop.lopTinChi.hocPhan}}</td>
+                <td>{{lop.teacher.getfullname}}</td>
+                <td>{{lop.timing}}</td>
+                <td>{{lop.timetable.day}}</td>
+                <td>{{lop.timetable.display_week}}</td>
+            {% endfor %}
+            </tr>
+        </tbody>
+    
+</div>
+
+
+
+{% include 'student/student_base.html' %}
+
+
+
+
+{% endblock %}
