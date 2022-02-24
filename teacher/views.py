@@ -190,14 +190,14 @@ def tung_do_an(request, slug_name):
     if request.method == "POST":
         form = DoAnForm(request.POST or None, initial=doAnData)
         if form.is_valid():
+            print(1)
             form.save()
-            print(form['start_time'])
             return render(request, 'teacher/tung_do_an.html', {
                 'do_an': doAn,
                 'form': form,
             })
         else:
-            print(2)
+            print()
             return render(request, 'teacher/tung_do_an.html', {
                 'do_an': doAn,
                 'form': form,

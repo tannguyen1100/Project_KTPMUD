@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="page-content p-5 position-relative" id="content">
+     
+    <div class="row mt-4">
+      <h3 class="text-warning">
+        <i class="far fa-calendar-plus me-1 text-primary fa-fw" style="width: 2.25em;"></i>
+        Thời khóa biểu
+      </h3>
+  
+      <div class="col-lg-12 mt-5">
+        <h2 class="text-light">
+          {{genaralClass.name}}
+        </h2>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="table-responsive">
+              <table class="table table-bordered text-light ">
+                <thead>
+                    <tr>
+                        <th>Mã lớp</th>
+                        <th>Học phần</th>
+                        <th>Giáo viên giảng dạy</th>
+                        <th>Thời gian</th>
+                        <th>Thứ</th>
+                        <th>Tuần</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lop in thoi_khoa_bieu %}
+                    <tr>
+                   
+                        <td>{{lop.lopTinChi.code}}</td>
+                        <td class='hocPhanDangKi'>{{lop.lopTinChi.hocPhan}}</td>
+                        <td>{{lop.teacher.getfullname}}</td>
+                        <td>{{lop.timing}}</td>
+                        <td>{{lop.timetable.day}}</td>
+                        <td>{{lop.timetable.display_week}}</td>
+                    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table> 
+            </div>
+             
+           </div> 
+    </div>
+  </div>  
+  </div>
+</div>
+
+
+{% include 'student/student_base.html' %}
+
+
+
+
+{% endblock %}

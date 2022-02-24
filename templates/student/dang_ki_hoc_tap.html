@@ -52,7 +52,7 @@
                             
                             $('tbody').append(
                             `
-                                <tr class='input-lopTinChi' >
+                                <tr class='input-lopTinChi'>
                                     <td scope="row" class='lopTinChiDangKiCode'>${data.code}</td>
                                     <input type='hidden' value='${data.code}' name='lopTinChiCode'>                                     
                                     <td class='hocPhanDangKi'>${data.hocPhan}</td>
@@ -131,7 +131,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    {% for lop in current_lopTinChi %}
+                    <tr class='input-lopTinChi'>
+                        <td scope="row" class='lopTinChiDangKiCode'>{{lop.lopTinChi.code}}</td>
+                        <input type='hidden' value="{{lop.lopTinChi.code}}" name='lopTinChiCode'> 
+                        <td class='hocPhanDangKi'>{{lop.lopTinChi.hocPhan}}</td>
+                        <td>{{lop.teacher.getfullname}}</td>
+                        <td>{{lop.timing}}</td>
+                        <td>{{lop.timetable.day}}</td>
+                        <td>{{lop.timetable.display_week}}</td>
+                        <td> 
+                            <input type="checkbox" value="{{lop.lopTinChi.code}}" name='deleteBox'>
+                        </td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
                 <input type="hidden" class='count-lopDangKi' value="0" name='count_lopDangKi'>
             </table>

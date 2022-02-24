@@ -58,13 +58,13 @@
 
             <ul class="d-flex align-items-end navbar-nav ml-lg-auto">
                 <li class="nav-item active mr-2">
-                    <a class="nav-link text-light" href="{% url 'home' %}">  HOME <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-light" href="{% url 'home' %}">  TRANG CHỦ <span class="sr-only">(current)</span></a>
                 </li>
 
                 {% if not request.user.is_autheticated %}
                 <li class="nav-item mr-2">
                     <a href="{% url 'login' %}" class="nav-link text-primary" style="font-weight: 600;">
-                        SIGN IN
+                        DĂNG NHẬP
                     </a>
                 </li>
                 {% endif %}

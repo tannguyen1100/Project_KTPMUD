@@ -77,7 +77,7 @@ def forget_password(request):
             })
         else:   
             return render(request, 'user/forget_password.html', {
-                'message': "Email not found"
+                'message': "Không tìm thấy Email!"
             })
 
     return render(request, 'user/forget_password.html')
